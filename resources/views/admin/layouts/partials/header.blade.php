@@ -5,7 +5,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
 
     @viteReactRefresh
-    @vite(['resources/sass/admin/app.scss', 'resources/js/admin/app.js'])
+    @vite(['resources/css/admin/app.scss', 'resources/js/admin/app.js'])
 
     @yield('style')
 
