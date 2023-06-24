@@ -4,7 +4,6 @@
     <title>test.com - @yield('title')</title>
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
 
-    @viteReactRefresh
     @vite(['resources/css/admin/app.scss', 'resources/js/admin/app.js'])
 
     @yield('style')

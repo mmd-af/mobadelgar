@@ -25,6 +25,7 @@
 </div>
 @include('admin.layouts.partials.footer')
 
+<script src="{{ asset('jquery.min.js') }}"></script>
 @yield('script')
 
 </body>

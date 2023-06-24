@@ -15,7 +15,6 @@ import './bootstrap';
 // import './components/Home';
 
 
-import './lib/jquery.min.js';
 // import './lib/main.js';
 (function($) {
 
@@ -33,7 +32,7 @@ import './lib/jquery.min.js';
         $('#sidebar').toggleClass('active');
     });
 
-})(jQuery);
+})($);
 
 function openNav() {
     document.getElementById("mySidebar").style.width = "250px";

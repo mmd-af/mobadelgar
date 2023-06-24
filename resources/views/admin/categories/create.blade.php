@@ -1,4 +1,4 @@
-@extends('admin.layouts.admin')
+@extends('admin.layouts.index')
 
 @section('title')
     create category
@@ -14,7 +14,7 @@
                     <h5 class="mb-3 mb-md-0">ایجاد دسته بندی</h5>
                 </div>
                 <div>
-                    @include('admin.sections.errors')
+                    @include('admin.layouts.partials.errors')
                     <form action="{{ route('admin.categories.store') }}" method="POST">
                         @csrf
                         <div class="form-row p-4">
@@ -145,8 +145,8 @@
 @endsection
 
 @section('script')
-    @include('admin.sections.script.ckeditor')
-    @include('admin.sections.script.wordCount')
+    @include('admin.layouts.partials.script.ckeditor')
+    @include('admin.layouts.partials.script.wordCount')
     <script>
         function metaTitle(event) {
             let metaTitle = document.getElementById('meta_title');

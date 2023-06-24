@@ -1,4 +1,4 @@
-@extends('admin.layouts.admin')
+@extends('admin.layouts.index')
 
 @section('title')
     edit categories
@@ -12,7 +12,7 @@
                 <h5 class="font-weight-bold">ویرایش: {{ $category->title }}</h5>
             </div>
             <hr>
-            @include('admin.sections.errors')
+            @include('admin.layouts.partials.errors')
             <form action="{{ route('admin.categories.update' , ['category' => $category->id])}}"
                   method="POST">
                 @csrf

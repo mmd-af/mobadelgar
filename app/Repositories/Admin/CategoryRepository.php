@@ -2,10 +2,8 @@
 
 namespace App\Repositories\Admin;
 
-use App\Http\Controllers\Admin\ProjectImageController;
 use App\Models\Category\Category;
 use App\Models\Image\Image;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 
 class CategoryRepository extends BaseRepository
@@ -43,6 +41,21 @@ class CategoryRepository extends BaseRepository
             ->latest()
             ->paginate(10);
 
+    }
+
+    public function getCategoryById($request)
+    {
+        return Category::query()
+            ->select([
+                'id',
+                'title',
+                'slug',
+                'parent_id',
+                'is_active'
+            ])
+            ->where('id', $request->categoryID)
+            ->with('images')
+            ->first();
     }
 
     public function getCategoryByType($type)
@@ -86,7 +99,6 @@ class CategoryRepository extends BaseRepository
             $item->parent_id = $request->input('child_id');
         } else {
             $item->parent_id = $request->input('parent_id');
-
         }
         $item->image = "noset";
         $item->meta_title = $request->input('meta_title');
@@ -96,26 +108,27 @@ class CategoryRepository extends BaseRepository
         $image = new Image();
         $image->url = $request->input('url');
         $item->images()->save($image);
-        alert()->success('دسته ی مورد نظر با موفقیت ایجاد شد', 'باتشکر');
+//        alert()->success('دسته ی مورد نظر با موفقیت ایجاد شد', 'باتشکر');
         return $item;
     }
 
-    public function update($request, $category)
+    public function updateCategory($request)
     {
+        $category= $this->getCategoryById($request);
         $category->title = $request->input('title');
-        $category->type = $request->input('cat_type');
-        $category->description = $request->input('description');
+//        $category->type = $request->input('cat_type');
+//        $category->description = $request->input('description');
         if ($request->child_id) {
             $category->parent_id = $request->input('child_id');
         } else {
             $category->parent_id = $request->input('parent_id');
         }
-        $category->meta_title = $request->input('meta_title');
-        $category->meta_description = $request->input('meta_description');
+//        $category->meta_title = $request->input('meta_title');
+//        $category->meta_description = $request->input('meta_description');
         $category->is_active = $request->input('is_active');
         $category->save();
         $category->images()->update(['url' => $request->input('url')]);
-        alert()->success('دسته ی مورد نظر با موفقیت ویرایش شد', 'باتشکر');
+//        alert()->success('دسته ی مورد نظر با موفقیت ویرایش شد', 'باتشکر');
         return $category;
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Category;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Category\CategoryUpdateRequest;
 use App\Repositories\Admin\CategoryRepository;
 use Illuminate\Http\Request;
 
@@ -15,17 +16,31 @@ class CategoryAjaxController extends Controller
         $this->categoryRepository = $categoryRepository;
     }
 
-    public function categoryType(Request $request)
+    public function getCategory(Request $request)
     {
         return response()->json([
-            'data' => $this->categoryRepository->getCategoryByType($request->value)
+            'data' => $this->categoryRepository->getCategoryById($request)
         ]);
     }
 
-    public function categoryChild(Request $request)
+    public function updateCategory(CategoryUpdateRequest $request)
     {
         return response()->json([
-            'data' => $this->categoryRepository->getCategoryByParent($request->value)
+            'data' => $this->categoryRepository->updateCategory($request)
         ]);
     }
+
+//    public function categoryType(Request $request)
+//    {
+//        return response()->json([
+//            'data' => $this->categoryRepository->getCategoryByType($request->value)
+//        ]);
+//    }
+
+//    public function categoryChild(Request $request)
+//    {
+//        return response()->json([
+//            'data' => $this->categoryRepository->getCategoryByParent($request->value)
+//        ]);
+//    }
 }

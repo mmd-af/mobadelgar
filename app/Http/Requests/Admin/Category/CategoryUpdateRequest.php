@@ -25,11 +25,8 @@ class CategoryUpdateRequest extends FormRequest
     {
         return [
             'title' => ['required'],
-            'cat_type' => ['required'],
             'parent_id' => ['required'],
             'url' => ['required'],
-            'meta_title' => 'required',
-            'meta_description' => 'nullable|max:155',
             'is_active' => 'required'
         ];
     }

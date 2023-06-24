@@ -4,6 +4,9 @@
             <a href="#"><span class="fa fa-home"></span> داشبورد </a>
         </li>
         <li>
+            <a href="{{route('admin.categories.index')}}"><span class="fa fa-user"></span> دسته بندی ها </a>
+        </li>
+        <li>
             <a href="#"><span class="fa fa-user"></span> کاربرها </a>
         </li>
         <li>
