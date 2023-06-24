@@ -109,6 +109,9 @@
         const csrfToken = document.head.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
         function getCategory(id) {
+            showAlert.innerHTML = `<div class="text-center">
+                        <div class="spinner-border text-primary my-3"></div>
+                    </div>`;
             const headersConfig = {
                 categoryID: id,
                 headers: {
@@ -122,6 +125,7 @@
                     image.value = response.data.data.images.url;
                     is_active.value = response.data.data.is_active;
                     category_id.value = response.data.data.id;
+                    showAlert.innerHTML = ``;
                 }).catch(error => {
                 console.error(error);
             });
@@ -144,7 +148,6 @@
             };
             axios.put("{{route('admin.categories.ajax.updateCategory')}}", headersConfig)
                 .then(response => {
-                    console.log(response.data);
                     showAlert.innerHTML = `<div class="alert alert-success">
                     <ul class="mb-0">
                         <li class="alert-text">عملیات با موفقیت انجام شد</li>
