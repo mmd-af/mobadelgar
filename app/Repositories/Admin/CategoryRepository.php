@@ -112,7 +112,6 @@ class CategoryRepository extends BaseRepository
         $image = new Image();
         $image->url = $request->input('url');
         $item->images()->save($image);
-//        alert()->success('دسته ی مورد نظر با موفقیت ایجاد شد', 'باتشکر');
         return $item;
     }
 
@@ -120,20 +119,24 @@ class CategoryRepository extends BaseRepository
     {
         $category = $this->getCategoryById($request);
         $category->title = $request->input('title');
-//        $category->type = $request->input('cat_type');
-//        $category->description = $request->input('description');
         if ($request->child_id) {
             $category->parent_id = $request->input('child_id');
         } else {
             $category->parent_id = $request->input('parent_id');
         }
-//        $category->meta_title = $request->input('meta_title');
-//        $category->meta_description = $request->input('meta_description');
         $category->is_active = $request->input('is_active');
         $category->save();
         $category->images()->update(['url' => $request->input('url')]);
-//        alert()->success('دسته ی مورد نظر با موفقیت ویرایش شد', 'باتشکر');
         return $category;
+    }
+
+    public function updateContentCategory($request)
+    {
+        $category = $this->getCategoryById($request);
+        $category->description = $request->description;
+        $category->meta_title = $request->meta_title;
+        $category->meta_description = $request->meta_description;
+        $category->save();
     }
 
     public function changeCategoryPosition($request)

@@ -63,7 +63,7 @@
                                                 <form
                                                     action="{{route('admin.categories.destroy', ['category' => $category->id])}}"
                                                     method="post"
-                                                onsubmit="showConfirm()"
+                                                    onsubmit="showConfirm()"
                                                 >
                                                     @csrf
                                                     @method('DELETE')
@@ -129,24 +129,6 @@
             });
         }
 
-        function moveContent(id) {
-            var promo = prompt("محتوا بعد از کدام ID منتقل شود؟");
-            const headersConfig = {
-                entityId: id,
-                positionEntityId: promo,
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken
-                }
-            };
-            axios.post("{{route('admin.categories.ajax.changeCategoryPosition')}}", headersConfig)
-                .then(response => {
-                    location.reload();
-                })
-                .catch(error => {
-                    console.log(error)
-                });
-        }
-
         document.getElementById('editCategoryForm').addEventListener('submit', function (event) {
             event.preventDefault();
             showAlert.innerHTML = `<div class="text-center">
@@ -189,6 +171,6 @@
         $('#editParentCategory').on('hidden.bs.modal', function (e) {
             location.reload();
         });
-        @include('admin.layouts.partials.script.script')
     </script>
+    @include('admin.layouts.partials.script.script')
 @endsection

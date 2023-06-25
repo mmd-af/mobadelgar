@@ -46,7 +46,7 @@
                                         <li class="list-group-item d-flex">
                                             <div class="mx-2">
                                                 <a class="text-primary"
-                                                   href="{{route('admin.categories.show', ['category' => $childCat->id])}}">
+                                                   href="{{route('admin.categories.child', ['category'=>$category->id,'child' => $childCat->id])}}">
                                                     <i class="fa-regular fa-eye fa-xl mt-3"></i>
                                                 </a>
                                             </div>
@@ -79,16 +79,22 @@
                 @endforeach
             </div>
 
-
-            <form action="{{ route('admin.categories.store') }}" method="POST">
+            <div id="show_alert"></div>
+            <form action="{{ route('admin.categories.store') }}" method="POST"
+                  onsubmit="event.preventDefault();updateCategoryForm()">
                 @csrf
                 <div class="row">
                     <div class="col-sm-12 col-md-8 border border-3">
+                        <div class="d-flex justify-content-between mt-3">
+                            <label for="editor">توضیحات:</label>
+                            <button class="btn" type="submit">
+                                <i class="fa-solid fa-check fa-xl"></i>
+                            </button>
+                        </div>
                         <div class="form-row">
                             <div class="form-group col-md-12">
-                                <label for="editor">توضیحات:</label>
                                 <textarea class="form-control" id="editor"
-                                          name="description">{!! old('description') !!}</textarea>
+                                          name="description">{{$category->description}}</textarea>
                             </div>
                         </div>
                     </div>
@@ -107,12 +113,12 @@
                         <div class="form-group col-md-12">
                             <label for="meta_title">عنوان متا:</label>
                             <input class="form-control" id="meta_title" name="meta_title" type="text"
-                                   value="{{ old('meta_title') }}">
+                                   value="{{ $category->meta_title }}">
                         </div>
                         <div class="form-group col-md-12">
                             <label for="meta_description">توضیحات متا:</label>
-                            <textarea class="form-control" id="word" maxlength="155" rows="5" autofocus
-                                      name="meta_description">{{ old('meta_description') }}</textarea>
+                            <textarea class="form-control" id="word" maxlength="155" rows="5"
+                                      name="meta_description">{{ $category->meta_description }}</textarea>
                             <div id="the-count">
                                 <span id="current">0</span>
                                 <span id="maximum">/155</span>
@@ -145,7 +151,7 @@
                     </div>
                 </div>
                 <div class="form-group col-md-12">
-                    <button class="btn btn-outline-primary mt-5" type="submit">ثبت</button>
+
                     <a href="{{ route('admin.categories.index') }}" class="btn btn-dark mt-5 mr-3">بازگشت</a>
                 </div>
             </form>
@@ -156,14 +162,81 @@
 @endsection
 
 @section('script')
-    @include('admin.layouts.partials.script.ckeditor')
+    {{--    @include('admin.layouts.partials.script.ckeditor')--}}
     @include('admin.layouts.partials.script.wordCount')
+    @include('admin.layouts.partials.script.script')
+
     <script>
-        @include('admin.layouts.partials.script.script')
+        let showAlert = document.getElementById('show_alert');
+        let description = document.getElementById('editor');
+        let metaTitle = document.getElementById('meta_title');
+        let metaDescription = document.getElementById('word');
+
+        const csrfToken = document.head.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        function updateCategoryForm() {
+            showAlert.innerHTML = `<div class="text-center">
+                        <div class="spinner-border text-primary my-3"></div>
+                    </div>`;
+            const headersConfig = {
+                categoryID: "{{$category->id}}",
+                description: description.value,
+                meta_title: metaTitle.value,
+                meta_description: metaDescription.value,
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                }
+            };
+            axios.put("{{route('admin.categories.ajax.updateContentCategory')}}", headersConfig)
+                .then(response => {
+                    showAlert.innerHTML = `<div class="alert alert-success">
+                    <ul class="mb-0">
+                        <li class="alert-text">اطلاعات ذخیره شد...</li>
+                    </ul>
+                </div>`;
+                    setTimeout(removeDivContent, 5000);
+                })
+                .catch(error => {
+                    showAlert.innerHTML = `<div class="alert alert-danger">
+            <ul class="mb-0" id="showErrors">
+                </ul>
+                </div>`;
+                    const obj = error.response.data.errors;
+                    for (const key in obj) {
+                        if (obj.hasOwnProperty(key)) {
+                            const values = obj[key];
+                            values.forEach(value =>
+                                showErrors.innerHTML += `<li class="alert-text">${value}</li>`
+                            );
+                        }
+                    }
+                    setTimeout(removeDivContent, 5000);
+                });
+        }
+
+        const formFields = [description, metaTitle, metaDescription];
+        formFields.forEach((field) => {
+            let typingTimer = null;
+
+            field.oninput = function() {
+                clearTimeout(typingTimer);
+
+                typingTimer = setTimeout(function() {
+                    updateCategoryForm();
+                }, 3000);
+            };
+        });
+
+        function removeDivContent() {
+            showAlert.innerHTML = ``;
+        }
+    </script>
+
+    <script>
         let parentId = document.getElementById('parent_id');
         parentId.value = "{{$category->id}}";
     </script>
     <script>
-        $("#czFAQ").czMore();
+        // $("#czFAQ").czMore();
     </script>
 @endsection

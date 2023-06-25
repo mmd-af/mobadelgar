@@ -13,9 +13,13 @@ Route::group(['middleware' => ['web', 'auth'], 'namespace' => 'App\Http\Controll
                 'as' => 'store',
                 'uses' => 'CategoryController@store'
             ]);
-            Route::get('/{category}/show', [
+            Route::get('/{category}/', [
                 'as' => 'show',
                 'uses' => 'CategoryController@show'
+            ]);
+            Route::get('/{category}/{child}', [
+                'as' => 'child',
+                'uses' => 'CategoryController@child'
             ]);
             Route::delete('/{category}/destroy', [
                 'as' => 'destroy',
@@ -30,6 +34,10 @@ Route::group(['middleware' => ['web', 'auth'], 'namespace' => 'App\Http\Controll
             Route::put('updateCategory', [
                 'as' => 'updateCategory',
                 'uses' => 'CategoryAjaxController@updateCategory'
+            ]);
+            Route::put('updateContentCategory', [
+                'as' => 'updateContentCategory',
+                'uses' => 'CategoryAjaxController@updateContentCategory'
             ]);
             Route::post('changeCategoryPosition', [
                 'as' => 'changeCategoryPosition',

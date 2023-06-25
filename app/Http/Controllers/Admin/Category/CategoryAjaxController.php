@@ -29,6 +29,12 @@ class CategoryAjaxController extends Controller
             'data' => $this->categoryRepository->updateCategory($request)
         ]);
     }
+    public function updateContentCategory(Request $request)
+    {
+        return response()->json([
+            'data' => $this->categoryRepository->updateContentCategory($request)
+        ]);
+    }
 
     public function changeCategoryPosition(Request $request)
     {
