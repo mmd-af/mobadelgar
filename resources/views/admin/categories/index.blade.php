@@ -46,14 +46,15 @@
                                         </li>
                                         <li class="list-group-item d-flex">
                                             <div class="mx-2">
-                                                <a class="text-primary fa-xl" href="">
-                                                    <i class="fa-regular fa-eye"></i>
+                                                <a class="text-primary"
+                                                   href="{{route('admin.categories.show', ['category' => $category->id])}}">
+                                                    <i class="fa-regular fa-eye fa-xl mt-3"></i>
                                                 </a>
                                             </div>
                                             <div class="mx-2">
                                                 <a type="button" data-bs-toggle="modal"
                                                    data-bs-target="#editParentCategory"
-                                                   class="text-info"
+                                                   class="text-info mt-1"
                                                    onclick="getCategory({{$category->id}})">
                                                     <i class="fa-regular fa-pen-to-square fa-xl"></i>
                                                 </a>
@@ -61,12 +62,14 @@
                                             <div class="mx-2">
                                                 <form
                                                     action="{{route('admin.categories.destroy', ['category' => $category->id])}}"
-                                                    method="post">
+                                                    method="post"
+                                                onsubmit="showConfirm()"
+                                                >
                                                     @csrf
                                                     @method('DELETE')
-                                                    <a type="submit" class="text-danger show_confirm">
+                                                    <button type="submit" class="btn text-danger">
                                                         <i class="fa-solid fa-trash-can fa-xl"></i>
-                                                    </a>
+                                                    </button>
                                                 </form>
                                             </div>
                                         </li>
@@ -183,43 +186,9 @@
                     }
                 });
         });
-
-
         $('#editParentCategory').on('hidden.bs.modal', function (e) {
             location.reload();
         });
-
-        $('.show_confirm').click(function (event) {
-            var form = $(this).closest("form");
-            var name = $(this).data("name");
-            event.preventDefault();
-
-            // Swal.fire({
-            //     title: 'Are you sure?',
-            //     text: "You won't be able to revert this!",
-            //     icon: 'warning',
-            //     showCancelButton: true,
-            //     confirmButtonColor: '#3085d6',
-            //     cancelButtonColor: '#d33',
-            //     confirmButtonText: 'Yes, delete it!'
-            // })
-            //
-
-            Swal.fire({
-                title: `آیا از پاک کردن این اطلاعات مطمئن هستید؟`,
-                text: "در صورت تایید برای همیشه پاک می شود",
-                icon: "error",
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        form.submit();
-                    }
-                });
-        });
+        @include('admin.layouts.partials.script.script')
     </script>
-
 @endsection

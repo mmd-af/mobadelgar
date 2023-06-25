@@ -20,14 +20,28 @@ class CategoryRepository extends BaseRepository
                 'id',
                 'title',
                 'slug',
-                'type',
-                'parent_id',
-                'is_active',
-                'position'
+                'is_active'
 
             ])
+            ->where('parent_id', 0)
             ->sorted()
             ->get();
+
+    }
+
+    public function getCategory($category)
+    {
+        return Category::query()
+            ->select([
+                'id',
+                'title',
+                'description',
+                'meta_title',
+                'meta_description'
+
+            ])
+            ->where('id', $category)
+            ->first();
 
     }
 
@@ -46,22 +60,22 @@ class CategoryRepository extends BaseRepository
             ->first();
     }
 
-    public function getCategoryByType($type)
-    {
-        return Category::query()
-            ->select([
-                'id',
-                'title',
-                'slug',
-                'parent_id',
-                'type'
-            ])
-            ->where('type', $type)
-            ->where('parent_id', 0)
-            ->get();
-    }
+//    public function getCategoryByType($type)
+//    {
+//        return Category::query()
+//            ->select([
+//                'id',
+//                'title',
+//                'slug',
+//                'parent_id',
+//                'type'
+//            ])
+//            ->where('type', $type)
+//            ->where('parent_id', 0)
+//            ->get();
+//    }
 
-    public function getCategoryByParent($type)
+    public function getCategoryByParent($id)
     {
         return Category::query()
             ->select([
@@ -71,7 +85,9 @@ class CategoryRepository extends BaseRepository
                 'parent_id',
                 'type'
             ])
-            ->where('parent_id', $type)
+            ->where('parent_id', $id)
+            ->with('images')
+            ->sorted()
             ->get();
     }
 

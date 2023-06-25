@@ -13,7 +13,10 @@ Route::group(['middleware' => ['web', 'auth'], 'namespace' => 'App\Http\Controll
                 'as' => 'store',
                 'uses' => 'CategoryController@store'
             ]);
-
+            Route::get('/{category}/show', [
+                'as' => 'show',
+                'uses' => 'CategoryController@show'
+            ]);
             Route::delete('/{category}/destroy', [
                 'as' => 'destroy',
                 'uses' => 'CategoryController@destroy'

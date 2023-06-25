@@ -23,6 +23,13 @@ class CategoryController extends Controller
         return view('admin.categories.index', compact('categories'));
     }
 
+    public function show($category)
+    {
+        $category = $this->categoryRepository->getCategory($category);
+        $childCategory = $this->categoryRepository->getCategoryByParent($category->id);
+        return view('admin.categories.show', compact('category','childCategory'));
+    }
+
     public function create()
     {
         return view('admin.categories.create');
@@ -31,7 +38,7 @@ class CategoryController extends Controller
     public function store(CategoryStoreRequest $request)
     {
         $this->categoryRepository->store($request);
-        return redirect()->route('admin.categories.index');
+        return redirect()->back();
     }
 
     public function edit(Category $category)

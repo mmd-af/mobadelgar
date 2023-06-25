@@ -16,12 +16,12 @@ import './bootstrap';
 
 
 // import './lib/main.js';
-(function($) {
+(function ($) {
 
-    var fullHeight = function() {
+    var fullHeight = function () {
 
         $('.js-fullheight').css('height', $(window).height());
-        $(window).resize(function(){
+        $(window).resize(function () {
             $('.js-fullheight').css('height', $(window).height());
         });
 
@@ -41,6 +41,6 @@ function openNav() {
 
 function closeNav() {
     document.getElementById("mySidebar").style.width = "0";
-    document.getElementById("main").style.marginRight= "0";
-    document.getElementById("main").style.marginRight= "0";
+    document.getElementById("main").style.marginRight = "0";
+    document.getElementById("main").style.marginRight = "0";
 }

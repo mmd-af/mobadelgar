@@ -32,7 +32,6 @@
                             </div>
                             <div class="text-center mt-5" id="holder" style="max-height:150px;">
                             </div>
-
                         </div>
                         <div class="form-group mt-4">
                             <label for="is_active">وضعیت</label>
@@ -42,7 +41,7 @@
                             </select>
                         </div>
                         <div class="form-group mt-4 text-center">
-                            <input type="hidden" name="parent_id" value="0">
+                            <input id="parent_id" name="parent_id" type="hidden" value="0">
                             <button class="btn btn-success px-5" type="submit">ثبت</button>
                         </div>
                     </div>
