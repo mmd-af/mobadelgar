@@ -20,76 +20,49 @@
                 </button>
             </div>
             @include('admin.layouts.partials.errors')
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped text-center">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>نام دسته بندی</th>
-                        <th>نام انگلیسی</th>
-                        <th>مرتبط</th>
-                        <th>دسته</th>
-                        <th>وضعیت</th>
-                        <th>عملیات</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach ($categories as $key => $category)
-                        <tr>
-                            <th>
-                                {{ $categories->firstItem() + $key }}
-                            </th>
-                            <th>
-                                {{ $category->title }}
-                            </th>
-
-                            <th>
-                                {{ $category->slug }}
-                            </th>
-                            <th>
-                                {{ $category->type }}
-                            </th>
-                            <th>
-                                @if($category->parent_id <>0)
-                                    <label class="text-success">{{$category->parent->title}}</label>
-                                @else
-                                    دسته ی مادر
-                                @endif
-                            </th>
-                            <th>
-                                <span
-                                    class="{{ $category->getRawOriginal('is_active') ? 'text-success' : 'text-danger' }}">
+            <div class="row">
+                @foreach ($categories as $key => $category)
+                    <div class="col-md-2">
+                        <div class="card m-3">
+                            <img src="{{$category->images->url}}" class="img-thumbnail p-5" alt="...">
+                            <div class="card-body">
+                                <div class="card">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">{{ $category->title }}</li>
+                                        <li class="list-group-item">
+                                        <span class="{{ $category->getRawOriginal('is_active') ? 'text-success' : 'text-danger' }}">
                                         {{ $category->is_active }}
-                                </span>
-                            </th>
-                            <th>
-                                <div class="d-flex justify-content-center">
-                                    <div>
-                                        <button type="button" data-bs-toggle="modal"
-                                                data-bs-target="#editParentCategory"
-                                                class="btn btn-sm btn-outline-info ml-3"
-                                                onclick="getCategory({{$category->id}})">
-                                            ویرایش
-                                        </button>
-                                    </div>
-                                    <div>
-                                        <form
-                                            action="{{route('admin.categories.destroy', ['category' => $category->id])}}"
-                                            method="post">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-outline-danger show_confirm">
-                                                حذف
-                                            </button>
-                                        </form>
-                                    </div>
+                                         </span>
+                                        </li>
+                                        <li class="list-group-item d-flex">
+                                            <div class="m-3">
+                                                <a type="button" data-bs-toggle="modal"
+                                                        data-bs-target="#editParentCategory"
+                                                        class="text-info fa-xl"
+                                                        onclick="getCategory({{$category->id}})">
+                                                    <i class="fa-regular fa-pen-to-square"></i>
+                                                </a>
+                                            </div>
+                                            <div class="m-3">
+                                                <form
+                                                    action="{{route('admin.categories.destroy', ['category' => $category->id])}}"
+                                                    method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <a type="submit" class="text-danger fa-xl show_confirm">
+                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    </a>
+                                                </form>
+                                            </div>
+                                        </li>
+                                    </ul>
                                 </div>
-                            </th>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
             </div>
+
 
             <div class="d-flex justify-content-center mt-5">
                 {{ $categories->render() }}
