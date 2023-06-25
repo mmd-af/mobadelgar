@@ -101,7 +101,11 @@
                     title.value = response.data.data.title;
                     slug.value = response.data.data.slug;
                     image.value = response.data.data.images.url;
-                    is_active.value = response.data.data.is_active;
+                    if (response.data.data.is_active === 'فعال') {
+                        is_active.value = 1;
+                    } else {
+                        is_active.value = 0;
+                    }
                     category_id.value = response.data.data.id;
                     showAlert.innerHTML = ``;
                 }).catch(error => {
