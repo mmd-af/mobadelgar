@@ -22,7 +22,7 @@
             @include('admin.layouts.partials.errors')
             <div class="row">
                 @foreach ($categories as $category)
-                    <div class="col-md-2 shadow bg-gradient m-4">
+                    <div class="col-md-2 shadow rounded-3 m-4">
                         <div class="card m-3">
                             <div style="height: 250px;">
                                 <img src="{{$category->images->url}}" class="img-thumbnail p-5" alt="...">
