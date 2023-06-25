@@ -30,27 +30,33 @@
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">{{ $category->title }}</li>
                                         <li class="list-group-item">
-                                        <span class="{{ $category->getRawOriginal('is_active') ? 'text-success' : 'text-danger' }}">
+                                        <span
+                                            class="{{ $category->getRawOriginal('is_active') ? 'text-success' : 'text-danger' }}">
                                         {{ $category->is_active }}
                                          </span>
                                         </li>
                                         <li class="list-group-item d-flex">
-                                            <div class="m-3">
-                                                <a type="button" data-bs-toggle="modal"
-                                                        data-bs-target="#editParentCategory"
-                                                        class="text-info fa-xl"
-                                                        onclick="getCategory({{$category->id}})">
-                                                    <i class="fa-regular fa-pen-to-square"></i>
+                                            <div class="mx-2">
+                                                <a class="text-primary fa-xl" href="">
+                                                    <i class="fa-regular fa-eye"></i>
                                                 </a>
                                             </div>
-                                            <div class="m-3">
+                                            <div class="mx-2">
+                                                <a type="button" data-bs-toggle="modal"
+                                                   data-bs-target="#editParentCategory"
+                                                   class="text-info"
+                                                   onclick="getCategory({{$category->id}})">
+                                                    <i class="fa-regular fa-pen-to-square fa-xl"></i>
+                                                </a>
+                                            </div>
+                                            <div class="mx-2">
                                                 <form
                                                     action="{{route('admin.categories.destroy', ['category' => $category->id])}}"
                                                     method="post">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <a type="submit" class="text-danger fa-xl show_confirm">
-                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    <a type="submit" class="text-danger show_confirm">
+                                                        <i class="fa-solid fa-trash-can fa-xl"></i>
                                                     </a>
                                                 </form>
                                             </div>
