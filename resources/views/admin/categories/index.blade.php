@@ -1,5 +1,8 @@
 @extends('admin.layouts.index')
 
+@section('style')
+@endsection
+
 @section('title')
     index categories
 @endsection
@@ -96,9 +99,11 @@
     @include('admin.layouts.partials.script.create_parent_category_modal')
     @include('admin.layouts.partials.script.edit_parent_category_modal')
 @endsection
-@section('script')
 
+@section('script')
     <script>
+        $('#create').filemanager('image');
+        $('#edit').filemanager('image');
         let showAlert = document.getElementById('show_alert');
         let title = document.querySelector('#editCategoryForm #title');
         let slug = document.querySelector('#editCategoryForm #slug');
@@ -208,4 +213,5 @@
                 });
         });
     </script>
+
 @endsection

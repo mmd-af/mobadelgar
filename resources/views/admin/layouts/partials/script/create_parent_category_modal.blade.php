@@ -22,16 +22,17 @@
                                    value="{{ old('slug') }}">
                         </div>
                         <div class="form-group mt-4">
-                            <label for="image">تصویر:</label>
                             <div class="input-group">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" type="button" id="button-image">انتخاب
-                                    </button>
-                                </div>
-                                <input type="text" id="image" class="form-control" name="url"
-                                       aria-label="Image" aria-describedby="button-image"
-                                       value="{{ old('url') }}">
+          <span class="input-group-append">
+            <a id="create" data-input="image1" data-preview="holder" class="btn btn-primary text-white">
+               انتخاب
+            </a>
+          </span>
+                                <input type="text" id="image1" class="form-control" name="url" value="{{ old('url') }}">
                             </div>
+                            <div class="text-center mt-5" id="holder" style="max-height:150px;">
+                            </div>
+
                         </div>
                         <div class="form-group mt-4">
                             <label for="is_active">وضعیت</label>

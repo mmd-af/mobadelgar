@@ -24,13 +24,14 @@
                         <div class="form-group mt-4">
                             <label for="image">تصویر:</label>
                             <div class="input-group">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" type="button" id="button-image">انتخاب
-                                    </button>
-                                </div>
-                                <input type="text" id="image" class="form-control" name="url"
-                                       aria-label="Image" aria-describedby="button-image"
-                                       value="">
+          <span class="input-group-append">
+            <a id="edit" data-input="image" data-preview="holder1" class="btn btn-primary text-white">
+               انتخاب
+            </a>
+          </span>
+                                <input type="text" id="image" class="form-control" name="url" value="">
+                            </div>
+                            <div class="text-center mt-5" id="holder1" style="max-height:150px;">
                             </div>
                         </div>
                         <div class="form-group mt-4">
