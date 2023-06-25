@@ -28,14 +28,18 @@ Route::group(['middleware' => ['web', 'auth'], 'namespace' => 'App\Http\Controll
                 'as' => 'updateCategory',
                 'uses' => 'CategoryAjaxController@updateCategory'
             ]);
-            Route::get('/category_type', [
-                'as' => 'category_type',
-                'uses' => 'CategoryAjaxController@categoryType'
+            Route::post('changeCategoryPosition', [
+                'as' => 'changeCategoryPosition',
+                'uses' => 'CategoryAjaxController@changeCategoryPosition'
             ]);
-            Route::get('/category_child', [
-                'as' => 'category_child',
-                'uses' => 'CategoryAjaxController@categoryChild'
-            ]);
+//            Route::get('/category_type', [
+//                'as' => 'category_type',
+//                'uses' => 'CategoryAjaxController@categoryType'
+//            ]);
+//            Route::get('/category_child', [
+//                'as' => 'category_child',
+//                'uses' => 'CategoryAjaxController@categoryChild'
+//            ]);
         });
     });
 });

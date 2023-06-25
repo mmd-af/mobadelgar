@@ -19,7 +19,7 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $categories = $this->categoryRepository->getLatest();
+        $categories = $this->categoryRepository->getAll();
         return view('admin.categories.index', compact('categories'));
     }
 

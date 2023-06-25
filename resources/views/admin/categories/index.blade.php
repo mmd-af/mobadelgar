@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-xl-12 col-md-12 mb-4 p-4 bg-white">
             <div class="d-flex flex-column text-center flex-md-row justify-content-md-between mb-4">
-                <h5 class="font-weight-bold mb-3 mb-md-0">لیست دسته بندی ها: ({{ $categories->total() }})</h5>
+                <h5 class="font-weight-bold mb-3 mb-md-0">لیست دسته بندی ها:</h5>
                 <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
                         data-bs-target="#createParentCategory">
                     <i class="fa fa-plus"></i>
@@ -21,19 +21,28 @@
             </div>
             @include('admin.layouts.partials.errors')
             <div class="row">
-                @foreach ($categories as $key => $category)
-                    <div class="col-md-2">
+                @foreach ($categories as $category)
+                    <div class="col-md-2 shadow bg-gradient m-4">
                         <div class="card m-3">
-                            <img src="{{$category->images->url}}" class="img-thumbnail p-5" alt="...">
+                            <div style="height: 250px;">
+                                <img src="{{$category->images->url}}" class="img-thumbnail p-5" alt="...">
+                            </div>
                             <div class="card-body">
                                 <div class="card">
                                     <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">{{ $category->title }}</li>
+                                        <li class="list-group-item"><strong>{{ $category->title }}</strong></li>
                                         <li class="list-group-item">
                                         <span
                                             class="{{ $category->getRawOriginal('is_active') ? 'text-success' : 'text-danger' }}">
                                         {{ $category->is_active }}
                                          </span>
+                                        </li>
+                                        <li class="list-group-item bg-secondary text-white rounded-3 small m-3 d-flex justify-content-between">
+                                            <div class="p-1"><strong>ID: {{$category->id}}</strong></div>
+                                            <button type="submit" onclick="moveContent({{$category->id}})"
+                                                    class="btn link-warning"><i
+                                                    class="fa-solid fa-arrow-right-arrow-left"></i></button>
+
                                         </li>
                                         <li class="list-group-item d-flex">
                                             <div class="mx-2">
@@ -68,11 +77,9 @@
                     </div>
                 @endforeach
             </div>
-
-
-            <div class="d-flex justify-content-center mt-5">
-                {{ $categories->render() }}
-            </div>
+            {{--            <div class="d-flex justify-content-center mt-5">--}}
+            {{--                {{ $categories->render() }}--}}
+            {{--            </div>--}}
         </div>
     </div>
     @include('admin.layouts.partials.script.create_parent_category_modal')
@@ -117,6 +124,24 @@
                 }).catch(error => {
                 console.error(error);
             });
+        }
+
+        function moveContent(id) {
+            var promo = prompt("محتوا بعد از کدام ID منتقل شود؟");
+            const headersConfig = {
+                entityId: id,
+                positionEntityId: promo,
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                }
+            };
+            axios.post("{{route('admin.categories.ajax.changeCategoryPosition')}}", headersConfig)
+                .then(response => {
+                    location.reload();
+                })
+                .catch(error => {
+                    console.log(error)
+                });
         }
 
         document.getElementById('editCategoryForm').addEventListener('submit', function (event) {

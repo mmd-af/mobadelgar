@@ -30,6 +30,13 @@ class CategoryAjaxController extends Controller
         ]);
     }
 
+    public function changeCategoryPosition(Request $request)
+    {
+        return response()->json([
+            'data' => $this->categoryRepository->changeCategoryPosition($request)
+        ]);
+    }
+
 //    public function categoryType(Request $request)
 //    {
 //        return response()->json([

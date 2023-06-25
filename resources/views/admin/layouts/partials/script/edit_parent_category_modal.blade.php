@@ -10,7 +10,7 @@
                 <div id="show_alert"></div>
                 <form action="#" method="POST" id="editCategoryForm">
                     @csrf
-                    <div class="form-row" id="editCategoryForm">
+                    <div class="form-row">
                         <div class="form-group">
                             <label for="title">نام دسته بندی:</label>
                             <input class="form-control" id="title" name="title" type="text"

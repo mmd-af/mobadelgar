@@ -5,6 +5,7 @@ namespace App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Rutorika\Sortable\SortableTrait;
 use Spatie\Sluggable\HasSlug;
 
 class Category extends Model
@@ -13,7 +14,8 @@ class Category extends Model
         SoftDeletes,
         CategoryRelationships,
         CategoryModifiers,
-        hasSlug;
+        hasSlug,
+        SortableTrait;
 
     protected $table = 'categories';
 }

@@ -20,26 +20,14 @@ class CategoryRepository extends BaseRepository
                 'id',
                 'title',
                 'slug',
-                'parent_id',
-                'type'
-            ])->get();
-
-    }
-
-    public function getLatest()
-    {
-        return Category::query()
-            ->select([
-                'id',
-                'title',
-                'slug',
                 'type',
                 'parent_id',
-                'is_active'
+                'is_active',
+                'position'
 
             ])
-            ->latest()
-            ->paginate(10);
+            ->sorted()
+            ->get();
 
     }
 
@@ -114,7 +102,7 @@ class CategoryRepository extends BaseRepository
 
     public function updateCategory($request)
     {
-        $category= $this->getCategoryById($request);
+        $category = $this->getCategoryById($request);
         $category->title = $request->input('title');
 //        $category->type = $request->input('cat_type');
 //        $category->description = $request->input('description');
@@ -132,22 +120,29 @@ class CategoryRepository extends BaseRepository
         return $category;
     }
 
-    public function categorizablesDestroy($category)
+    public function changeCategoryPosition($request)
     {
-        DB::table('categorizables')->where('category_id', $category->id)->delete();
-
+        $entity = $this->model->find($request->entityId);
+        $positionEntity = $this->model->find($request->positionEntityId);
+        $entity->moveAfter($positionEntity);
     }
+
+//    public function categorizablesDestroy($category)
+//    {
+//        DB::table('categorizables')->where('category_id', $category->id)->delete();
+//
+//    }
 
     public function destroy($category)
     {
-        foreach ($category->children as $child) {
-            $this->categorizablesDestroy($child);
-            $child->images()->delete();
-            $child->delete();
-        }
-        $this->categorizablesDestroy($category);
+//        foreach ($category->children as $child) {
+//            $this->categorizablesDestroy($child);
+//            $child->images()->delete();
+//            $child->delete();
+//        }
+//        $this->categorizablesDestroy($category);
         $category->images()->delete();
         $category->delete();
-        alert()->success('دسته ی مورد نظر با موفقیت پاک شد', 'باتشکر');
+//        alert()->success('دسته ی مورد نظر با موفقیت پاک شد', 'باتشکر');
     }
 }
