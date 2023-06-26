@@ -8,7 +8,8 @@
             </div>
             <div class="modal-body">
                 <div id="show_alert"></div>
-                <form action="#" method="POST" id="editCategoryForm">
+                <form action="#" method="POST" onsubmit="event.preventDefault();updateCategoryForm()"
+                      id="editCategoryForm">
                     @csrf
                     <div class="form-row">
                         <div class="form-group">
@@ -43,7 +44,7 @@
                         </div>
                         <div class="form-group mt-4 text-center">
                             <input type="hidden" name="category_id" id="category_id" value="">
-                            <input type="hidden" name="parent_id" value="0">
+                            <input type="hidden" name="parent_id" id="parent_id" value="0">
                             <button class="btn btn-success px-5" type="submit">ثبت</button>
                         </div>
                     </div>

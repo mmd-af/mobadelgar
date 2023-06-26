@@ -17,8 +17,6 @@
                 </button>
             </div>
             @include('admin.layouts.partials.errors')
-
-
             <div class="row">
                 @foreach ($childCategory as $childCat)
                     <div class="col-md-2 shadow rounded-3 m-4">
@@ -79,9 +77,9 @@
                 @endforeach
             </div>
 
-            <div id="show_alert"></div>
+            <div id="showContentAlert"></div>
             <form action="{{ route('admin.categories.store') }}" method="POST"
-                  onsubmit="event.preventDefault();updateCategoryForm()">
+                  onsubmit="event.preventDefault();updateContentCategory()">
                 @csrf
                 <div class="row">
                     <div class="col-sm-12 col-md-8 border border-3">
@@ -162,25 +160,23 @@
 @endsection
 
 @section('script')
-    {{--    @include('admin.layouts.partials.script.ckeditor')--}}
-    @include('admin.layouts.partials.script.wordCount')
+    @include('admin.layouts.partials.script.ckeditor')
     @include('admin.layouts.partials.script.script')
+    @include('admin.layouts.partials.script.wordCount')
 
     <script>
-        let showAlert = document.getElementById('show_alert');
-        let description = document.getElementById('editor');
+
         let metaTitle = document.getElementById('meta_title');
         let metaDescription = document.getElementById('word');
+        let showContentAlert = document.getElementById('showContentAlert');
 
-        const csrfToken = document.head.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-        function updateCategoryForm() {
-            showAlert.innerHTML = `<div class="text-center">
+        function updateContentCategory() {
+            showContentAlert.innerHTML = `<div class="text-center">
                         <div class="spinner-border text-primary my-3"></div>
                     </div>`;
             const headersConfig = {
                 categoryID: "{{$category->id}}",
-                description: description.value,
+                description: editor.getData(),
                 meta_title: metaTitle.value,
                 meta_description: metaDescription.value,
                 headers: {
@@ -189,7 +185,7 @@
             };
             axios.put("{{route('admin.categories.ajax.updateContentCategory')}}", headersConfig)
                 .then(response => {
-                    showAlert.innerHTML = `<div class="alert alert-success">
+                    showContentAlert.innerHTML = `<div class="alert alert-success">
                     <ul class="mb-0">
                         <li class="alert-text">اطلاعات ذخیره شد...</li>
                     </ul>
@@ -197,7 +193,7 @@
                     setTimeout(removeDivContent, 5000);
                 })
                 .catch(error => {
-                    showAlert.innerHTML = `<div class="alert alert-danger">
+                    showContentAlert.innerHTML = `<div class="alert alert-danger">
             <ul class="mb-0" id="showErrors">
                 </ul>
                 </div>`;
@@ -214,29 +210,23 @@
                 });
         }
 
-        const formFields = [description, metaTitle, metaDescription];
+        const formFields = [metaTitle, metaDescription];
         formFields.forEach((field) => {
             let typingTimer = null;
-
-            field.oninput = function() {
+            field.oninput = function () {
                 clearTimeout(typingTimer);
-
-                typingTimer = setTimeout(function() {
-                    updateCategoryForm();
+                typingTimer = setTimeout(function () {
+                    updateContentCategory();
                 }, 3000);
             };
         });
 
         function removeDivContent() {
-            showAlert.innerHTML = ``;
+            showContentAlert.innerHTML = ``;
         }
-    </script>
 
-    <script>
-        let parentId = document.getElementById('parent_id');
-        parentId.value = "{{$category->id}}";
-    </script>
-    <script>
+        parent_id.value = "{{$category->id}}";
+
         // $("#czFAQ").czMore();
     </script>
 @endsection

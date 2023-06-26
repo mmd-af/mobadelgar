@@ -83,7 +83,7 @@ class CategoryRepository extends BaseRepository
                 'title',
                 'slug',
                 'parent_id',
-                'type'
+                'is_active'
             ])
             ->where('parent_id', $id)
             ->with('images')

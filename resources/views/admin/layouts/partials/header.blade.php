@@ -5,6 +5,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
 
     @vite(['resources/css/admin/app.scss', 'resources/js/admin/app.js'])
+    <script src="//cdn.ckeditor.com/4.21.0/full/ckeditor.js"></script>
 
     @yield('style')
 
