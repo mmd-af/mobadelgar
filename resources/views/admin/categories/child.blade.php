@@ -10,49 +10,41 @@
         <div class="col-xl-12 col-md-12 mb-4 p-4 bg-white">
             <div class="d-flex flex-column text-center flex-md-row justify-content-md-between mb-4">
                 <h4 class="font-weight-bold mb-3 mb-md-0">{{$child->title}}</h4>
-
             </div>
             @include('admin.layouts.partials.errors')
-
-
             <div class="row">
 
             </div>
 
-
-            <form action="{{ route('admin.categories.store') }}" method="POST">
+            <div id="showContentAlert"></div>
+            <form action="{{ route('admin.categories.store') }}" method="POST"
+                  onsubmit="event.preventDefault();updateContentCategory()">
                 @csrf
                 <div class="row">
                     <div class="col-sm-12 col-md-8 border border-3">
+                        <div class="d-flex justify-content-between mt-3">
+                            <label for="editor">توضیحات:</label>
+                            <button class="btn" type="submit">
+                                <i class="fa-solid fa-check fa-xl"></i>
+                            </button>
+                        </div>
                         <div class="form-row">
                             <div class="form-group col-md-12">
-                                <label for="editor">توضیحات:</label>
                                 <textarea class="form-control" id="editor"
-                                          name="description">{!! old('description') !!}</textarea>
+                                          name="description">{{$child->description}}</textarea>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-4 shadow">
-                        {{--                        <div class="form-group col-md-12">--}}
-                        {{--                            <label for="author_id">نام نویسنده</label>--}}
-                        {{--                            <select class="form-control selectpicker" data-live-search="true" id="author_id"--}}
-                        {{--                                    name="author_id">--}}
-                        {{--                                <option--}}
-                        {{--                                    value="{{auth()->user()->id}}">{{auth()->user()->name}} {{auth()->user()->faname}}</option>--}}
-                        {{--                                @foreach($authors as $author)--}}
-                        {{--                                    <option value="{{$author->id}}">{{$author->name}} {{$author->faname}}</option>--}}
-                        {{--                                @endforeach--}}
-                        {{--                            </select>--}}
-                        {{--                        </div>--}}
                         <div class="form-group col-md-12">
                             <label for="meta_title">عنوان متا:</label>
                             <input class="form-control" id="meta_title" name="meta_title" type="text"
-                                   value="{{ old('meta_title') }}">
+                                   value="{{ $child->meta_title }}">
                         </div>
                         <div class="form-group col-md-12">
                             <label for="meta_description">توضیحات متا:</label>
-                            <textarea class="form-control" id="word" maxlength="155" rows="5" autofocus
-                                      name="meta_description">{{ old('meta_description') }}</textarea>
+                            <textarea class="form-control" id="word" maxlength="155" rows="5"
+                                      name="meta_description">{{ $child->meta_description }}</textarea>
                             <div id="the-count">
                                 <span id="current">0</span>
                                 <span id="maximum">/155</span>
@@ -85,21 +77,81 @@
                     </div>
                 </div>
                 <div class="form-group col-md-12">
-                    <button class="btn btn-outline-primary mt-5" type="submit">ثبت</button>
                     <a href="{{ route('admin.categories.index') }}" class="btn btn-dark mt-5 mr-3">بازگشت</a>
                 </div>
             </form>
         </div>
     </div>
-    @include('admin.layouts.partials.script.create_parent_category_modal')
-    @include('admin.layouts.partials.script.edit_parent_category_modal')
 @endsection
 
 @section('script')
-    {{--    @include('admin.layouts.partials.script.ckeditor')--}}
-    @include('admin.layouts.partials.script.wordCount')
+    @include('admin.layouts.partials.script.ckeditor')
     @include('admin.layouts.partials.script.script')
+    @include('admin.layouts.partials.script.wordCount')
+
     <script>
-        $("#czFAQ").czMore();
+
+        let metaTitle = document.getElementById('meta_title');
+        let metaDescription = document.getElementById('word');
+        let showContentAlert = document.getElementById('showContentAlert');
+
+        function updateContentCategory() {
+            showContentAlert.innerHTML = `<div class="text-center">
+                        <div class="spinner-border text-primary my-3"></div>
+                    </div>`;
+            const headersConfig = {
+                categoryID: "{{$child->id}}",
+                description: editor.getData(),
+                meta_title: metaTitle.value,
+                meta_description: metaDescription.value,
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                }
+            };
+            axios.put("{{route('admin.categories.ajax.updateContentCategory')}}", headersConfig)
+                .then(response => {
+                    showContentAlert.innerHTML = `<div class="alert alert-success">
+                    <ul class="mb-0">
+                        <li class="alert-text">اطلاعات ذخیره شد...</li>
+                    </ul>
+                </div>`;
+                    setTimeout(removeDivContent, 5000);
+                })
+                .catch(error => {
+                    showContentAlert.innerHTML = `<div class="alert alert-danger">
+            <ul class="mb-0" id="showErrors">
+                </ul>
+                </div>`;
+                    const obj = error.response.data.errors;
+                    for (const key in obj) {
+                        if (obj.hasOwnProperty(key)) {
+                            const values = obj[key];
+                            values.forEach(value =>
+                                showErrors.innerHTML += `<li class="alert-text">${value}</li>`
+                            );
+                        }
+                    }
+                    setTimeout(removeDivContent, 5000);
+                });
+        }
+
+        const formFields = [metaTitle, metaDescription];
+        formFields.forEach((field) => {
+            let typingTimer = null;
+            field.oninput = function () {
+                clearTimeout(typingTimer);
+                typingTimer = setTimeout(function () {
+                    updateContentCategory();
+                }, 3000);
+            };
+        });
+
+        function removeDivContent() {
+            showContentAlert.innerHTML = ``;
+        }
+
+        parent_id.value = "{{$child->id}}";
+
+        // $("#czFAQ").czMore();
     </script>
 @endsection
