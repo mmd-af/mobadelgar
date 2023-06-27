@@ -43,6 +43,13 @@ class CategoryAjaxController extends Controller
         ]);
     }
 
+    public function categoryScriptStore(Request $request)
+    {
+        return response()->json([
+            'data' => $this->categoryRepository->categoryScriptStore($request)
+        ]);
+    }
+
 //    public function categoryType(Request $request)
 //    {
 //        return response()->json([

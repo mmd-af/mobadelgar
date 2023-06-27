@@ -39,6 +39,10 @@ Route::group(['middleware' => ['web', 'auth'], 'namespace' => 'App\Http\Controll
                 'as' => 'updateContentCategory',
                 'uses' => 'CategoryAjaxController@updateContentCategory'
             ]);
+            Route::post('categoryScriptStore', [
+                'as' => 'categoryScriptStore',
+                'uses' => 'CategoryAjaxController@categoryScriptStore'
+            ]);
             Route::post('changeCategoryPosition', [
                 'as' => 'changeCategoryPosition',
                 'uses' => 'CategoryAjaxController@changeCategoryPosition'

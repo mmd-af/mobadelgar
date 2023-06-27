@@ -3,6 +3,7 @@
 namespace App\Models\Category;
 
 use App\Models\Image\Image;
+use App\Models\Script\Script;
 
 trait CategoryRelationships
 {
@@ -19,6 +20,11 @@ trait CategoryRelationships
     public function images()
     {
         return $this->morphOne(Image::class, 'imageable');
+    }
+
+    public function scripts()
+    {
+        return $this->morphOne(Script::class, 'scriptable');
     }
 
 //    public function videoCourses()

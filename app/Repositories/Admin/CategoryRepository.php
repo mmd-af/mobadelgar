@@ -4,7 +4,7 @@ namespace App\Repositories\Admin;
 
 use App\Models\Category\Category;
 use App\Models\Image\Image;
-use Illuminate\Support\Facades\DB;
+use App\Models\Script\Script;
 
 class CategoryRepository extends BaseRepository
 {
@@ -137,6 +137,30 @@ class CategoryRepository extends BaseRepository
         $category->meta_title = $request->meta_title;
         $category->meta_description = $request->meta_description;
         $category->save();
+    }
+
+    public function categoryScriptStore($request)
+    {
+        $category = $this->getCategoryById($request);
+//        if(is_null($category->scripts)){
+//            $categoryScript = new Script();
+//        }
+//        $categoryScript->css = $request->css;
+//        $categoryScript->html = $request->html;
+//        $categoryScript->js = $request->js;
+//        $category->scripts()->updateOrCreate($categoryScript);
+
+        $category->scripts()->updateOrCreate(
+            ['scriptable_id' => $category->id], // شرط بر اساس آن رکورد بروزرسانی یا ایجاد می‌شود
+            [
+                'css' => $request->css,
+                'html' => $request->html,
+                'js' => $request->js,
+            ]
+        );
+
+
+
     }
 
     public function changeCategoryPosition($request)
