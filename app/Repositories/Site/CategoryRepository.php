@@ -17,14 +17,30 @@ class CategoryRepository extends BaseRepository
             ->select([
                 'id',
                 'title',
+                'slug'
+            ])
+            ->where('is_active', 1)
+            ->where('parent_id', 0)
+            ->with(['images'])
+            ->sorted()
+            ->get();
+    }
+
+    public function getCategoryBySlug($category)
+    {
+        return $this->query()
+            ->select([
+                'id',
+                'title',
                 'slug',
                 'description',
                 'meta_title',
                 'meta_description'
 
             ])
-            ->with(['children','images'])
-            ->sorted()
-            ->get();
+            ->where('slug', $category)
+            ->where('is_active', 1)
+            ->with(['children', 'images', 'faqs'])
+            ->first();
     }
 }

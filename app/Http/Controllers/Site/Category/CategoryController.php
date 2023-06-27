@@ -13,11 +13,11 @@ class CategoryController extends Controller
     {
         $this->categoryRepository = $categoryRepository;
     }
-//
-//    public function index()
-//    {
-//        $categories = $this->categoryRepository->getAll();
-//        return view('admin.categories.index', compact('categories'));
-//    }
+
+    public function show($category)
+    {
+        $category = $this->categoryRepository->getCategoryBySlug($category);
+        return view('site.categories.show', compact('category'));
+    }
 
 }
