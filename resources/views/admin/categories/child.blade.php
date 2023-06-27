@@ -50,8 +50,6 @@
                     <script>
                         {!! $child->scripts->js ?? null !!}
                     </script>
-
-
                 </div>
             </div>
             <div id="showContentAlert"></div>

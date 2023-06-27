@@ -16,6 +16,13 @@ class CategoryAjaxController extends Controller
         $this->categoryRepository = $categoryRepository;
     }
 
+    public function changeCategoryPosition(Request $request)
+    {
+        return response()->json([
+            'data' => $this->categoryRepository->changeCategoryPosition($request)
+        ]);
+    }
+
     public function getCategory(Request $request)
     {
         return response()->json([
@@ -29,6 +36,7 @@ class CategoryAjaxController extends Controller
             'data' => $this->categoryRepository->updateCategory($request)
         ]);
     }
+
     public function updateContentCategory(Request $request)
     {
         return response()->json([
@@ -36,17 +44,17 @@ class CategoryAjaxController extends Controller
         ]);
     }
 
-    public function changeCategoryPosition(Request $request)
-    {
-        return response()->json([
-            'data' => $this->categoryRepository->changeCategoryPosition($request)
-        ]);
-    }
-
     public function categoryScriptStore(Request $request)
     {
         return response()->json([
             'data' => $this->categoryRepository->categoryScriptStore($request)
+        ]);
+    }
+
+    public function storeFaqCategory(Request $request)
+    {
+        return response()->json([
+            'data' => $this->categoryRepository->storeFaqCategory($request)
         ]);
     }
 

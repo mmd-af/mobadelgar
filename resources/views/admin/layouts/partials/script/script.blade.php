@@ -115,4 +115,6 @@
                 console.log(error)
             });
     }
+
+    $("#czFAQ").czMore();
 </script>

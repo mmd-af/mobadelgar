@@ -27,6 +27,11 @@ Route::group(['middleware' => ['web', 'auth'], 'namespace' => 'App\Http\Controll
             ]);
         });
         Route::group(['prefix' => 'categories-ajax', 'as' => 'categories.ajax.'], function () {
+
+            Route::post('changeCategoryPosition', [
+                'as' => 'changeCategoryPosition',
+                'uses' => 'CategoryAjaxController@changeCategoryPosition'
+            ]);
             Route::post('/getCategory', [
                 'as' => 'getCategory',
                 'uses' => 'CategoryAjaxController@getCategory'
@@ -43,10 +48,11 @@ Route::group(['middleware' => ['web', 'auth'], 'namespace' => 'App\Http\Controll
                 'as' => 'categoryScriptStore',
                 'uses' => 'CategoryAjaxController@categoryScriptStore'
             ]);
-            Route::post('changeCategoryPosition', [
-                'as' => 'changeCategoryPosition',
-                'uses' => 'CategoryAjaxController@changeCategoryPosition'
+            Route::post('storeFaqCategory', [
+                'as' => 'storeFaqCategory',
+                'uses' => 'CategoryAjaxController@storeFaqCategory'
             ]);
+
 //            Route::get('/category_type', [
 //                'as' => 'category_type',
 //                'uses' => 'CategoryAjaxController@categoryType'

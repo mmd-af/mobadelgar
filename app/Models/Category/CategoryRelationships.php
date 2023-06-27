@@ -2,20 +2,12 @@
 
 namespace App\Models\Category;
 
+use App\Models\Faq\Faq;
 use App\Models\Image\Image;
 use App\Models\Script\Script;
 
 trait CategoryRelationships
 {
-//    public function blogs()
-//    {
-//        return $this->morphedByMany(Blog::class, 'categorizable');
-//    }
-
-//    public function products()
-//    {
-//        return $this->morphedByMany(Product::class, 'categorizable');
-//    }
 
     public function images()
     {
@@ -27,23 +19,18 @@ trait CategoryRelationships
         return $this->morphOne(Script::class, 'scriptable');
     }
 
-//    public function videoCourses()
-//    {
-//        return $this->morphedByMany(VideoCourse::class, 'categorizable');
-//    }
-
-//    public function privateCourses()
-//    {
-//        return $this->morphedByMany(PrivateCourse::class, 'categorizable');
-//    }
-
-    public function parent()
+    public function faqs()
     {
-        return $this->belongsTo(Category::class, 'parent_id');
+        return $this->morphMany(Faq::class, 'faqable');
     }
 
-    public function children()
-    {
-        return $this->hasMany(Category::class, 'parent_id');
-    }
+//    public function parent()
+//    {
+//        return $this->belongsTo(Category::class, 'parent_id');
+//    }
+//
+//    public function children()
+//    {
+//        return $this->hasMany(Category::class, 'parent_id');
+//    }
 }

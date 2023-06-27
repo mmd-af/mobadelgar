@@ -3,6 +3,7 @@
 namespace App\Repositories\Admin;
 
 use App\Models\Category\Category;
+use App\Models\Faq\Faq;
 use App\Models\Image\Image;
 use App\Models\Script\Script;
 
@@ -142,14 +143,6 @@ class CategoryRepository extends BaseRepository
     public function categoryScriptStore($request)
     {
         $category = $this->getCategoryById($request);
-//        if(is_null($category->scripts)){
-//            $categoryScript = new Script();
-//        }
-//        $categoryScript->css = $request->css;
-//        $categoryScript->html = $request->html;
-//        $categoryScript->js = $request->js;
-//        $category->scripts()->updateOrCreate($categoryScript);
-
         $category->scripts()->updateOrCreate(
             ['scriptable_id' => $category->id], // شرط بر اساس آن رکورد بروزرسانی یا ایجاد می‌شود
             [
@@ -158,9 +151,18 @@ class CategoryRepository extends BaseRepository
                 'js' => $request->js,
             ]
         );
+    }
 
-
-
+    public function storeFaqCategory($request)
+    {
+        $category = $this->getCategoryById($request);
+        $count = count($request->faq_questions);
+        for ($i = 0; $i < $count; $i++) {
+            $faq = new Faq();
+            $faq->question = $request['faq_questions'][$i];
+            $faq->answer = $request['faq_answers'][$i];
+            $category->faqs()->save($faq);
+        }
     }
 
     public function changeCategoryPosition($request)

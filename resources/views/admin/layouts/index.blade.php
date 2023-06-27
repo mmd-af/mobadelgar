@@ -26,6 +26,7 @@
 @include('admin.layouts.partials.footer')
 
 <script src="{{ asset('jquery.min.js') }}"></script>
+<script src="{{ asset('jquery.czMore-latest.js') }}"></script>
 <script src="{{ asset('vendor/laravel-filemanager/js/stand-alone-button.js') }}"></script>
 @yield('script')
 

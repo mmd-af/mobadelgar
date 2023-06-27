@@ -78,81 +78,70 @@
             </div>
 
             <div id="showContentAlert"></div>
-            <form action="{{ route('admin.categories.store') }}" method="POST"
-                  onsubmit="event.preventDefault();updateContentCategory()">
-                @csrf
-                <div class="row">
-                    <div class="col-sm-12 col-md-8 border border-3">
-                        <div class="d-flex justify-content-between mt-3">
-                            <label for="editor">توضیحات:</label>
-                            <button class="btn" type="submit">
-                                <i class="fa-solid fa-check fa-xl"></i>
-                            </button>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-12">
+            <div class="row">
+                <div class="col-sm-12 col-md-8 border border-3">
+                    <div class="d-flex justify-content-between mt-3">
+                        <label for="editor">توضیحات:</label>
+                        <button class="btn" type="submit" onclick="updateContentCategory()">
+                            <i class="fa-solid fa-check fa-xl"></i>
+                        </button>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
                                 <textarea class="form-control" id="editor"
                                           name="description">{{$category->description}}</textarea>
-                            </div>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-4 shadow">
-                        {{--                        <div class="form-group col-md-12">--}}
-                        {{--                            <label for="author_id">نام نویسنده</label>--}}
-                        {{--                            <select class="form-control selectpicker" data-live-search="true" id="author_id"--}}
-                        {{--                                    name="author_id">--}}
-                        {{--                                <option--}}
-                        {{--                                    value="{{auth()->user()->id}}">{{auth()->user()->name}} {{auth()->user()->faname}}</option>--}}
-                        {{--                                @foreach($authors as $author)--}}
-                        {{--                                    <option value="{{$author->id}}">{{$author->name}} {{$author->faname}}</option>--}}
-                        {{--                                @endforeach--}}
-                        {{--                            </select>--}}
-                        {{--                        </div>--}}
-                        <div class="form-group col-md-12">
-                            <label for="meta_title">عنوان متا:</label>
-                            <input class="form-control" id="meta_title" name="meta_title" type="text"
-                                   value="{{ $category->meta_title }}">
+                </div>
+                <div class="col-sm-12 col-md-4 shadow">
+                    <div class="form-group col-md-12">
+                        <label for="meta_title">عنوان متا:</label>
+                        <input class="form-control" id="meta_title" name="meta_title" type="text"
+                               value="{{ $category->meta_title }}">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="meta_description">توضیحات متا:</label>
+                        <textarea class="form-control" id="word" maxlength="155" rows="5"
+                                  name="meta_description">{{ $category->meta_description }}</textarea>
+                        <div id="the-count">
+                            <span id="current">0</span>
+                            <span id="maximum">/155</span>
                         </div>
-                        <div class="form-group col-md-12">
-                            <label for="meta_description">توضیحات متا:</label>
-                            <textarea class="form-control" id="word" maxlength="155" rows="5"
-                                      name="meta_description">{{ $category->meta_description }}</textarea>
-                            <div id="the-count">
-                                <span id="current">0</span>
-                                <span id="maximum">/155</span>
-                            </div>
-                            <p>تعداد کلمات:
-                                <span id="show">0</span>
-                            </p>
-                        </div>
-                        <div class="col-md-12 mt-5">
-                            <div id="czFAQ"> ایجاد سوال (FAQ)
-                                <div id="first">
-                                    <div class="recordset">
-                                        <div class="row">
-                                            <div class="form-group col-md-12 shadow p-2">
-                                                <label for="faq_question">سوال:</label>
-                                                <input class="form-control" id="faq_question" name="faq_question[]"
-                                                       type="text"
-                                                       value="{{ old('faq_question[]') }}">
+                        <p>تعداد کلمات:
+                            <span id="show">0</span>
+                        </p>
+                    </div>
+                    <div class="col-md-12 mt-5">
+                        @foreach($category->faqs as $faq)
+{{--                            {{dd($faq->question,$faq->answer)}}--}}
+                        @endforeach
+                        <div id="showFaqAlert"></div>
+                        <div id="czFAQ"> ایجاد سوال (FAQ)
+                            <div id="first">
+                                <div class="recordset">
+                                    <div class="row">
+                                        <div class="form-group col-md-12 shadow p-2">
+                                            <label for="faq_question">سوال:</label>
+                                            <input class="form-control" id="faq_question" name="faq_question[]"
+                                                   type="text"
+                                                   value="{{ old('faq_question[]') }}">
 
-                                                <label for="faq_answer">جواب:</label>
-                                                <input class="form-control" id="faq_answer" name="faq_answer[]"
-                                                       type="text"
-                                                       value="{{ old('faq_answer[]') }}">
-                                            </div>
+                                            <label for="faq_answer">جواب:</label>
+                                            <input class="form-control" id="faq_answer" name="faq_answer[]"
+                                                   type="text"
+                                                   value="{{ old('faq_answer[]') }}">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <button type="submit" class="btn btn-success mt-5" onclick="storeFaq()">ثبت FAQ</button>
                     </div>
                 </div>
-                <div class="form-group col-md-12">
-
-                    <a href="{{ route('admin.categories.index') }}" class="btn btn-dark mt-5 mr-3">بازگشت</a>
-                </div>
-            </form>
+            </div>
+            <div class="form-group col-md-12">
+                <a href="{{ route('admin.categories.index') }}" class="btn btn-dark mt-5 mr-3">بازگشت</a>
+            </div>
         </div>
     </div>
     @include('admin.layouts.partials.script.create_parent_category_modal')
@@ -165,6 +154,54 @@
     @include('admin.layouts.partials.script.wordCount')
 
     <script>
+        function storeFaq() {
+            var showFaqAlert = document.getElementById('showFaqAlert');
+            var faq_question = document.querySelectorAll('input[name="faq_question[]"]');
+            var faq_answer = document.querySelectorAll('input[name="faq_answer[]"]');
+            var faq_questions = Array.from(faq_question).map(function (input) {
+                return input.value;
+            });
+            var faq_answers = Array.from(faq_answer).map(function (input) {
+                return input.value;
+            });
+            showFaqAlert.innerHTML = `<div class="text-center">
+                        <div class="spinner-border text-primary my-3"></div>
+                    </div>`;
+            const headersConfig = {
+                categoryID: "{{$category->id}}",
+                faq_questions: faq_questions,
+                faq_answers: faq_answers,
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                }
+            };
+            axios.post("{{route('admin.categories.ajax.storeFaqCategory')}}", headersConfig)
+                .then(response => {
+                    showFaqAlert.innerHTML = `<div class="alert alert-success">
+                    <ul class="mb-0">
+                        <li class="alert-text">اطلاعات ذخیره شد...</li>
+                    </ul>
+                </div>`;
+                    // setTimeout(removeDivContent, 5000);
+                })
+                .catch(error => {
+                    showFaqAlert.innerHTML = `<div class="alert alert-danger">
+            <ul class="mb-0" id="showErrors">
+                </ul>
+                </div>`;
+                    const obj = error.response.data.errors;
+                    for (const key in obj) {
+                        if (obj.hasOwnProperty(key)) {
+                            const values = obj[key];
+                            values.forEach(value =>
+                                showErrors.innerHTML += `<li class="alert-text">${value}</li>`
+                            );
+                        }
+                    }
+                    // setTimeout(removeDivContent, 5000);
+                });
+        }
+
 
         let metaTitle = document.getElementById('meta_title');
         let metaDescription = document.getElementById('word');
@@ -226,7 +263,5 @@
         }
 
         parent_id.value = "{{$category->id}}";
-
-        // $("#czFAQ").czMore();
     </script>
 @endsection
