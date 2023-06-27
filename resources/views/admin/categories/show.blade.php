@@ -18,7 +18,7 @@
             </div>
             @include('admin.layouts.partials.errors')
             <div class="row">
-                @foreach ($childCategory as $childCat)
+                @foreach ($category->children as $childCat)
                     <div class="col-md-2 shadow rounded-3 m-4">
                         <div class="card m-3">
                             <div style="height: 250px;">
@@ -113,7 +113,22 @@
                     </div>
                     <div class="col-md-12 mt-5">
                         @foreach($category->faqs as $faq)
-{{--                            {{dd($faq->question,$faq->answer)}}--}}
+                            <div id="faq-destroy-{{$faq->id}}">
+                                <a class="text-info border rounded-3 p-2 shadow" data-bs-toggle="collapse"
+                                   href="#faq-{{$faq->id}}" role="button" aria-expanded="false"
+                                   aria-controls="faq-{{$faq->id}}">
+                                    <strong>{{$faq->question}}</strong>
+                                </a>
+                                <button type="submit" class="btn text-danger my-2" onclick="deleteFaq({{$faq->id}})">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+
+                                <div class="collapse" id="faq-{{$faq->id}}">
+                                    <div class="card card-body">
+                                        {{$faq->answer}}
+                                    </div>
+                                </div>
+                            </div>
                         @endforeach
                         <div id="showFaqAlert"></div>
                         <div id="czFAQ"> ایجاد سوال (FAQ)
@@ -154,55 +169,6 @@
     @include('admin.layouts.partials.script.wordCount')
 
     <script>
-        function storeFaq() {
-            var showFaqAlert = document.getElementById('showFaqAlert');
-            var faq_question = document.querySelectorAll('input[name="faq_question[]"]');
-            var faq_answer = document.querySelectorAll('input[name="faq_answer[]"]');
-            var faq_questions = Array.from(faq_question).map(function (input) {
-                return input.value;
-            });
-            var faq_answers = Array.from(faq_answer).map(function (input) {
-                return input.value;
-            });
-            showFaqAlert.innerHTML = `<div class="text-center">
-                        <div class="spinner-border text-primary my-3"></div>
-                    </div>`;
-            const headersConfig = {
-                categoryID: "{{$category->id}}",
-                faq_questions: faq_questions,
-                faq_answers: faq_answers,
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken
-                }
-            };
-            axios.post("{{route('admin.categories.ajax.storeFaqCategory')}}", headersConfig)
-                .then(response => {
-                    showFaqAlert.innerHTML = `<div class="alert alert-success">
-                    <ul class="mb-0">
-                        <li class="alert-text">اطلاعات ذخیره شد...</li>
-                    </ul>
-                </div>`;
-                    // setTimeout(removeDivContent, 5000);
-                })
-                .catch(error => {
-                    showFaqAlert.innerHTML = `<div class="alert alert-danger">
-            <ul class="mb-0" id="showErrors">
-                </ul>
-                </div>`;
-                    const obj = error.response.data.errors;
-                    for (const key in obj) {
-                        if (obj.hasOwnProperty(key)) {
-                            const values = obj[key];
-                            values.forEach(value =>
-                                showErrors.innerHTML += `<li class="alert-text">${value}</li>`
-                            );
-                        }
-                    }
-                    // setTimeout(removeDivContent, 5000);
-                });
-        }
-
-
         let metaTitle = document.getElementById('meta_title');
         let metaDescription = document.getElementById('word');
         let showContentAlert = document.getElementById('showContentAlert');

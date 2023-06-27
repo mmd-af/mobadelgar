@@ -26,15 +26,13 @@ class CategoryController extends Controller
     public function show($category)
     {
         $category = $this->categoryRepository->getCategory($category);
-        $childCategory = $this->categoryRepository->getCategoryByParent($category->id);
-        return view('admin.categories.show', compact('category', 'childCategory'));
+        return view('admin.categories.show', compact('category'));
     }
 
     public function child($category, $child)
     {
-        $child = $this->categoryRepository->getCategory($child);
-//        $childCategory = $this->categoryRepository->getCategoryByParent($category->id);
-        return view('admin.categories.child', compact('child'));
+        $category = $this->categoryRepository->getCategory($child);
+        return view('admin.categories.child', compact('category'));
     }
 
     public function create()

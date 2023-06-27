@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-xl-12 col-md-12 mb-4 p-4 bg-white">
             <div class="d-flex flex-column text-center flex-md-row justify-content-md-between mb-4">
-                <h4 class="font-weight-bold mb-3 mb-md-0">{{$child->title}}</h4>
+                <h4 class="font-weight-bold mb-3 mb-md-0">{{$category->title}}</h4>
             </div>
             @include('admin.layouts.partials.errors')
             <div class="row mb-4">
@@ -21,17 +21,17 @@
                             <div class="form-group col-md-12">
                                 <label for="css">CSS:</label>
                                 <textarea class="form-control" id="css"
-                                          name="css">{{$child->scripts->css ?? null}}</textarea>
+                                          name="css">{{$category->scripts->css ?? null}}</textarea>
                             </div>
                             <div class="form-group col-md-12">
                                 <label for="html">HTML:</label>
                                 <textarea class="form-control" id="html"
-                                          name="html">{{$child->scripts->html ?? null}}</textarea>
+                                          name="html">{{$category->scripts->html ?? null}}</textarea>
                             </div>
                             <div class="form-group col-md-12">
                                 <label for="js">JS:</label>
                                 <textarea class="form-control" id="js"
-                                          name="js">{{$child->scripts->js ?? null}}</textarea>
+                                          name="js">{{$category->scripts->js ?? null}}</textarea>
                             </div>
                             <div class="form-group col-md-6 d-flex">
                                 <button type="submit" class="btn btn-success w-50 btm-sm mt-2 mx-3">ثبت</button>
@@ -44,11 +44,11 @@
                 </div>
                 <div class="col-sm-6 border border-3 rounded-3">
                     <style>
-                        {!! $child->scripts->css ?? null !!}
+                        {!! $category->scripts->css ?? null !!}
                     </style>
-                    {!! $child->scripts->html ?? null !!}
+                    {!! $category->scripts->html ?? null !!}
                     <script>
-                        {!! $child->scripts->js ?? null !!}
+                        {!! $category->scripts->js ?? null !!}
                     </script>
                 </div>
             </div>
@@ -67,7 +67,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-12">
                                 <textarea class="form-control" id="editor"
-                                          name="description">{{$child->description}}</textarea>
+                                          name="description">{{$category->description}}</textarea>
                             </div>
                         </div>
                     </div>
@@ -75,12 +75,12 @@
                         <div class="form-group col-md-12">
                             <label for="meta_title">عنوان متا:</label>
                             <input class="form-control" id="meta_title" name="meta_title" type="text"
-                                   value="{{ $child->meta_title }}">
+                                   value="{{ $category->meta_title }}">
                         </div>
                         <div class="form-group col-md-12">
                             <label for="meta_description">توضیحات متا:</label>
                             <textarea class="form-control" id="word" maxlength="155" rows="5"
-                                      name="meta_description">{{ $child->meta_description }}</textarea>
+                                      name="meta_description">{{ $category->meta_description }}</textarea>
                             <div id="the-count">
                                 <span id="current">0</span>
                                 <span id="maximum">/155</span>
@@ -90,6 +90,25 @@
                             </p>
                         </div>
                         <div class="col-md-12 mt-5">
+                            @foreach($category->faqs as $faq)
+                                <div id="faq-destroy-{{$faq->id}}">
+                                    <a class="text-info border rounded-3 p-2 shadow" data-bs-toggle="collapse"
+                                       href="#faq-{{$faq->id}}" role="button" aria-expanded="false"
+                                       aria-controls="faq-{{$faq->id}}">
+                                        <strong>{{$faq->question}}</strong>
+                                    </a>
+                                    <button type="submit" class="btn text-danger my-2" onclick="deleteFaq({{$faq->id}})">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </button>
+
+                                    <div class="collapse" id="faq-{{$faq->id}}">
+                                        <div class="card card-body">
+                                            {{$faq->answer}}
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                            <div id="showFaqAlert"></div>
                             <div id="czFAQ"> ایجاد سوال (FAQ)
                                 <div id="first">
                                     <div class="recordset">
@@ -109,6 +128,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <button type="submit" class="btn btn-success mt-5" onclick="storeFaq()">ثبت FAQ</button>
                         </div>
                     </div>
                 </div>
@@ -167,7 +187,7 @@
                         <div class="spinner-border text-primary my-3"></div>
                     </div>`;
             const headersConfig = {
-                categoryID: "{{$child->id}}",
+                categoryID: "{{$category->id}}",
                 css: css.value,
                 html: html.value,
                 js: js.value,
@@ -207,7 +227,7 @@
                         <div class="spinner-border text-primary my-3"></div>
                     </div>`;
             const headersConfig = {
-                categoryID: "{{$child->id}}",
+                categoryID: "{{$category->id}}",
                 description: editor.getData(),
                 meta_title: metaTitle.value,
                 meta_description: metaDescription.value,

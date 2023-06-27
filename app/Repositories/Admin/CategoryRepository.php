@@ -42,6 +42,7 @@ class CategoryRepository extends BaseRepository
 
             ])
             ->where('id', $category)
+            ->with(['children','images'])
             ->first();
 
     }
@@ -59,37 +60,6 @@ class CategoryRepository extends BaseRepository
             ->where('id', $request->categoryID)
             ->with('images')
             ->first();
-    }
-
-//    public function getCategoryByType($type)
-//    {
-//        return Category::query()
-//            ->select([
-//                'id',
-//                'title',
-//                'slug',
-//                'parent_id',
-//                'type'
-//            ])
-//            ->where('type', $type)
-//            ->where('parent_id', 0)
-//            ->get();
-//    }
-
-    public function getCategoryByParent($id)
-    {
-        return Category::query()
-            ->select([
-                'id',
-                'title',
-                'slug',
-                'parent_id',
-                'is_active'
-            ])
-            ->where('parent_id', $id)
-            ->with('images')
-            ->sorted()
-            ->get();
     }
 
     public function store($request)
