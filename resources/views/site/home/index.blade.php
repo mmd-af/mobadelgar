@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="container">
-        <div class="row justify-content-center" style="margin-bottom: 250px" id="root">
+        <div class="row justify-content-center" id="root">
             <div class="row justify-content-center mt-5">
                 <div class="spinner-grow text-primary m-2 p-4" role="status">
                     <span class="visually-hidden">Loading...</span>

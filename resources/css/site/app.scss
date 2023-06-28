@@ -58,7 +58,6 @@ body {
     grid-gap: 20px;
     position: relative;
     padding: 50px;
-    height: 100px;
 }
 
 .card {
@@ -69,6 +68,7 @@ body {
     cursor: pointer;
     position: relative;
     transition: box-shadow 0.44s;
+    height: 300px;
 
     &::before {
         content: '';
