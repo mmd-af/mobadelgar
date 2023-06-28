@@ -9,6 +9,16 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center" style="margin-bottom: 250px" id="root">
+            <div class="row justify-content-center mt-5">
+                <div class="spinner-grow text-primary m-2 p-4" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="spinner-grow text-primary m-2 p-4" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            <div class="row justify-content-center" id="second-load">
+            </div>
         </div>
     </div>
 
@@ -26,13 +36,23 @@
         {{--axios.get("{{ route('site.categories.ajax.getCategories') }}", headersConfig)--}}
 
         let root = document.getElementById('root');
+        let secondLoad = document.getElementById('second-load');
+
+        setTimeout(function () {
+            if (secondLoad) {
+                secondLoad.innerHTML = `<div class="spinner-grow text-primary m-2 p-4" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="spinner-grow text-primary m-2 p-4" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>`;
+            }
+        }, 500);
 
         async function fetchData() {
             try {
                 const response = await axios.get("{{ route('site.categories.ajax.getCategories') }}");
-
-
-                console.log(response.data.data)
+                root.innerHTML = ``;
                 response.data.data.forEach(insertDataInPage)
 
             } catch (error) {
@@ -41,8 +61,6 @@
         }
 
         function insertDataInPage(item) {
-            console.log(item)
-
             let url = "{{route('site.categories.show',[':slug'])}}";
             url = url.replace(':slug', item.slug);
             root.innerHTML += `<div class="col-sm-6 col-md-4 grid-custom">
@@ -51,7 +69,7 @@
                      <span class="icon">
                             <img src="${item.images.url}" class="img-fluid p-5" alt="Card title">
                      </span>
-                    <h1 class="text-center text-primary mt-3">${item.title}</h1>
+                    <h1 class="text-center mt-3"><strong>${item.title}</strong></h1>
                     <div class="background">
                         <div class="tiles">
                             <div class="tile tile-1"></div>

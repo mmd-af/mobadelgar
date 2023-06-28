@@ -10,12 +10,6 @@
     url("./fonts/Vazir.ttf") format("truetype");
 }
 
-h1{
-    font-size: 30px;
-    font-family: "vazir", Arial, sans-serif !important;
-
-}
-
 body {
     text-align: right !important;
     font-family: "vazir", Arial, sans-serif !important;
@@ -64,6 +58,7 @@ body {
     grid-gap: 20px;
     position: relative;
     padding: 50px;
+    height: 100px;
 }
 
 .card {
@@ -81,6 +76,11 @@ body {
         inset: 0;
         border-radius: 15px;
         background-color: var(--card-background-color);
+    }
+
+    h1 {
+        font-size: 25px;
+        color: var(--card-line-color);
     }
 
     .icon {
@@ -309,9 +309,18 @@ body {
             }
 
             img {
-                filter: brightness(0.5);
+                transition: scale 1s;
+                filter: brightness(1.5);
+                scale: 1.2;
             }
 
+        }
+
+        h1 {
+            color: var(--card-label-color);
+            filter: brightness(1.5);
+            scale: 1.5;
+            transition: scale 1s;
         }
 
         .shine {
