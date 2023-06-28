@@ -63,7 +63,7 @@
         function insertDataInPage(item) {
             let url = "{{route('site.categories.show',[':slug'])}}";
             url = url.replace(':slug', item.slug);
-            root.innerHTML += `<div class="col-sm-6 col-md-4 grid-custom">
+            root.innerHTML += `<div class="col-sm-6 col-md-4 grid-custom justify-content-center">
 <a href="${url}" class="text-decoration-none">
                 <div class="card">
                      <span class="icon">

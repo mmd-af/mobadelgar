@@ -54,7 +54,7 @@ body {
 
 .grid-custom {
     display: grid;
-    grid-template-columns: 240px;
+    //grid-template-columns: 240px;
     grid-gap: 20px;
     position: relative;
     padding: 50px;
@@ -68,6 +68,8 @@ body {
     cursor: pointer;
     position: relative;
     transition: box-shadow 0.44s;
+    justify-content: center;
+    width: 250px;
     height: 300px;
 
     &::before {
@@ -312,6 +314,7 @@ body {
                 transition: scale 1s;
                 filter: brightness(1.5);
                 scale: 1.2;
+                overflow: hidden;
             }
 
         }
@@ -319,8 +322,10 @@ body {
         h1 {
             color: var(--card-label-color);
             filter: brightness(1.5);
-            scale: 1.5;
+            scale: 1.2;
             transition: scale 1s;
+            overflow: hidden;
+
         }
 
         .shine {
