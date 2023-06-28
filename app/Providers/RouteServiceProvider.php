@@ -37,10 +37,19 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/web.php'));
         });
 
+        $this->mapWebAuthRoutes();
         $this->mapWebAdminRoutes();
         $this->mapWebSiteRoutes();
     }
 
+    protected function mapWebAuthRoutes()
+    {
+        $routeFiles = glob(base_path('routes/web/auth/*.php'));
+        foreach ($routeFiles as $routeFile) {
+            Route::middleware('web')
+                ->group($routeFile);
+        }
+    }
     protected function mapWebAdminRoutes()
     {
         $routeFiles = glob(base_path('routes/web/admin/*.php'));
