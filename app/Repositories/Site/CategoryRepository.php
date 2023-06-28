@@ -11,7 +11,7 @@ class CategoryRepository extends BaseRepository
         $this->setModel($model);
     }
 
-    public function getCategories()
+    public function getCategories($request)
     {
         return $this->query()
             ->select([
@@ -20,7 +20,7 @@ class CategoryRepository extends BaseRepository
                 'slug'
             ])
             ->where('is_active', 1)
-            ->where('parent_id', 0)
+            ->where('parent_id', $request->parent_id)
             ->with(['images'])
             ->sorted()
             ->get();
@@ -40,7 +40,7 @@ class CategoryRepository extends BaseRepository
             ])
             ->where('slug', $category)
             ->where('is_active', 1)
-            ->with(['children', 'images', 'faqs'])
+            ->with(['children', 'images', 'scripts', 'faqs'])
             ->first();
     }
 }

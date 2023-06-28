@@ -20,4 +20,10 @@ class CategoryController extends Controller
         return view('site.categories.show', compact('category'));
     }
 
+    public function child($category, $child)
+    {
+        $category = $this->categoryRepository->getCategoryBySlug($child);
+        return view('site.categories.child', compact('category'));
+    }
+
 }

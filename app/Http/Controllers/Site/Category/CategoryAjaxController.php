@@ -15,10 +15,10 @@ class CategoryAjaxController extends Controller
         $this->categoryRepository = $categoryRepository;
     }
 
-    public function getCategories()
+    public function getCategories(Request $request)
     {
         return response()->json([
-            'data' => $this->categoryRepository->getCategories()
+            'data' => $this->categoryRepository->getCategories($request)
         ]);
     }
 }

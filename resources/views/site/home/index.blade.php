@@ -27,17 +27,8 @@
 
 @section('script')
     <script>
-        {{--const csrfToken = document.head.querySelector('meta[name="csrf-token"]').getAttribute('content');--}}
-        {{--const headersConfig = {--}}
-        {{--    headers: {--}}
-        {{--        'X-CSRF-TOKEN': csrfToken--}}
-        {{--    }--}}
-        {{--};--}}
-        {{--axios.get("{{ route('site.categories.ajax.getCategories') }}", headersConfig)--}}
-
         let root = document.getElementById('root');
         let secondLoad = document.getElementById('second-load');
-
         setTimeout(function () {
             if (secondLoad) {
                 secondLoad.innerHTML = `<div class="spinner-grow text-primary m-2 p-4" role="status">
@@ -51,7 +42,10 @@
 
         async function fetchData() {
             try {
-                const response = await axios.get("{{ route('site.categories.ajax.getCategories') }}");
+                const headersConfig = {
+                    parent_id: 0,
+                };
+                const response = await axios.post("{{ route('site.categories.ajax.getCategories') }}",headersConfig);
                 root.innerHTML = ``;
                 response.data.data.forEach(insertDataInPage)
 

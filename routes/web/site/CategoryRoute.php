@@ -9,9 +9,13 @@ Route::group(['middleware' => ['web'], 'namespace' => 'App\Http\Controllers\Site
                 'as' => 'show',
                 'uses' => 'CategoryController@show'
             ]);
+            Route::get('{category}/{slug}', [
+                'as' => 'child',
+                'uses' => 'CategoryController@child'
+            ]);
         });
         Route::group(['prefix' => 'categories-ajax', 'as' => 'categories.ajax.'], function () {
-            Route::get('/getCategories', [
+            Route::post('/getCategories', [
                 'as' => 'getCategories',
                 'uses' => 'CategoryAjaxController@getCategories'
             ]);
