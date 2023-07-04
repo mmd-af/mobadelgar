@@ -7,7 +7,7 @@
             <a href="{{route('site.home.index')}}" target="_blank"><span class="fa-brands fa-cc-mastercard"></span> نمایش سایت </a>
         </li>
         <li>
-            <a href="{{route('admin.categories.index')}}"><span class="fa fa-user"></span> دسته بندی ها </a>
+            <a href="{{route('admin.categories.index')}}"><span class="fa-solid fa-diagram-project"></span> دسته بندی ها </a>
         </li>
 {{--        <li>--}}
 {{--            <a href="#"><span class="fa fa-user"></span> کاربرها </a>--}}
