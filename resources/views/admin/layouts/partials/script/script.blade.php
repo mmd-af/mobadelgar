@@ -27,6 +27,7 @@
                 title.value = response.data.data.title;
                 slug.value = response.data.data.slug;
                 image.value = response.data.data.images.url;
+                parent_id.value = response.data.data.parent_id;
                 if (response.data.data.is_active === "فعال") {
                     is_active.value = 1;
                 } else {
@@ -130,7 +131,7 @@
                         <div class="spinner-border text-primary my-3"></div>
                     </div>`;
         const headersConfig = {
-            categoryID: "{{$category->id}}",
+            categoryID: "{{$category->id ?? 0}}",
             faq_questions: faq_questions,
             faq_answers: faq_answers,
             headers: {

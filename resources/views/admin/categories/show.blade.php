@@ -173,6 +173,9 @@
         let metaDescription = document.getElementById('word');
         let showContentAlert = document.getElementById('showContentAlert');
 
+        let parentId = document.getElementById('parent_id');
+        parentId.value = "{{$category->id}}";
+
         function updateContentCategory() {
             showContentAlert.innerHTML = `<div class="text-center">
                         <div class="spinner-border text-primary my-3"></div>
@@ -228,6 +231,5 @@
             showContentAlert.innerHTML = ``;
         }
 
-        parent_id.value = "{{$category->id}}";
     </script>
 @endsection

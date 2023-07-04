@@ -2,6 +2,17 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'auth']], function () {
-    \UniSharp\LaravelFilemanager\Lfm::routes();
-});
+Route::get('/migrate', function () {
+    Artisan::call('migrate');
+    return Artisan::output();
+})->middleware(['web', 'auth']);
+
+Route::get('/optimize', function () {
+    Artisan::call('optimize');
+    return Artisan::output();
+})->middleware(['web', 'auth']);
+
+Route::get('/storage', function () {
+    Artisan::call('storage:link');
+    return Artisan::output();
+})->middleware(['web', 'auth']);

@@ -18,13 +18,15 @@ body {
     font-weight: normal;
     direction: rtl;
     background: linear-gradient(180deg, var(--background-color) 0%, rgba(255,255,255,1) 100%);
+    background: var(--background-color);
 
-    --background-color: #b9cfff;
+    //--background-color: #b9cfff;
+    --background-color: #eaeaea;
    // --text-color: #9292ff;
 
     --card-background-color: rgba(255, 255, 255, 0.62);
     --card-border-color: rgba(0, 40, 133, 0.25);
-    --card-box-shadow-1: rgba(250, 7, 7, 0.5);
+    --card-box-shadow-1: rgba(141, 185, 255, 0.15);
     --card-box-shadow-1-y: 3px;
     --card-box-shadow-1-blur: 500px;
     --card-box-shadow-2: rgba(0, 0, 0, 0.1);

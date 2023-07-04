@@ -8,7 +8,7 @@
             </div>
             <div class="modal-body">
                 @include('admin.layouts.partials.errors')
-                <form action="{{ route('admin.categories.store') }}" method="POST">
+                <form action="{{ route('admin.categories.store') }}" method="POST" id="createCategoryForm">
                     @csrf
                     <div class="form-row">
                         <div class="form-group">

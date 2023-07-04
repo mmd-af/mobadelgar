@@ -6,9 +6,9 @@
 
     {!! SEOMeta::generate() !!}
     {!! OpenGraph::generate() !!}
-    {!! Twitter::generate() !!}
+{{--    {!! Twitter::generate() !!}--}}
     {!! JsonLd::generate() !!}
-    {!! JsonLdMulti::generate() !!}
+{{--    {!! JsonLdMulti::generate() !!}--}}
 
     @vite(['resources/css/site/app.scss', 'resources/js/site/app.js'])
     @yield('style')
