@@ -5,7 +5,11 @@
 
 @section('style')
     <style>
-        {!! $category->scripts->css ?? null !!}
+
+
+
+
+
     </style>
 @endsection
 
@@ -13,7 +17,9 @@
     <div class="container">
         <div class="row justify-content-center" id="root">
             <div class="row justify-content-center mt-5">
-                {!! $category->scripts->html ?? null !!}
+
+                salam
+
             </div>
         </div>
     </div>
@@ -22,13 +28,15 @@
     </div>
     <div class="container py-5">
         <div class="row">
-            {!! $category->description !!}
+            توضیحاتش
         </div>
     </div>
 @endsection
 
 @section('script')
     <script>
-        {!! $category->scripts->js ?? null !!}
+
+
+
     </script>
 @endsection
