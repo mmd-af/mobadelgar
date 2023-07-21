@@ -3,6 +3,29 @@
     صفحه ی اول
 @endsection
 
+@section('schema')
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "ItemList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "کرنومتر",
+      "url": "https://mobadelgar.ir/time/stopwatch"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "تقویم",
+      "url": "https://mobadelgar.ir/time/calendar"
+    }
+  ]
+}
+    </script>
+@endsection
+
 @section('style')
 @endsection
 

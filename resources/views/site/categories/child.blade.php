@@ -3,6 +3,10 @@
     صفحه ی اول
 @endsection
 
+@section('schema')
+    {!! JsonLd::generate() !!}
+@endsection
+
 @section('style')
     <style>
         {!! $category->scripts->css ?? null !!}

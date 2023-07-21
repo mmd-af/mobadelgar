@@ -3,6 +3,23 @@
     صفحه ی اول
 @endsection
 
+@section('schema')
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "WebSite",
+  "name": "مبدل گر- ابزارهای آنلاین رایگان، سرگرمی ها و اطلاعات متنوع",
+  "url": "https://mobadelgar.ir",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "{search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+
+    </script>
+@endsection
+
 @section('style')
 @endsection
 
@@ -45,7 +62,7 @@
                 const headersConfig = {
                     parent_id: 0,
                 };
-                const response = await axios.post("{{ route('site.categories.ajax.getCategories') }}",headersConfig);
+                const response = await axios.post("{{ route('site.categories.ajax.getCategories') }}", headersConfig);
                 root.innerHTML = ``;
                 response.data.data.forEach(insertDataInPage)
 
