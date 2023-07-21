@@ -23,6 +23,7 @@
     }
   ]
 }
+
     </script>
 @endsection
 
@@ -47,10 +48,8 @@
     <div class="container-fluid">
         <hr class="bg-secondary py-5">
     </div>
-    <div class="container py-5">
-        <div class="row">
-            {!! $category->description !!}
-        </div>
+    <div class="container bg-white rounded-3 p-5">
+        {!! $category->description !!}
     </div>
 @endsection
 

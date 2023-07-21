@@ -24,10 +24,8 @@
     <div class="container-fluid">
         <hr class="bg-secondary py-5">
     </div>
-    <div class="container py-5">
-        <div class="row">
+    <div class="container bg-white rounded-3 p-5">
             {!! $category->description !!}
-        </div>
     </div>
 @endsection
 
