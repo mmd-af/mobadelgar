@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Site\Home;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\Site\HomeRepository;
-use Artesaos\SEOTools\Facades\JsonLd;
 use Artesaos\SEOTools\Facades\OpenGraph;
 use Artesaos\SEOTools\Facades\SEOMeta;
 
@@ -20,19 +19,15 @@ class HomeController extends Controller
 
     public function homeIndex()
     {
-        SEOMeta::setTitle('در حال راه اندازی');
-        SEOMeta::setDescription('در حال راه اندازی');
-        SEOMeta::setCanonical(url('/'));
-
-        OpenGraph::setDescription('در حال راه اندازی');
-        OpenGraph::setTitle('در حال راه اندازی');
+        SEOMeta::setTitle("ابزارهای آنلاین رایگان، سرگرمی ها و اطلاعات متنوع");
+        SEOMeta::setDescription("جامع ترین بانک ابزارهای آنلاین رایگان، بازی های آنلاین، فال، نقشه، وضعیت آب و هوایی، تقویم و زمان، اطلاعات عمومی و کاربردی و...");
+        OpenGraph::setTitle(" مبدل گر- ابزارهای آنلاین رایگان، سرگرمی ها و اطلاعات متنوع");
+        OpenGraph::setDescription("جامع ترین بانک ابزارهای آنلاین رایگان، بازی های آنلاین، فال، نقشه، وضعیت آب و هوایی، تقویم و زمان، اطلاعات عمومی و کاربردی و...");
         OpenGraph::setUrl(url('/'));
-        OpenGraph::addProperty('type', 'articles');
-
-        JsonLd::setTitle('در حال راه اندازی');
-        JsonLd::setDescription('در حال راه اندازی');
-//        JsonLd::addImage('https://codecasts.com.br/img/logo.jpg');
-
+//        OpenGraph::addImage("logo", ['height' => 200, 'width' => 200]);
+        OpenGraph::addProperty('type', 'website');
+        OpenGraph::addProperty('locale', 'fa_IR');
+        OpenGraph::setSiteName("مبدل گر");
         return view('site.home.index');
     }
 
