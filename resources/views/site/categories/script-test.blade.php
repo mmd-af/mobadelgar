@@ -3,12 +3,12 @@
     صفحه ی اول
 @endsection
 
+@section('schema')
+    {!! JsonLd::generate() !!}
+@endsection
+
 @section('style')
     <style>
-
-
-
-
 
     </style>
 @endsection
@@ -18,65 +18,111 @@
         <div class="row justify-content-center" id="root">
             <div class="row justify-content-center mt-5">
 
-
-                    <h1 class="text-center mt-5">Calendar</h1>
-                    <div class="row">
-                        <div class="col-md-6 mx-auto">
-                            <div id="calendar"></div>
+                <div class="col-6">
+                    <h1 class="mb-4">تبدیل واحد طول</h1>
+                    <form id="conversionForm">
+                        <div class="mb-3">
+                            <label for="inputValue">مقدار:</label>
+                            <input type="number" class="form-control form-control-lg" id="inputValue" required>
                         </div>
+                        <div class="mt-5">
+                            <label for="inputUnit">واحد اولیه:</label>
+                            <select class="form-control form-control-lg" id="inputUnit" required>
+                                <option value="mm">میلی‌متر (mm)</option>
+                                <option value="cm">سانتی‌متر (cm)</option>
+                                <option value="m">متر (m)</option>
+                                <option value="km">کیلومتر (km)</option>
+                                <option value="inch">اینچ (inch)</option>
+                                <option value="foot">فوت (foot)</option>
+                                <option value="yard">یارد (yard)</option>
+                                <option value="mile">مایل (mile)</option>
+                            </select>
+                        </div>
+                        <div class="mt-4">
+                            <label for="outputUnit">واحد مقصد:</label>
+                            <select class="form-control form-control-lg" id="outputUnit" required>
+                                <option value="mm">میلی‌متر (mm)</option>
+                                <option value="cm">سانتی‌متر (cm)</option>
+                                <option value="m">متر (m)</option>
+                                <option value="km">کیلومتر (km)</option>
+                                <option value="inch">اینچ (inch)</option>
+                                <option value="foot">فوت (foot)</option>
+                                <option value="yard">یارد (yard)</option>
+                                <option value="mile">مایل (mile)</option>
+                            </select>
+                        </div>
+                        <div class="mt-3 text-center">
+                            <button type="submit" class="btn btn-primary px-5">تبدیل</button>
+                        </div>
+                    </form>
+                    <div class="mt-5 p-5 text-center">
+                        <label for="resultN">نتیجه:</label>
+                        <br>
+                        <h1 class="text-primary" id="resultN"></h1>
                     </div>
-                <script src="https://cdn.jsdelivr.net/npm/dayjs/plugin/weekday.min.js"></script>
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css" integrity="sha512-liDnOrsa/NzR+4VyWQ3fBzsDBzal338A1VfUpQvAcdt+eL88ePCOd3n9VQpdA0Yxi4yglmLy/AmH+Lrzmn0eMQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.9/dayjs.min.js" integrity="sha512-q4Xn+ZU2K+dqJPL8a3TiyGsDa31IkR/rLt/w+fy8jLrx8TdXj0dLM1Aq4aPXnOOKxHEya/bD9DePDB2DHm4jJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-                <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+                </div>
+
+
             </div>
         </div>
     </div>
     <div class="container-fluid">
         <hr class="bg-secondary py-5">
     </div>
-    <div class="container py-5">
-        <div class="row">
-            توضیحاتش
-        </div>
+    <div class="container bg-white rounded-3 p-5">
+
     </div>
 @endsection
 
 @section('script')
     <script>
-
-        document.addEventListener('DOMContentLoaded', function () {
-            var calendarEl = document.getElementById('calendar');
-
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                headerToolbar: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                },
-                events: [
-                    {
-                        title: 'Event 1',
-                        start: '2023-07-01',
-                        end: '2023-07-03'
-                    },
-                    {
-                        title: 'Event 2',
-                        start: '2023-07-05',
-                        end: '2023-07-07'
-                    },
-                    {
-                        title: 'Event 3',
-                        start: '2023-07-10',
-                        end: '2023-07-12'
-                    }
-                    // Add more events here...
-                ]
-            });
-
-            calendar.render();
+        document.getElementById('conversionForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            convertUnits();
         });
+
+        function convertUnits() {
+            const inputValue = parseFloat(document.getElementById('inputValue').value);
+            const inputUnit = document.getElementById('inputUnit').value;
+            const outputUnit = document.getElementById('outputUnit').value;
+
+            const units = {
+                mm: 0.001,
+                cm: 0.01,
+                m: 1,
+                km: 1000,
+                inch: 0.0254,
+                foot: 0.3048,
+                yard: 0.9144,
+                mile: 1609.34,
+            };
+
+            if (!isNaN(inputValue) && units.hasOwnProperty(inputUnit) && units.hasOwnProperty(outputUnit)) {
+                const result = (inputValue * units[inputUnit]) / units[outputUnit];
+                document.getElementById('resultN').innerHTML = `${outputUnit + " " + result}
+                    <button class="btn btn-outline-info" onclick="copyToClipboard(${result})"><i class="fa-regular fa-copy"></i></button>`;
+
+            } else {
+                document.getElementById('resultN').innerText = "خطا! لطفاً ورودی ها را چک کنید.";
+            }
+        }
+
+        function copyToClipboard(result) {
+            console.log(result)
+            navigator.permissions.query({name: "clipboard-write"}).then(resultC => {
+                if (resultC.state === "granted" || resultC.state === "prompt") {
+                    navigator.clipboard.writeText(result)
+                        .then(() => {
+                            alert("مقدار با موفقیت در کلیپ‌بورد ذخیره شد!");
+                        })
+                        .catch(err => {
+                            alert("خطا در ذخیره‌سازی مقدار در کلیپ‌بورد:", err);
+                        });
+                } else {
+                    alert("عدم دسترسی به کلیپ‌بورد!");
+                }
+            });
+        }
 
     </script>
 @endsection

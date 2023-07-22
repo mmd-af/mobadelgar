@@ -12,4 +12,6 @@
     @yield('schema')
     @vite(['resources/css/site/app.scss', 'resources/js/site/app.js'])
     @yield('style')
+    <script src="{{ asset('jquery.min.js') }}"></script>
+    <script src="{{ asset('axios.min.js') }}"></script>
 </head>
