@@ -11,15 +11,40 @@
     url("./fonts/Vazir.ttf") format("truetype");
 }
 
-h1, h2, h3, h4, h5, h6, p, a {
+h1 {
     font-family: "vazir", Arial, sans-serif !important;
+    font-size: 32px;
+}
+
+h2 {
+    font-family: "vazir", Arial, sans-serif !important;
+    font-size: 24px;
+}
+
+h3 {
+    font-family: "vazir", Arial, sans-serif !important;
+    font-size: 18.72px;
+}
+
+h4 {
+    font-family: "vazir", Arial, sans-serif !important;
+    font-size: 16px;
+}
+
+h5 {
+    font-family: "vazir", Arial, sans-serif !important;
+    font-size: 13.28px;
+}
+
+h6 {
+    font-family: "vazir", Arial, sans-serif !important;
+    font-size: 10.72px;
 }
 
 body {
     text-align: right !important;
     font-family: "vazir", Arial, sans-serif !important;
-    font-size: 14px;
-    line-height: 1.8;
+    line-height: 2.2;
     font-weight: normal;
     direction: rtl;
     background: linear-gradient(180deg, rgba(76, 205, 255, 0.2) 0%, rgba(255, 255, 255, 1) 100%);

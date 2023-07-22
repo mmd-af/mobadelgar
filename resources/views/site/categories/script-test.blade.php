@@ -18,47 +18,70 @@
         <div class="row justify-content-center" id="root">
             <div class="row justify-content-center mt-5">
 
+
                 <div class="col-6">
-                    <h1 class="mb-4">تبدیل واحد طول</h1>
-                    <form id="conversionForm">
-                        <div class="mb-3">
-                            <label for="inputValue">مقدار:</label>
-                            <input type="number" class="form-control form-control-lg" id="inputValue" required>
+                    <h1 class="mb-4">تبدیل واحد زمان</h1>
+                    <div class="row mt-5">
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="inputValue" class="form-label">مقدار اولیه:</label>
+                                <input type="number" class="form-control form-control-lg" id="inputValue"
+                                       placeholder="مقدار اولیه وارد کنید - مثال = 60">
+                            </div>
+                            <div class="mb-3">
+                                <label for="fromUnit" class="form-label">از واحد:</label>
+                                <select class="form-control form-control-lg" id="fromUnit">
+                                    <option value="s">ثانیه (s)</option>
+                                    <option value="ks">کیلو ثانیه (ks)</option>
+                                    <option value="ms">میلی ثانیه (ms)</option>
+                                    <option value="μs">میکرو ثانیه (μs)</option>
+                                    <option value="ns">نانو ثانیه (ns)</option>
+                                    <option value="ps">پیکو ثانیه (ps)</option>
+                                    <option value="min">دقیقه (min)</option>
+                                    <option value="h">ساعت (h)</option>
+                                    <option value="Day">روز (Day)</option>
+                                    <option value="Week">هفته (Week)</option>
+                                    <option value="Month">ماه (Month)</option>
+                                    <option value="LunarMonth">ماه قمری</option>
+                                    <option value="Year">سال (Year)</option>
+                                    <option value="LunarYear">سال قمری</option>
+                                    <option value="Decade">دهه (Decade)</option>
+                                    <option value="Century">قرن (Century)</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="mt-5">
-                            <label for="inputUnit">واحد اولیه:</label>
-                            <select class="form-control form-control-lg" id="inputUnit" required>
-                                <option value="mm">میلی‌متر (mm)</option>
-                                <option value="cm">سانتی‌متر (cm)</option>
-                                <option value="m">متر (m)</option>
-                                <option value="km">کیلومتر (km)</option>
-                                <option value="inch">اینچ (inch)</option>
-                                <option value="foot">فوت (foot)</option>
-                                <option value="yard">یارد (yard)</option>
-                                <option value="mile">مایل (mile)</option>
-                            </select>
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="toUnit" class="form-label">به واحد:</label>
+                                <select class="form-control form-control-lg" id="toUnit">
+                                    <option value="s">ثانیه (s)</option>
+                                    <option value="ks">کیلو ثانیه (ks)</option>
+                                    <option value="ms">میلی ثانیه (ms)</option>
+                                    <option value="μs">میکرو ثانیه (μs)</option>
+                                    <option value="ns">نانو ثانیه (ns)</option>
+                                    <option value="ps">پیکو ثانیه (ps)</option>
+                                    <option value="min">دقیقه (min)</option>
+                                    <option value="h">ساعت (h)</option>
+                                    <option value="Day">روز (Day)</option>
+                                    <option value="Week">هفته (Week)</option>
+                                    <option value="Month">ماه (Month)</option>
+                                    <option value="LunarMonth">ماه قمری</option>
+                                    <option value="Year">سال (Year)</option>
+                                    <option value="LunarYear">سال قمری</option>
+                                    <option value="Decade">دهه (Decade)</option>
+                                    <option value="Century">قرن (Century)</option>
+                                </select>
+                            </div>
+                            <div class="mt-5 p-5 text-center">
+                                <label for="resultN">نتیجه:</label>
+                                <br>
+                                <h1 class="text-primary" id="result"></h1>
+                            </div>
+
                         </div>
-                        <div class="mt-4">
-                            <label for="outputUnit">واحد مقصد:</label>
-                            <select class="form-control form-control-lg" id="outputUnit" required>
-                                <option value="mm">میلی‌متر (mm)</option>
-                                <option value="cm">سانتی‌متر (cm)</option>
-                                <option value="m">متر (m)</option>
-                                <option value="km">کیلومتر (km)</option>
-                                <option value="inch">اینچ (inch)</option>
-                                <option value="foot">فوت (foot)</option>
-                                <option value="yard">یارد (yard)</option>
-                                <option value="mile">مایل (mile)</option>
-                            </select>
-                        </div>
-                        <div class="mt-3 text-center">
-                            <button type="submit" class="btn btn-primary px-5">تبدیل</button>
-                        </div>
-                    </form>
-                    <div class="mt-5 p-5 text-center">
-                        <label for="resultN">نتیجه:</label>
-                        <br>
-                        <h1 class="text-primary" id="resultN"></h1>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-primary px-5" id="convertBtn">تبدیل</button>
                     </div>
                 </div>
 
@@ -76,37 +99,6 @@
 
 @section('script')
     <script>
-        document.getElementById('conversionForm').addEventListener('submit', function (event) {
-            event.preventDefault();
-            convertUnits();
-        });
-
-        function convertUnits() {
-            const inputValue = parseFloat(document.getElementById('inputValue').value);
-            const inputUnit = document.getElementById('inputUnit').value;
-            const outputUnit = document.getElementById('outputUnit').value;
-
-            const units = {
-                mm: 0.001,
-                cm: 0.01,
-                m: 1,
-                km: 1000,
-                inch: 0.0254,
-                foot: 0.3048,
-                yard: 0.9144,
-                mile: 1609.34,
-            };
-
-            if (!isNaN(inputValue) && units.hasOwnProperty(inputUnit) && units.hasOwnProperty(outputUnit)) {
-                const result = (inputValue * units[inputUnit]) / units[outputUnit];
-                document.getElementById('resultN').innerHTML = `${outputUnit + " " + result}
-                    <button class="btn btn-outline-info" onclick="copyToClipboard(${result})"><i class="fa-regular fa-copy"></i></button>`;
-
-            } else {
-                document.getElementById('resultN').innerText = "خطا! لطفاً ورودی ها را چک کنید.";
-            }
-        }
-
         function copyToClipboard(result) {
             console.log(result)
             navigator.permissions.query({name: "clipboard-write"}).then(resultC => {
@@ -122,6 +114,45 @@
                     alert("عدم دسترسی به کلیپ‌بورد!");
                 }
             });
+        }
+
+        document.getElementById('convertBtn').addEventListener('click', function () {
+            const inputValue = parseFloat(document.getElementById('inputValue').value);
+            const fromUnit = document.getElementById('fromUnit').value;
+            const toUnit = document.getElementById('toUnit').value;
+
+            if (!isNaN(inputValue)) {
+                const result = convertTimeUnit(inputValue, fromUnit, toUnit);
+                document.getElementById('result').innerHTML = `${result}
+                <button class="btn btn-outline-info" onclick="copyToClipboard(${result})"><i class="fa-regular fa-copy"></i></button>
+                `;
+            } else {
+                document.getElementById('result').innerText = 'Invalid input';
+            }
+        });
+
+        function convertTimeUnit(value, fromUnit, toUnit) {
+            const conversions = {
+                's': 1,
+                'ks': 0.001,
+                'ms': 1000,
+                'μs': 1000000,
+                'ns': 1000000000,
+                'ps': 1000000000000,
+                'min': 1 / 60,
+                'h': 1 / 3600,
+                'Day': 1 / 86400,
+                'Week': 1 / 604800,
+                'Month': 1 / 2628000,
+                'LunarMonth': 1 / 2551442.884,
+                'Year': 1 / 31536000,
+                'LunarYear': 1 / 30617265.217,
+                'Decade': 1 / 315360000,
+                'Century': 1 / 3153600000
+            };
+
+            const result = value * conversions[toUnit] / conversions[fromUnit];
+            return result;
         }
 
     </script>
