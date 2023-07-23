@@ -6,23 +6,19 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown" onclick="getCategory()">
                     <a class="nav-link dropdown-toggle active" aria-current="page" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         دسته بندی
                     </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">دسته تست</a></li>
-                        <li><a class="dropdown-item" href="#">دسته تست</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">دسته تست</a></li>
+                    <ul class="dropdown-menu text-center" id="insertCategory">
                     </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">ارتباط با ما</a>
                 </li>
             </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="جستجو..." aria-label="جستجو...">
+            <form class="d-flex" role="search" onsubmit="searchCategories(event)">
+                <input class="form-control me-2" type="search" placeholder="جستجو..." aria-label="جستجو..." id="searchInput">
                 <button class="btn btn-outline-info btn-sm text-dark" type="submit">جستجو</button>
             </form>
         </div>
