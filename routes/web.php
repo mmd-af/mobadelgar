@@ -19,6 +19,9 @@ Route::get('/sitemap', function () {
         ->with(['images', 'children'])
         ->get();
     $sitemap = Sitemap::create();
+    $sitemap->add(Url::create(url('/'))
+        ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
+        ->setPriority(1.0));
     foreach ($categories as $category) {
         $sitemap->add(Url::create(route('site.categories.show', $category->slug))
             ->setLastModificationDate($category->updated_at)
