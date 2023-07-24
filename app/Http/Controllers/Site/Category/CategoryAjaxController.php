@@ -21,4 +21,10 @@ class CategoryAjaxController extends Controller
             'data' => $this->categoryRepository->getCategories($request)
         ]);
     }
+    public function getAllCategories(Request $request)
+    {
+        return response()->json([
+            'data' => $this->categoryRepository->getAllCategories()
+        ]);
+    }
 }

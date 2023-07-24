@@ -24,10 +24,10 @@ trait CategoryRelationships
         return $this->morphMany(Faq::class, 'faqable');
     }
 
-//    public function parent()
-//    {
-//        return $this->belongsTo(Category::class, 'parent_id');
-//    }
+    public function parent()
+    {
+        return $this->belongsTo(Category::class, 'parent_id');
+    }
 
     public function children()
     {

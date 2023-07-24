@@ -19,6 +19,10 @@ Route::group(['middleware' => ['web'], 'namespace' => 'App\Http\Controllers\Site
                 'as' => 'getCategories',
                 'uses' => 'CategoryAjaxController@getCategories'
             ]);
+            Route::post('/getAllCategories', [
+                'as' => 'getAllCategories',
+                'uses' => 'CategoryAjaxController@getAllCategories'
+            ]);
         });
     });
 });

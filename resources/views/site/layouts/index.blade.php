@@ -13,7 +13,12 @@
             </div>
             <div class="modal-body">
                 <div class="row" id="searchResultsContainer">
-                    <!-- اینجا نتایج جستجو نمایش داده می‌شود -->
+                    <div class="spinner-grow text-primary m-2 p-4" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-primary m-2 p-4" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -54,43 +59,57 @@
 
 </script>
 <script>
-    const categories = [
-        { id: 1, name: 'دسته بندی 1' },
-        { id: 2, name: 'دسته بندی 2' },
-        { id: 3, name: 'دسته بندی 3' },
-        // و غیره...
-    ];
     function searchCategories(event) {
         event.preventDefault();
 
+        axios.post("{{ route('site.categories.ajax.getAllCategories') }}")
+            .then((response) => {
+                let categories = response.data.data;
+                searchAction(categories);
+            })
+            .catch((error) => {
+                console.error('خطا در ارسال درخواست:', error);
+            });
+    }
 
-
-
+    function searchAction(categories) {
         const searchInput = document.getElementById('searchInput').value.toLowerCase();
         const searchResultsContainer = document.getElementById('searchResultsContainer');
-
-        // خالی کردن محتوای کارت‌های نتایج جستجو
         searchResultsContainer.innerHTML = '';
-
-        // جستجو در دسته‌بندی‌ها
-        const filteredCategories = categories.filter(category => category.name.toLowerCase().includes(searchInput));
-
-        // نمایش نتایج جستجو با استفاده از کارت‌ها
+        const filteredCategories = categories.filter(category => category.title.toLowerCase().includes(searchInput));
         filteredCategories.forEach(category => {
+
+            var subText = '';
+            let description = category.meta_description;
+            let start = 0;
+            let end = 100;
+            if (description != null) {
+                var subText = description.slice(start, end);
+            }
+            if (category.parent === null) {
+                var url = "{{route('site.categories.show',['slug'=>':slug'])}}";
+                url = url.replace(':slug', category.slug);
+            } else {
+                var url = "{{route('site.categories.child',['category'=>':category','slug'=>':slug'])}}";
+                url = url.replace(':slug', category.slug);
+                url = url.replace(':category', category.parent.slug);
+            }
+
             const card = `
         <div class="col-sm-6 col-md-4 col-lg-3 mb-3">
-          <div class="card">
+<a href="${url}">
+          <div class="form-control">
             <div class="card-body">
-              <h5 class="card-title">${category.name}</h5>
-              <p class="card-text">شناسه: ${category.id}</p>
+              <h2 class="card-title text-primary">${category.title}</h2>
+<p class="btn">${subText}</p>
             </div>
           </div>
-        </div>
+</a>
+</div>
       `;
             searchResultsContainer.insertAdjacentHTML('beforeend', card);
         });
 
-        // نمایش مدال با نتایج جستجو
         const searchResultsModal = new bootstrap.Modal(document.getElementById('searchResultsModal'));
         searchResultsModal.show();
     }

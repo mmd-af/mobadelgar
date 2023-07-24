@@ -26,6 +26,24 @@ class CategoryRepository extends BaseRepository
             ->get();
     }
 
+    public function getAllCategories()
+    {
+        return $this->query()
+            ->select([
+                'id',
+                'title',
+                'slug',
+                'meta_description',
+                'parent_id'
+            ])
+            ->where('is_active', 1)
+//            ->whereHas('parent', function ($query) {
+//                $query->where('is_active', 1);
+//            })
+            ->with(['parent'])
+            ->get();
+    }
+
     public function getCategoryBySlug($category)
     {
         return $this->query()
