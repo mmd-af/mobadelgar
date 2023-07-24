@@ -1,7 +1,4 @@
 @extends('site.layouts.index')
-@section('title')
-    صفحه ی اول
-@endsection
 
 @section('schema')
     {!! JsonLd::generate() !!}

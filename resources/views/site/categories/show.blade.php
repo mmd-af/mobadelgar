@@ -1,7 +1,4 @@
 @extends('site.layouts.index')
-@section('title')
-    صفحه ی اول
-@endsection
 
 @section('schema')
     <script type="application/ld+json">
@@ -9,22 +6,49 @@
   "@context": "https://schema.org/",
   "@type": "ItemList",
   "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "کرنومتر",
-      "url": "https://mobadelgar.ir/time/stopwatch"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "تقویم",
-      "url": "https://mobadelgar.ir/time/calendar"
-    }
-  ]
-}
+   @foreach($category->children as $key=> $child)
+            {
+              "@type": "ListItem",
+              "position": {{$key+1}},
+              "name": "{{$child->title}}",
+      "url": "{{route('site.categories.child',['category'=>$category->slug,'slug'=>$child->slug])}}"
+            }
+            @if(!$loop->last)
+                ,
+            @endif
+        @endforeach
+        ]}
+
+
 
     </script>
+    @if ($category->faqs->count() > 0)
+        <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+  @foreach($category->faqs as $faq)
+                {
+                  "@type": "Question",
+                  "name": "{{$faq->question}}",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "{{$faq->answer}}"
+                }
+              }
+              @if(!$loop->last)
+                    ,
+              @endif
+            @endforeach
+            ]
+           }
+
+
+
+        </script>
+    @endif
+
 @endsection
 
 @section('style')
@@ -50,6 +74,22 @@
     </div>
     <div class="container bg-white rounded-3 p-5">
         {!! $category->description !!}
+    </div>
+    <div class="container bg-white rounded-3 p-5">
+        @foreach($category->faqs as $faq)
+            <div class="row">
+                <a class="text-info border rounded-3 p-2 shadow" data-bs-toggle="collapse"
+                   href="#faq-{{$faq->id}}" role="button" aria-expanded="false"
+                   aria-controls="faq-{{$faq->id}}">
+                    <strong>{{$faq->question}}</strong>
+                </a>
+                <div class="collapse" id="faq-{{$faq->id}}">
+                    <div class="mt-2 mb-4">
+                        {{$faq->answer}}
+                    </div>
+                </div>
+            </div>
+        @endforeach
     </div>
 @endsection
 
