@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="fa">
 @include('site.layouts.partials.header')
 <body>
 @include('site.layouts.partials.navbar')

@@ -17,11 +17,12 @@ class CategoryRepository extends BaseRepository
             ->select([
                 'id',
                 'title',
-                'slug'
+                'slug',
+                'parent_id'
             ])
             ->where('is_active', 1)
             ->where('parent_id', $request->parent_id)
-            ->with(['images'])
+            ->with(['images','parent'])
             ->sorted()
             ->get();
     }
@@ -58,7 +59,7 @@ class CategoryRepository extends BaseRepository
             ])
             ->where('slug', $category)
             ->where('is_active', 1)
-            ->with(['children', 'images', 'scripts', 'faqs'])
+            ->with(['children', 'images', 'scripts', 'faqs', 'schemas'])
             ->first();
     }
 }

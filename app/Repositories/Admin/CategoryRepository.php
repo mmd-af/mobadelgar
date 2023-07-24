@@ -5,6 +5,7 @@ namespace App\Repositories\Admin;
 use App\Models\Category\Category;
 use App\Models\Faq\Faq;
 use App\Models\Image\Image;
+use App\Models\Schema\Schema;
 use App\Models\Script\Script;
 
 class CategoryRepository extends BaseRepository
@@ -104,6 +105,11 @@ class CategoryRepository extends BaseRepository
     public function updateContentCategory($request)
     {
         $category = $this->getCategoryById($request);
+        if($request->json_ld){
+            $schema = new Schema();
+            $schema->json_ld = $request->json_ld;
+            $category->schemas()->updateOrCreate([], ['json_ld' => $request->json_ld]);
+        }
         $category->description = $request->description;
         $category->meta_title = $request->meta_title;
         $category->meta_description = $request->meta_description;

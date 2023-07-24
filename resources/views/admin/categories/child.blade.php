@@ -89,6 +89,11 @@
                                 <span id="show">0</span>
                             </p>
                         </div>
+                        <div class="form-group col-md-12">
+                            <label for="json_ld">Schema:</label>
+                            <textarea class="form-control" id="json_ld"
+                                      name="json_ld">{{$category->schemas->json_ld ?? null}}</textarea>
+                        </div>
                         <div class="col-md-12 mt-5">
                             @foreach($category->faqs as $faq)
                                 <div id="faq-destroy-{{$faq->id}}">
@@ -97,7 +102,8 @@
                                        aria-controls="faq-{{$faq->id}}">
                                         <strong>{{$faq->question}}</strong>
                                     </a>
-                                    <button type="submit" class="btn text-danger my-2" onclick="deleteFaq({{$faq->id}})">
+                                    <button type="submit" class="btn text-danger my-2"
+                                            onclick="deleteFaq({{$faq->id}})">
                                         <i class="fa-solid fa-trash-can"></i>
                                     </button>
 
@@ -173,9 +179,19 @@
             language: "en",
             syntax: "js"
         });
+        editAreaLoader.init({
+            id: "json_ld",
+            start_highlight: true,
+            allow_resize: "both",
+            allow_toggle: true,
+            word_wrap: true,
+            language: "en",
+            syntax: "js"
+        });
 
         let metaTitle = document.getElementById('meta_title');
         let metaDescription = document.getElementById('word');
+        let jsonLd = document.getElementById('json_ld');
         let showContentAlert = document.getElementById('showContentAlert');
 
         let css = document.getElementById('css');
@@ -231,6 +247,7 @@
                 description: editor.getData(),
                 meta_title: metaTitle.value,
                 meta_description: metaDescription.value,
+                json_ld: jsonLd.value,
                 headers: {
                     'X-CSRF-TOKEN': csrfToken
                 }

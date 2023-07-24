@@ -9,5 +9,4 @@
     @yield('style')
     <script src="{{ asset('jquery.min.js') }}"></script>
     <script src="{{ asset('axios.min.js') }}"></script>
-    <script src="{{ asset('bootstrap.min.js') }}"></script>
 </head>

@@ -1,5 +1,4 @@
 @extends('site.layouts.index')
-
 @section('schema')
     <script type="application/ld+json">
 {
@@ -18,8 +17,6 @@
             @endif
         @endforeach
         ]}
-
-
 
     </script>
     @if ($category->faqs->count() > 0)
@@ -44,18 +41,14 @@
             ]
            }
 
-
-
         </script>
     @endif
-
 @endsection
-
 @section('style')
 @endsection
-
 @section('content')
     <div class="container">
+        <h1 class="my-3"><strong>{{$category->title}}</strong></h1>
         <div class="row justify-content-center" id="root">
             <div class="row justify-content-center mt-5">
                 <div class="spinner-grow text-primary m-2 p-4" role="status">
@@ -78,7 +71,7 @@
     <div class="container bg-white rounded-3 p-5">
         @foreach($category->faqs as $faq)
             <div class="row">
-                <a class="text-info border rounded-3 p-2 shadow" data-bs-toggle="collapse"
+                <a class="text-info border rounded-3 p-2 shadow text-decoration-none" data-bs-toggle="collapse"
                    href="#faq-{{$faq->id}}" role="button" aria-expanded="false"
                    aria-controls="faq-{{$faq->id}}">
                     <strong>{{$faq->question}}</strong>
@@ -123,6 +116,7 @@
         }
 
         function insertDataInPage(item) {
+            console.log(item)
             let url = "{{route('site.categories.child',['category'=>$category->slug,':slug'])}}";
             url = url.replace(':slug', item.slug);
             root.innerHTML += `<div class="col-sm-6 col-md-4 grid-custom justify-content-center">
@@ -132,6 +126,7 @@
                             <img src="${item.images.url}" class="img-fluid p-5" alt="Card title">
                      </span>
                     <h1 class="text-center mt-3"><strong>${item.title}</strong></h1>
+                    <span class="h4">${item.parent.title}</span>
                     <div class="background">
                         <div class="tiles">
                             <div class="tile tile-1"></div>
