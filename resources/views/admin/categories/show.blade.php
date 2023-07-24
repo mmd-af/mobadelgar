@@ -60,7 +60,7 @@
                                                 <form
                                                     action="{{route('admin.categories.destroy', ['category' => $childCat->id])}}"
                                                     method="post"
-                                                    onsubmit="showConfirm()">
+                                                    onsubmit="return showConfirm(event)">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn text-danger">

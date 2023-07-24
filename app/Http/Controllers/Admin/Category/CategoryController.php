@@ -60,6 +60,6 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $this->categoryRepository->destroy($category);
-        return redirect()->route('admin.categories.index');
+        return redirect()->back();
     }
 }

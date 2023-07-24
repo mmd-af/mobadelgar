@@ -83,21 +83,26 @@
         location.reload();
     });
 
-    function showConfirm() {
+    function showConfirm(event) {
         event.preventDefault();
+        const form = event.target;
         Swal.fire({
-            title: "آیا از پاک کردن این اطلاعات مطمئن هستید؟",
-            text: "در صورت تایید برای همیشه پاک می شود",
-            icon: "error",
-            buttons: true,
-            dangerMode: true,
-        })
-            .then(function (isOkay) {
-                if (isOkay) {
-                    form.submit();
-                }
-            });
+            title: 'آیا از پاک کردن این اطلاعات مطمئن هستید؟',
+            text: 'در صورت تایید برای همیشه پاک می شود',
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonText: 'تایید',
+            cancelButtonText: 'کنسل'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                console.log('تایید شد.');
+                form.submit();
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                console.log('کنسل شد.');
+            }
+        });
     }
+
 
     function moveContent(id) {
         var promo = prompt("محتوا بعد از کدام ID منتقل شود؟");

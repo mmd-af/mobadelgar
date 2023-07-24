@@ -42,7 +42,7 @@ class CategoryRepository extends BaseRepository
 
             ])
             ->where('id', $category)
-            ->with(['children','images'])
+            ->with(['children', 'images'])
             ->first();
 
     }
@@ -150,14 +150,11 @@ class CategoryRepository extends BaseRepository
 
     public function destroy($category)
     {
-//        foreach ($category->children as $child) {
-//            $this->categorizablesDestroy($child);
-//            $child->images()->delete();
-//            $child->delete();
-//        }
-//        $this->categorizablesDestroy($category);
+        foreach ($category->children as $imCategory) {
+            $imCategory->images()->delete();
+        }
+        $category->children()->delete();
         $category->images()->delete();
         $category->delete();
-//        alert()->success('دسته ی مورد نظر با موفقیت پاک شد', 'باتشکر');
     }
 }
