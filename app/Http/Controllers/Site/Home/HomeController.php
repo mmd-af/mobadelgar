@@ -24,7 +24,8 @@ class HomeController extends Controller
         OpenGraph::setTitle(" مبدل گر- ابزارهای آنلاین رایگان، سرگرمی ها و اطلاعات متنوع");
         OpenGraph::setDescription("جامع ترین بانک ابزارهای آنلاین رایگان، بازی های آنلاین، فال، نقشه، وضعیت آب و هوایی، تقویم و زمان، اطلاعات عمومی و کاربردی و...");
         OpenGraph::setUrl(url('/'));
-//        OpenGraph::addImage("logo", ['height' => 200, 'width' => 200]);
+//        OpenGraph::addImage(asset('logo/mobadelgarir.jpg'), ['height' => 200, 'width' => 1000]);
+        OpenGraph::addImage(asset('logo/mobadelgarir-1.jpg'));
         OpenGraph::addProperty('type', 'website');
         OpenGraph::addProperty('locale', 'fa_IR');
         OpenGraph::setSiteName("مبدل گر");
