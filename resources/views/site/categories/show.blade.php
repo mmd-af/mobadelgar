@@ -43,9 +43,34 @@
 
         </script>
     @endif
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "name": "خانه",
+    "item": "{{url('/')}}"
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "name": "{{$category->title}}",
+    "item": "{{route('site.categories.show',$category->slug)}}"
+  }]
+}
+
+    </script>
 @endsection
 @section('style')
 @endsection
+
+
+@section('breadcrumb')
+    <li class="breadcrumb-item"><a href="{{url('/')}}">خانه</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{$category->title}}</li>
+@endsection
+
 @section('content')
     <div class="container">
         <h1 class="my-3"><strong>{{$category->title}}</strong></h1>

@@ -14,10 +14,15 @@
   }
 }
 
+
     </script>
 @endsection
 
 @section('style')
+@endsection
+
+@section('breadcrumb')
+    <li class="breadcrumb-item active" aria-current="page">خانه</li>
 @endsection
 
 @section('content')

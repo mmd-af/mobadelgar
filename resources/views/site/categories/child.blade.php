@@ -1,40 +1,67 @@
 @extends('site.layouts.index')
 
 @section('schema')
-{{--    {!! JsonLd::generate() !!}--}}
     {!! $category->schemas->json_ld ?? null !!}
-@if ($category->faqs->count() > 0)
-    <script type="application/ld+json">
+    @if ($category->faqs->count() > 0)
+        <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
   @foreach($category->faqs as $faq)
-            {
-              "@type": "Question",
-              "name": "{{$faq->question}}",
+                {
+                  "@type": "Question",
+                  "name": "{{$faq->question}}",
     "acceptedAnswer": {
       "@type": "Answer",
       "text": "{{$faq->answer}}"
                 }
               }
               @if(!$loop->last)
-                ,
+                    ,
 @endif
-        @endforeach
-        ]
-       }
+            @endforeach
+            ]
+           }
 
+        </script>
+    @endif
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "name": "خانه",
+    "item": "{{url('/')}}"
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "name": "{{$category->parent->title}}",
+    "item": "{{route('site.categories.show',$category->parent->slug)}}"
+  },{
+    "@type": "ListItem",
+    "position": 3,
+    "name": "{{$category->title}}",
+    "item": "{{route('site.categories.child',[$category->parent->slug,$category->slug])}}"
+  }]
+}
 
-
-</script>
-@endif
+    </script>
 @endsection
 
 @section('style')
     <style>
         {!! $category->scripts->css ?? null !!}
     </style>
+@endsection
+
+@section('breadcrumb')
+    <li class="breadcrumb-item"><a href="{{url('/')}}">خانه</a></li>
+    <li class="breadcrumb-item"><a
+            href="{{route('site.categories.show',$category->parent->slug)}}">{{$category->parent->title}}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{$category->title}}</li>
 @endsection
 
 @section('content')
@@ -49,7 +76,7 @@
         <hr class="bg-secondary py-5">
     </div>
     <div class="container bg-white rounded-3 p-5">
-            {!! $category->description !!}
+        {!! $category->description !!}
     </div>
     <div class="container bg-white rounded-3 p-5">
         @foreach($category->faqs as $faq)

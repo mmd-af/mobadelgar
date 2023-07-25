@@ -3,6 +3,15 @@
 @include('site.layouts.partials.header')
 <body>
 @include('site.layouts.partials.navbar')
+
+<div class="container" dir="ltr">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            @yield('breadcrumb')
+        </ol>
+    </nav>
+</div>
+
 @yield('content')
 <div class="modal" id="searchResultsModal">
     <div class="modal-dialog modal-lg">
