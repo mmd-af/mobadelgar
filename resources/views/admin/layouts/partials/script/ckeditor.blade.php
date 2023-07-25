@@ -2,7 +2,9 @@
     var editor = CKEDITOR.replace('editor', {
         language: 'fa',
         uiColor: '#9AB8F3',
-        height: 700
+        height: 700,
+        filebrowserBrowseUrl: '/filemanager?type=image',
+        filebrowserUploadUrl: '/filemanager/upload?type=Files&_token=YOUR_CSRF_TOKEN',
     });
     editor.on('change', function (evt) {
         callFunction(evt);
