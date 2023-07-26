@@ -1,12 +1,28 @@
 <!doctype html>
 <html lang="fa">
 @include('site.layouts.partials.header')
+<style>
+    .breadcrumb {
+        background-color: #f8f9fa;
+        padding: 8px 16px;
+        border-radius: 5px;
+    }
+
+    .breadcrumb .breadcrumb-item a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .breadcrumb .breadcrumb-item.active {
+        color: #333;
+    }
+</style>
 <body>
 @include('site.layouts.partials.navbar')
 
 <div class="container" dir="ltr">
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
+        <ol class="breadcrumb justify-content-end">
             @yield('breadcrumb')
         </ol>
     </nav>

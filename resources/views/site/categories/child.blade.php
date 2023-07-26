@@ -58,10 +58,10 @@
 @endsection
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{url('/')}}">خانه</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{$category->title}}</li>
     <li class="breadcrumb-item"><a
             href="{{route('site.categories.show',$category->parent->slug)}}">{{$category->parent->title}}</a></li>
-    <li class="breadcrumb-item active" aria-current="page">{{$category->title}}</li>
+    <li class="breadcrumb-item"><a href="{{url('/')}}">خانه</a></li>
 @endsection
 
 @section('content')
@@ -72,13 +72,12 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid">
-        <hr class="bg-secondary py-5">
+    <div class="container-fluid bg-secondary py-5 my-5">
     </div>
-    <div class="container bg-white rounded-3 p-5">
+    <div class="container py-5">
         {!! $category->description !!}
     </div>
-    <div class="container bg-white rounded-3 p-5">
+    <div class="container">
         @foreach($category->faqs as $faq)
             <div class="row">
                 <a class="text-info border rounded-3 p-2 shadow text-decoration-none" data-bs-toggle="collapse"
