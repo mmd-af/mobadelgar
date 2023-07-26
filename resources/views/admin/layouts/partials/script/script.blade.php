@@ -95,10 +95,9 @@
             cancelButtonText: 'کنسل'
         }).then((result) => {
             if (result.isConfirmed) {
-                console.log('تایید شد.');
                 form.submit();
             } else if (result.dismiss === Swal.DismissReason.cancel) {
-                console.log('کنسل شد.');
+
             }
         });
     }

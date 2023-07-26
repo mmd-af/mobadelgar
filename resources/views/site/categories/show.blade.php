@@ -140,7 +140,6 @@
         }
 
         function insertDataInPage(item) {
-            console.log(item)
             let url = "{{route('site.categories.child',['category'=>$category->slug,':slug'])}}";
             url = url.replace(':slug', item.slug);
             root.innerHTML += `<div class="col-sm-6 col-md-4 grid-custom justify-content-center">

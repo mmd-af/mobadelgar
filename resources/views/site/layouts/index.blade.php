@@ -54,7 +54,6 @@
 </div>
 @include('site.layouts.partials.footer')
 @yield('script')
-
 <script>
 
     function getCategory() {

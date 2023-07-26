@@ -97,7 +97,6 @@
 @section('script')
     <script>
         function copyToClipboard(result) {
-            console.log(result)
             navigator.permissions.query({name: "clipboard-write"}).then(resultC => {
                 if (resultC.state === "granted" || resultC.state === "prompt") {
                     navigator.clipboard.writeText(result)
