@@ -25,7 +25,11 @@
             <form class="d-flex px-2" role="search" onsubmit="searchCategories(event)">
                 <input class="form-control me-2" type="search" placeholder="جستجو..." aria-label="جستجو..."
                        id="searchInput">
-                <button class="btn btn-outline-info btn-sm text-dark" type="submit">جستجو</button>
+                <button type="submit" data-bs-toggle="modal"
+                   data-bs-target="#searchResultsModal"
+                   class="btn btn-outline-info btn-sm text-dark">
+                    جستجو
+                </button>
             </form>
         </div>
     </div>

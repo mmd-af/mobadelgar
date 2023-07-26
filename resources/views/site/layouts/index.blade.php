@@ -133,9 +133,6 @@
       `;
             searchResultsContainer.insertAdjacentHTML('beforeend', card);
         });
-
-        const searchResultsModal = new bootstrap.Modal(document.getElementById('searchResultsModal'));
-        searchResultsModal.show();
     }
 </script>
 </body>
