@@ -1,37 +1,13 @@
-<nav id="sidebar" class="active">
-    <ul class="list-unstyled position-fixed components mb-5 mt-5">
-        <li class="active">
-            <a href="{{route('admin.dashboard.index')}}"><span class="fa fa-home"></span> داشبورد </a>
-        </li>
-        <li class="active">
-            <a href="{{route('site.home.index')}}" target="_blank"><span class="fa-brands fa-cc-mastercard"></span> نمایش سایت </a>
-        </li>
-        <li>
-            <a href="{{route('admin.categories.index')}}"><span class="fa-solid fa-diagram-project"></span> دسته بندی ها </a>
-        </li>
-{{--        <li>--}}
-{{--            <a href="#"><span class="fa fa-user"></span> کاربرها </a>--}}
-{{--        </li>--}}
-{{--        <li>--}}
-{{--            <a href="#homeSubmenu" data-bs-toggle="collapse" aria-expanded="false"> <span--}}
-{{--                    class="fa fa-sticky-note"></span> وبلاگ <i class='fa fa-angle-down arrow-menu'></i> </a>--}}
-{{--            <ul class="collapse list-unstyled" id="homeSubmenu">--}}
-{{--                <li>--}}
-{{--                    <a href="#">صفحه 1</a>--}}
-{{--                </li>--}}
-{{--                <li>--}}
-{{--                    <a href="#">صفحه 2</a>--}}
-{{--                </li>--}}
-{{--                <li>--}}
-{{--                    <a href="#">صفحه 3</a>--}}
-{{--                </li>--}}
-{{--            </ul>--}}
-{{--        </li>--}}
-{{--        <li>--}}
-{{--            <a href="#"><span class="fa fa-cogs"></span> خدمات </a>--}}
-{{--        </li>--}}
-{{--        <li>--}}
-{{--            <a href="#"><span class="fa fa-paper-plane"></span> ارتباط با ما </a>--}}
-{{--        </li>--}}
-    </ul>
-</nav>
+<div class="offcanvas  offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel">منو</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <ul class="list-group list-group-flush" style="font-size: 18px; font-weight: bold">
+            <li class="list-group-item"><a class="text-decoration-none" href="{{route('admin.dashboard.index')}}"><i class="fa fa-home"></i> داشبورد </a></li>
+            <li class="list-group-item"><a class="text-decoration-none" href="{{route('site.home.index')}}" target="_blank"><i class="fa-brands fa-cc-mastercard"></i> نمایش سایت </a></li>
+            <li class="list-group-item"><a class="text-decoration-none" href="{{route('admin.categories.index')}}"><i class="fa-solid fa-diagram-project"></i> دسته بندی ها </a></li>
+        </ul>
+    </div>
+</div>
