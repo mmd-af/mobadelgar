@@ -13,8 +13,6 @@
     "query-input": "required name=search_term_string"
   }
 }
-
-
     </script>
 @endsection
 
@@ -39,11 +37,22 @@
             <div class="row justify-content-center" id="second-load">
             </div>
         </div>
+
+        <div class="row">
+            <p class="m-5 p-5">
+                <b> به مبدل گر خوش آمدی</b>
+                <br>
+                تو سایت مبدل گر هر چیزی رو به چیز دیگه میتونی تبدیل کنی. با امکانات و اطلاعاتی که هست حال بدت را می تونی
+                به حال خوب تبدیل کنی
+                کلی ابزار آنلاین و اطلاعات مفید داریم براتون
+                از ابزارهای آنلاین تبدیل مثل دما، فشار، زمان و تاریخ، تا ابزارهای فنی و مهندسی
+                و همچنین ابزارهای مالی، تکنولوژی، سلامت و ریاضی و علوم
+                توی مبدل گر انواع فال ، اطلاعات عمومی و مذهبی و کلی بازی آنلاین و کتاب رایگان داریم.
+
+            </p>
+        </div>
     </div>
-
-
 @endsection
-
 @section('script')
     <script>
         let root = document.getElementById('root');

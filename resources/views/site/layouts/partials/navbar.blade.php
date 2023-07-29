@@ -1,7 +1,7 @@
 <nav class="navbar sticky-top navbar-expand-lg">
     <div class="container rounded-3 px-3 bg-white bg-opacity-50">
             <a class="navbar-title-cu" href="{{url('/')}}">
-                مبدلگر
+                مبدل گر
                 <img class="img-fluid w-25 rounded-2" src="{{asset('logo/mobadelgarir-1.png')}}" alt="مبدل گر">
             </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
