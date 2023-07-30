@@ -5,8 +5,11 @@ namespace App\Repositories\Admin;
 use App\Models\Category\Category;
 use App\Models\Faq\Faq;
 use App\Models\Image\Image;
+use App\Models\Note\Note;
 use App\Models\Schema\Schema;
 use App\Models\Script\Script;
+use Illuminate\Support\Facades\Auth;
+use PhpParser\Builder\Class_;
 
 class CategoryRepository extends BaseRepository
 {
@@ -105,7 +108,7 @@ class CategoryRepository extends BaseRepository
     public function updateContentCategory($request)
     {
         $category = $this->getCategoryById($request);
-        if($request->json_ld){
+        if ($request->json_ld) {
             $schema = new Schema();
             $schema->json_ld = $request->json_ld;
             $category->schemas()->updateOrCreate([], ['json_ld' => $request->json_ld]);
@@ -148,11 +151,40 @@ class CategoryRepository extends BaseRepository
         $entity->moveAfter($positionEntity);
     }
 
-//    public function categorizablesDestroy($category)
-//    {
-//        DB::table('categorizables')->where('category_id', $category->id)->delete();
-//
-//    }
+    public function showAllNote()
+    {
+
+        return Note::query()
+            ->select([
+                'id',
+                'user_id',
+                'description',
+                'noteable_id',
+                'created_at'
+            ])
+            ->where('noteable_type', Category::class)
+            ->with(['users', 'category'])
+            ->get();
+
+    }
+
+    public function showNote($request)
+    {
+        $category = $this->model->find($request->id);
+        return $category->notes()->with('users')->get();
+
+    }
+
+    public function noteStore($request)
+    {
+        $user_id = Auth::id();
+        $note = new Note();
+        $note->user_id = $user_id;
+        $note->description = $request->description;
+        $note->noteable_id = $request->id;
+        $note->noteable_type = Category::class;
+        $note->save();
+    }
 
     public function destroy($category)
     {

@@ -9,6 +9,7 @@
     let is_active = document.querySelector('#editCategoryForm #is_active');
     let category_id = document.querySelector('#editCategoryForm #category_id');
     let parent_id = document.querySelector('#editCategoryForm #parent_id');
+    let noteShow = document.getElementById('note-show');
 
     const csrfToken = document.head.querySelector('meta[name="csrf-token"]').getAttribute('content');
 

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin\Category;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Category\CategoryNoteStoreRequest;
 use App\Http\Requests\Admin\Category\CategoryStoreRequest;
 use App\Http\Requests\Admin\Category\CategoryUpdateRequest;
 use App\Models\Category\Category;
 use App\Repositories\Admin\CategoryRepository;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -55,6 +57,12 @@ class CategoryController extends Controller
     {
         $this->categoryRepository->update($request, $category);
         return redirect()->route('admin.categories.index');
+    }
+
+    public function noteStore(CategoryNoteStoreRequest $request)
+    {
+        $this->categoryRepository->noteStore($request);
+        return redirect()->back();
     }
 
     public function destroy(Category $category)

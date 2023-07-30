@@ -38,8 +38,8 @@
             </div>
         </div>
 
-        <div class="row">
-            <p class="m-5 p-5">
+        <div class="row justify-content-center my-5">
+            <p class="p-3">
                 <b> به مبدل گر خوش آمدی</b>
                 <br>
                 تو سایت مبدل گر هر چیزی رو به چیز دیگه میتونی تبدیل کنی. با امکانات و اطلاعاتی که هست حال بدت را می تونی

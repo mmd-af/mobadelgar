@@ -58,6 +58,19 @@ class CategoryAjaxController extends Controller
         ]);
     }
 
+    public function showAllNote(Request $request)
+    {
+        return response()->json([
+            'data' => $this->categoryRepository->showAllNote()
+        ]);
+    }
+    public function showNote(Request $request)
+    {
+        return response()->json([
+            'data' => $this->categoryRepository->showNote($request)
+        ]);
+    }
+
 //    public function categoryType(Request $request)
 //    {
 //        return response()->json([

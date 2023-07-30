@@ -146,6 +146,18 @@
     </div>
 @endsection
 
+@section('note-store')
+    <div class="mt-5">
+        <form class="form-control" action="{{ route('admin.categories.noteStore') }}" method="post">
+            @csrf
+            <textarea name="description" class="form-control" id="description" cols="30" rows="3"
+                      placeholder="یادداشت جدید بنویسید..."></textarea>
+            <input type="hidden" name="id" id="id" value="{{$category->id}}">
+            <button type="submit" class="btn btn-success mt-2">ثبت</button>
+        </form>
+    </div>
+@endsection
+
 @section('script')
     @include('admin.layouts.partials.script.ckeditor')
     @include('admin.layouts.partials.script.script')
@@ -294,6 +306,36 @@
             showContentAlert.innerHTML = ``;
         }
 
-        // $("#czFAQ").czMore();
+        document.addEventListener("DOMContentLoaded", function () {
+            const headersConfig2 = {
+                id: "{{$category->id}}",
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                }
+            };
+            axios.post("{{route('admin.categories.ajax.showNote')}}", headersConfig2)
+                .then(response => {
+                    response.data.data.forEach((item) => {
+                        let dateMiladi = item.created_at;
+                        let dateShamsi = moment(dateMiladi).format('jYYYY/jM/jD');
+                        noteShow.innerHTML += `<div class="card border-primary m-3">
+            <div class="card-body">
+                <p class="card-text">
+                    <strong>
+                       ${item.description}
+                    </strong>
+                </p>
+            </div>
+            <div class="d-flex justify-content-between m-3">
+                <p>نویسنده: ${item.users.firstname} ${item.users.email}</p>
+                <p>تاریخ: ${dateShamsi}</p>
+                <i class="fa-solid fa-trash-can text-danger fa-lg mt-2" onclick="deleteNote(${item.id})"></i>
+            </div>
+        </div>`;
+                    })
+                }).catch(error => {
+                console.error(error)
+            });
+        });
     </script>
 @endsection

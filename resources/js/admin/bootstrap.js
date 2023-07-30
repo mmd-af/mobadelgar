@@ -20,6 +20,11 @@ import Swal from 'sweetalert2';
 
 window.Swal = Swal;
 
+
+import moment from 'moment-jalaali';
+
+window.moment = moment;
+
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting

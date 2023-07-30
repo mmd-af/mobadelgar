@@ -21,6 +21,10 @@ Route::group(['middleware' => ['web', 'auth', 'super.admin'], 'namespace' => 'Ap
                 'as' => 'child',
                 'uses' => 'CategoryController@child'
             ]);
+            Route::post('/noteStore', [
+                'as' => 'noteStore',
+                'uses' => 'CategoryController@noteStore'
+            ]);
             Route::delete('/{category}/destroy', [
                 'as' => 'destroy',
                 'uses' => 'CategoryController@destroy'
@@ -52,15 +56,14 @@ Route::group(['middleware' => ['web', 'auth', 'super.admin'], 'namespace' => 'Ap
                 'as' => 'storeFaqCategory',
                 'uses' => 'CategoryAjaxController@storeFaqCategory'
             ]);
-
-//            Route::get('/category_type', [
-//                'as' => 'category_type',
-//                'uses' => 'CategoryAjaxController@categoryType'
-//            ]);
-//            Route::get('/category_child', [
-//                'as' => 'category_child',
-//                'uses' => 'CategoryAjaxController@categoryChild'
-//            ]);
+            Route::post('showAllNote', [
+                'as' => 'showAllNote',
+                'uses' => 'CategoryAjaxController@showAllNote'
+            ]);
+            Route::post('showNote', [
+                'as' => 'showNote',
+                'uses' => 'CategoryAjaxController@showNote'
+            ]);
         });
     });
 });
