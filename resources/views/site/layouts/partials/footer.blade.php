@@ -1,4 +1,4 @@
-<nav class="footer sticky-bottom">
+<nav class="footer">
     <div class="container">
         <div class="row">
             <div class="text-white text-center">
