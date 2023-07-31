@@ -15,56 +15,47 @@
         <div class="row justify-content-center" id="root">
             <div class="row justify-content-center mt-5">
 
-                <div class="col-sm-12 col-lg-6">
-                    <h1 class="mb-4">تبدیل واحدهای زاویه</h1>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label for="inputAngle">زاویه را وارد کنید:</label>
-                            <input type="number" class="form-control" id="inputAngle"
-                                   placeholder="زاویه را وارد کنید...">
-                        </div>
-                        <div class="col-md-4">
-                            <label for="selectFrom">از:</label>
-                            <select class="form-control" id="selectFrom">
-                                <option value="degree">درجه (°)</option>
-                                <option value="radian">رادیان (rad)</option>
-                                <option value="gradian">گراد (gon)</option>
-                                <option value="arcsecond">ثانیه قوسی (arcsec)</option>
-                                <option value="arcminute">دقیقه قوسی (arcmin)</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="selectTo">به:</label>
-                            <select class="form-control" id="selectTo">
-                                <option value="degree">درجه (°)</option>
-                                <option value="radian">رادیان (rad)</option>
-                                <option value="gradian">گراد (gon)</option>
-                                <option value="arcsecond">ثانیه قوسی (arcsec)</option>
-                                <option value="arcminute">دقیقه قوسی (arcmin)</option>
-                            </select>
-                        </div>
+
+                <div class="col-sm-12 col-lg-5">
+                    <h1>تبدیل واحد چگالی</h1>
+                    <div class="form-group">
+                        <label for="density" class="form-label">چگالی</label>
+                        <input type="text" class="form-control" id="density" placeholder="مقدار چگالی">
                     </div>
-                    <div class="row mt-3">
-                        <div class="col-md-6">
-                            <button class="btn btn-primary" onclick="convertAngle()">تبدیل</button>
-                        </div>
-                        <div class="col-md-6">
-                            <h4>نتیجه:</h4>
-                            <p id="result"></p>
-                        </div>
+                    <div class="form-group">
+                        <label for="fromUnit" class="form-label">واحد از</label>
+                        <select class="form-select" id="fromUnit">
+                            <option value="kg_per_m3">کیلوگرم بر متر مکعب (kg/m³)</option>
+                            <option value="g_per_cm3">گرم بر سانتیمتر مکعب (g/cm³)</option>
+                            <option value="lb_per_in3">پوند بر اینچ مکعب (lb/in³)</option>
+                            <option value="g_per_L">گرم بر لیتر (g/L)</option>
+                            <option value="kg_per_L">کیلوگرم بر لیتر (kg/L)</option>
+                            <option value="mg_per_cm3">میلی‌گرم بر سانتیمتر مکعب (mg/cm³)</option>
+                            <option value="lb_per_ft3">پوند بر فوت مکعب (lb/ft³)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="toUnit" class="form-label">واحد به</label>
+                        <select class="form-select" id="toUnit">
+                            <option value="kg_per_m3">کیلوگرم بر متر مکعب (kg/m³)</option>
+                            <option value="g_per_cm3">گرم بر سانتیمتر مکعب (g/cm³)</option>
+                            <option value="lb_per_in3">پوند بر اینچ مکعب (lb/in³)</option>
+                            <option value="g_per_L">گرم بر لیتر (g/L)</option>
+                            <option value="kg_per_L">کیلوگرم بر لیتر (kg/L)</option>
+                            <option value="mg_per_cm3">میلی‌گرم بر سانتیمتر مکعب (mg/cm³)</option>
+                            <option value="lb_per_ft3">پوند بر فوت مکعب (lb/ft³)</option>
+                        </select>
                     </div>
                 </div>
-
-                {{--                <div class="mt-5 p-5 text-center">--}}
-                {{--                    <label for="result">نتیجه:</label>--}}
-                {{--                    <br>--}}
-                {{--                    <h1 class="text-primary" id="result"></h1>--}}
-                {{--                </div>--}}
-                {{--                <div class="text-center">--}}
-                {{--                    <button class="btn btn-primary px-5" id="convertBtn" onclick="convertWeight()">تبدیل--}}
-                {{--                    </button>--}}
-                {{--                </div>--}}
-
+                <div class="text-center">
+                    <label for="result">نتیجه:</label>
+                    <br>
+                    <h1 class="text-primary" id="result"></h1>
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-primary px-5" id="convertBtn" onclick="convertDensity()">تبدیل
+                    </button>
+                </div>
 
             </div>
         </div>
@@ -95,35 +86,31 @@
             });
         }
 
-        function convertAngle() {
-            const inputAngle = parseFloat(document.getElementById("inputAngle").value);
-            const fromUnit = document.getElementById("selectFrom").value;
-            const toUnit = document.getElementById("selectTo").value;
+        function convertDensity() {
+            // خواندن مقدار چگالی از فیلد ورودی
+            const density = parseFloat(document.getElementById("density").value);
 
-            // نرخ‌های تبدیل از درجه (°)
-            const conversionRates = {
-                degree: 1,
-                radian: Math.PI / 180,
-                gradian: 0.9,
-                arcsecond: 3600,
-                arcminute: 60
+            // خواندن واحد‌های انتخاب شده از لیست‌ها
+            const fromUnit = document.getElementById("fromUnit").value;
+            const toUnit = document.getElementById("toUnit").value;
+
+            // تعریف ضریب تبدیل بین واحدها
+            const conversionFactors = {
+                kg_per_m3: 1,
+                g_per_cm3: 1000,
+                lb_per_in3: 0.0361273,
+                g_per_L: 1000,
+                kg_per_L: 1,
+                mg_per_cm3: 1e+6,
+                lb_per_ft3: 0.0624279,
             };
 
-            // انجام تبدیل
-            const result = (inputAngle * conversionRates[fromUnit]) / conversionRates[toUnit];
-            console.log(inputAngle, conversionRates[fromUnit], conversionRates[toUnit])
-            // واحدها به فارسی
-            const unitsInPersian = {
-                degree: "درجه",
-                radian: "رادیان",
-                gradian: "گراد",
-                arcsecond: "ثانیه قوسی",
-                arcminute: "دقیقه قوسی"
-            };
+            // تبدیل مقدار چگالی به واحدهای مورد نظر
+            const result = density * conversionFactors[fromUnit] / conversionFactors[toUnit];
 
-            document.getElementById("result").innerText = result + " " + unitsInPersian[toUnit];
+            document.getElementById('result').innerHTML = `${result}
+                 <button class="btn btn-outline-info" onclick="copyToClipboard(${result})"><i class="fa-regular fa-copy"></i></button>`;
         }
-
 
     </script>
 @endsection
