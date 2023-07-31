@@ -1,7 +1,12 @@
 // import 'bootstrap';
 import '@popperjs/core';
 
-window.bootstrap = import('bootstrap');
+import bootstrap from 'bootstrap/dist/js/bootstrap.bundle.min';
+
+window.bootstrap = bootstrap;
+
+
+import 'md.bootstrappersiandatetimepicker/dist/mds.bs.datetimepicker';
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
