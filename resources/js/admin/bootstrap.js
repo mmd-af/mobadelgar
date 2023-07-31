@@ -7,7 +7,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 import jQuery from 'jquery';
 
-window.$ = jQuery;
+window.$ = window.jQuery = jQuery;
 
 import axios from 'axios';
 

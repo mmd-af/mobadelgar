@@ -53,6 +53,7 @@
     </div>
 </div>
 @include('site.layouts.partials.footer')
+<script src="{{ mix('build/js/site.js') }}"></script>
 @yield('script')
 <script>
 

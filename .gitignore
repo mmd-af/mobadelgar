@@ -5,7 +5,9 @@
 /public/storage
 /public/edit_area
 /public/logo
+/public/fonts
 /public/sitemap.xml
+/public/mix-manifest.json
 /storage/*.key
 /vendor
 .env

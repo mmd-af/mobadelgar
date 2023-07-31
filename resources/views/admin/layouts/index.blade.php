@@ -21,8 +21,8 @@
 @yield('content')
 @include('admin.layouts.partials.script.notes')
 @include('admin.layouts.partials.footer')
-<script src="{{ asset('jquery.min.js') }}"></script>
-{{--<script src="{{ asset('axios.min.js') }}"></script>--}}
+
+<script src="{{ mix('build/js/admin.js') }}"></script>
 <script src="{{ asset('jquery.czMore-latest.js') }}"></script>
 <script src="{{ asset('vendor/laravel-filemanager/js/stand-alone-button.js') }}"></script>
 @yield('script')

@@ -6,8 +6,6 @@
     {!! SEOMeta::generate() !!}
     {!! OpenGraph::generate() !!}
     @yield('schema')
-    @vite(['resources/css/site/app.scss', 'resources/js/site/app.js'])
+    <link rel="stylesheet" href="{{mix('build/css/site.css')}}">
     @yield('style')
-    <script src="{{ asset('jquery.min.js') }}"></script>
-    <script src="{{ asset('axios.min.js') }}"></script>
 </head>
