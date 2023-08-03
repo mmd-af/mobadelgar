@@ -77,12 +77,15 @@
     <div class="container py-5">
         {!! $category->description !!}
     </div>
-    <div class="container">
+    <div class="container accordion my-3">
+        <h3 class="mb-2">سوالات متداول:</h3>
         @foreach($category->faqs as $faq)
             <div class="row">
                 <a class="text-info border rounded-3 p-2 shadow text-decoration-none" data-bs-toggle="collapse"
                    href="#faq-{{$faq->id}}" role="button" aria-expanded="false"
                    aria-controls="faq-{{$faq->id}}">
+                    <i class="fa-solid fa-plus fa-xl mx-2 plusIcon"></i>
+                    <i class="fa-solid fa-minus fa-xl mx-2 minusIcon d-none"></i>
                     <strong>{{$faq->question}}</strong>
                 </a>
                 <div class="collapse" id="faq-{{$faq->id}}">
@@ -98,5 +101,19 @@
 @section('script')
     <script>
         {!! $category->scripts->js ?? null !!}
+
+            const accordion = document.querySelector('.accordion');
+        accordion.addEventListener('shown.bs.collapse', function (event) {
+            const plusIcon = event.target.previousElementSibling.querySelector('.plusIcon');
+            const minusIcon = event.target.previousElementSibling.querySelector('.minusIcon');
+            plusIcon.classList.toggle('d-none');
+            minusIcon.classList.toggle('d-none');
+        });
+        accordion.addEventListener('hidden.bs.collapse', function (event) {
+            const plusIcon = event.target.previousElementSibling.querySelector('.plusIcon');
+            const minusIcon = event.target.previousElementSibling.querySelector('.minusIcon');
+            plusIcon.classList.toggle('d-none');
+            minusIcon.classList.toggle('d-none');
+        });
     </script>
 @endsection

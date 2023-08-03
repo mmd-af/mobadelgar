@@ -1,23 +1,42 @@
 <!doctype html>
 <html lang="fa">
 @include('site.layouts.partials.header')
-<style>
-    .breadcrumb {
-        background-color: #f8f9fa;
-        padding: 8px 16px;
-        border-radius: 5px;
+<!-- Google Tag Manager -->
+<script>(function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+        });
+        var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-NC3WVC25');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-P4W2PW53FQ"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
     }
 
-    .breadcrumb .breadcrumb-item a {
-        color: #007bff;
-        text-decoration: none;
-    }
+    gtag('js', new Date());
 
-    .breadcrumb .breadcrumb-item.active {
-        color: #333;
-    }
-</style>
+    gtag('config', 'G-P4W2PW53FQ');
+</script>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NC3WVC25"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
 @include('site.layouts.partials.navbar')
 
 <div class="container" dir="ltr">

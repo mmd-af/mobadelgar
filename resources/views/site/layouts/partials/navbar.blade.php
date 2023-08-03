@@ -2,7 +2,7 @@
     <div class="container rounded-3 px-3 bg-white bg-opacity-50">
             <a class="navbar-title-cu" href="{{url('/')}}">
                 مبدل گر
-                <img class="img-fluid w-25 rounded-2" src="{{asset('logo/mobadelgarir-1.png')}}" alt="مبدل گر">
+                <img class="img-fluid rounded-2" style="max-height: 50px" src="{{asset('logo/mobadelgarir-1.png')}}" alt="مبدل گر">
             </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

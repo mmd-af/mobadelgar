@@ -5,6 +5,7 @@
         height: 700,
         filebrowserBrowseUrl: '/filemanager?type=image',
         filebrowserUploadUrl: '/filemanager/upload?type=Files&_token=YOUR_CSRF_TOKEN',
+        allowedContent: true
     });
     editor.on('change', function (evt) {
         callFunction(evt);

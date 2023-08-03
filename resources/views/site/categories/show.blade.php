@@ -18,6 +18,9 @@
         @endforeach
         ]}
 
+
+
+
     </script>
     @if ($category->faqs->count() > 0)
         <script type="application/ld+json">
@@ -41,6 +44,9 @@
             ]
            }
 
+
+
+
         </script>
     @endif
     <script type="application/ld+json">
@@ -59,6 +65,9 @@
     "item": "{{route('site.categories.show',$category->slug)}}"
   }]
 }
+
+
+
 
     </script>
 @endsection
@@ -92,12 +101,15 @@
     <div class="container py-5">
         {!! $category->description !!}
     </div>
-    <div class="container">
+    <div class="container accordion my-3">
+        <h3 class="mb-2">سوالات متداول:</h3>
         @foreach($category->faqs as $faq)
             <div class="row">
                 <a class="text-info border rounded-3 p-2 shadow text-decoration-none" data-bs-toggle="collapse"
                    href="#faq-{{$faq->id}}" role="button" aria-expanded="false"
                    aria-controls="faq-{{$faq->id}}">
+                    <i class="fa-solid fa-plus fa-xl mx-2 plusIcon"></i>
+                    <i class="fa-solid fa-minus fa-xl mx-2 minusIcon d-none"></i>
                     <strong>{{$faq->question}}</strong>
                 </a>
                 <div class="collapse" id="faq-{{$faq->id}}">
@@ -149,7 +161,6 @@
                             <img src="${item.images.url}" class="img-fluid p-5" alt="Card title">
                      </span>
                     <h1 class="text-center mt-3"><strong>${item.title}</strong></h1>
-                    <span class="h4">${item.parent.title}</span>
                     <div class="background">
                         <div class="tiles">
                             <div class="tile tile-1"></div>
@@ -173,5 +184,19 @@
         }
 
         fetchData();
+
+        const accordion = document.querySelector('.accordion');
+        accordion.addEventListener('shown.bs.collapse', function (event) {
+            const plusIcon = event.target.previousElementSibling.querySelector('.plusIcon');
+            const minusIcon = event.target.previousElementSibling.querySelector('.minusIcon');
+            plusIcon.classList.toggle('d-none');
+            minusIcon.classList.toggle('d-none');
+        });
+        accordion.addEventListener('hidden.bs.collapse', function (event) {
+            const plusIcon = event.target.previousElementSibling.querySelector('.plusIcon');
+            const minusIcon = event.target.previousElementSibling.querySelector('.minusIcon');
+            plusIcon.classList.toggle('d-none');
+            minusIcon.classList.toggle('d-none');
+        });
     </script>
 @endsection
