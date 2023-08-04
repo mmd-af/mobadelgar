@@ -51,9 +51,9 @@ body {
     //background: linear-gradient(180deg, rgba(76, 205, 255, 0.2) 0%, rgba(255, 255, 255, 1) 100%);
     background: rgb(255, 255, 255);
 
-    --background-color: rgba(109, 151, 255, 0.27);
+    --background-color: rgba(239, 183, 255, 0.29);
     //--background-color: #eaeaea;
-    --text-color: rgb(0, 18, 65);
+    --text-color: rgb(110, 0, 147);
 
     --card-background-color: rgba(255, 255, 255, 0.62);
     --card-border-color: rgba(0, 40, 133, 0.25);
@@ -63,7 +63,7 @@ body {
     --card-box-shadow-2: rgba(0, 0, 0, 0.1);
     --card-box-shadow-2-y: 8px;
     --card-box-shadow-2-blur: 15px;
-    --card-label-color: #002dff;
+    --card-label-color: rgb(110, 0, 147);
     --card-icon-color: #D4D4D8;
     --card-icon-background-color: rgba(255, 255, 255, 0.25);
     --card-icon-border-color: rgba(255, 255, 255, 0.12);
@@ -72,11 +72,11 @@ body {
     --card-line-color: #001c64;
     --card-tile-color: rgba(50, 81, 222, 0.25);
 
-    --card-hover-border-color: rgba(255, 255, 255, 0.2);
-    --card-hover-box-shadow-1: rgba(0, 0, 0, 0.04);
+    --card-hover-border-color: rgb(255, 255, 0);
+    --card-hover-box-shadow-1: rgb(255, 255, 0);
     --card-hover-box-shadow-1-y: 5px;
     --card-hover-box-shadow-1-blur: 10px;
-    --card-hover-box-shadow-2: rgba(0, 0, 0, 0.3);
+    --card-hover-box-shadow-2: rgb(252, 255, 0);
     --card-hover-box-shadow-2-y: 15px;
     --card-hover-box-shadow-2-blur: 25px;
     --card-hover-icon-color: #0030c7;
@@ -438,7 +438,7 @@ body {
     padding: 1.5rem 0;
     //background: rgb(0, 51, 66);
     //background-color: var(--text-color);
-    background-color: rgb(76, 205, 255);
+    background-color: var(--background-color);
 }
 
 figcaption {
