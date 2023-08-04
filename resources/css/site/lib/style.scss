@@ -48,10 +48,10 @@ body {
     line-height: 2.2;
     font-weight: normal;
     direction: rtl;
-    background: linear-gradient(180deg, rgba(76, 205, 255, 0.2) 0%, rgba(255, 255, 255, 1) 100%);
-    //background: rgba(76, 205, 255, 0.37);
+    //background: linear-gradient(180deg, rgba(76, 205, 255, 0.2) 0%, rgba(255, 255, 255, 1) 100%);
+    background: rgb(255, 255, 255);
 
-    --background-color: rgb(255, 255, 255);
+    --background-color: rgba(109, 151, 255, 0.27);
     //--background-color: #eaeaea;
     --text-color: rgb(0, 18, 65);
 
@@ -65,7 +65,7 @@ body {
     --card-box-shadow-2-blur: 15px;
     --card-label-color: #002dff;
     --card-icon-color: #D4D4D8;
-    --card-icon-background-color: rgba(255, 255, 255, 0.08);
+    --card-icon-background-color: rgba(255, 255, 255, 0.25);
     --card-icon-border-color: rgba(255, 255, 255, 0.12);
     --card-shine-opacity: .1;
     --card-shine-gradient: conic-gradient(from 205deg at 50% 50%, rgba(16, 109, 185, 0.56) 0deg, #1073b9 25deg, rgba(0, 17, 245, 0.69) 295deg, rgba(16, 185, 129, 0) 360deg);
@@ -152,8 +152,9 @@ body {
             border-radius: 50%;
             background-color: var(--card-icon-background-color);
             border: 1px solid var(--card-icon-border-color);
-            //backdrop-filter: blur(1px);
+            backdrop-filter: blur(10px);
             transition: background-color .44s, border-color .44s;
+            z-index: -1;
         }
     }
 
