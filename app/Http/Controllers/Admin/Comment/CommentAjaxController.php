@@ -16,8 +16,8 @@ class CommentAjaxController extends Controller
         $this->commentRepository = $commentRepository;
     }
 
-//    public function getDatatableData(Request $request)
-//    {
-//        return $this->commentRepository->getDatatableData($request);
-//    }
+    public function activeComment(Request $request)
+    {
+        return $this->commentRepository->activeComment($request);
+    }
 }

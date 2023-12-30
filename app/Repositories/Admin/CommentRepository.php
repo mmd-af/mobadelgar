@@ -3,7 +3,6 @@
 namespace App\Repositories\Admin;
 
 use App\Models\Comment\Comment;
-use Illuminate\Support\Facades\Auth;
 
 class CommentRepository extends BaseRepository
 {
@@ -29,21 +28,10 @@ class CommentRepository extends BaseRepository
             ->with('commentable')
             ->get();
     }
-    public function store($request)
-    {
-        $userId = Auth::id();
-        $comment = new Comment();
-        $comment->name =$request->input('name');
-        $comment->user_id = $userId;
-        $comment->body = $request->input('body');
-        $comment->parent_id = $request->input('parent_id');
-        $comment->commentable_type = $request->input('commentable_type');
-        $comment->commentable_id = $request->input('commentable_id');
-        $comment->save();
-    }
 
-    public function update($request, $comment)
+    public function activeComment($request)
     {
+        $comment = $this->find($request->id);
         $comment->is_active = $comment->is_active == 1 ? 0 : 1;
         $comment->save();
         return $comment;
