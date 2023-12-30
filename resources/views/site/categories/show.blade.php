@@ -14,9 +14,15 @@
             }
             @if(!$loop->last)
                 ,
+
+
+
             @endif
         @endforeach
         ]}
+
+
+
 
 
 
@@ -39,10 +45,16 @@
               }
               @if(!$loop->last)
                     ,
-              @endif
+
+
+
+                @endif
             @endforeach
             ]
            }
+
+
+
 
 
 
@@ -65,6 +77,9 @@
     "item": "{{route('site.categories.show',$category->slug)}}"
   }]
 }
+
+
+
 
 
 
@@ -200,5 +215,23 @@
             plusIcon.classList.toggle('d-none');
             minusIcon.classList.toggle('d-none');
         });
+
+        async function fetchCommentData() {
+            try {
+                const headersConfig = {
+                    commentableId: {{$category->id}},
+                    parent_id: 0
+                };
+                const response = await axios.post("{{ route('site.comments.ajax.getComments') }}", headersConfig);
+                console.log(response)
+                // root.innerHTML = ``;
+                // response.data.data.forEach(insertDataInPage)
+
+            } catch (error) {
+                console.error('خطا در دریافت داده: ', error);
+            }
+        }
+
+        fetchCommentData();
     </script>
 @endsection

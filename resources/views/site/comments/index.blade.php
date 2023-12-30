@@ -62,8 +62,8 @@
                         <input type="text" name="name" id="name" class="form-control">
                         <label class="form-label" for="textAreaExample">متن کامنت:</label>
                         <textarea class="form-control px-5" id="textAreaExample" rows="4"></textarea>
-                </div>
                     </div>
+                </div>
                 <div class="px-5 mt-3">
                     <button type="button" class="btn btn-primary btn-sm">ثبت</button>
                 </div>
@@ -71,8 +71,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    alert('sghl')
-</script>
-
