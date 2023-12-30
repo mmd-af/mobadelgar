@@ -5,49 +5,13 @@
                 <div class="border border-3 rounded-3 p-4">
                     <h4 class="text-center mb-4 pb-2">نظرات</h4>
                     <div class="row">
-                        <div class="col">
+                        <div class="col" id="commentBox">
                             <div class="d-flex flex-start mt-4">
-                                <i class="fa-regular fa-user fa-2x shadow-lg h-100"></i>
-                                <div class="flex-grow-1 flex-shrink-1">
-                                    <div>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <p class="mb-1 mx-3">
-                                                محمد افشار
-                                                <span class="small"> 2 hours ago </span>
-                                            </p>
-                                            <a href="#!"><i class="fas fa-reply fa-xs"></i><span
-                                                    class="small">پاسخ</span></a>
-                                        </div>
-                                        <p class="small mb-0">
-                                            یه متن فارسی طولانی برای کامنت
-                                            یه متن فارسی طولانی برای کامنت
-                                            یه متن فارسی طولانی برای کامنت
-                                            یه متن فارسی طولانی برای کامنت
-                                            یه متن فارسی طولانی برای کامنت
-                                        </p>
-                                    </div>
-
-                                    <div class="d-flex flex-start mt-4">
-                                        <a class="me-3" href="#">
-                                            <i class="fa-solid fa-user fa-2x"></i>
-                                        </a>
-                                        <div class="flex-grow-1 flex-shrink-1">
-                                            <div>
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <p class="mb-1 mx-3">
-                                                        پاسخ محمد افشار
-                                                        <span class="small">- 4 hours ago</span>
-                                                    </p>
-                                                </div>
-                                                <p class="small mb-0">
-                                                    جواب کامنت طولانیجواب کامنت طولانیجواب کامنت طولانیجواب کامنت
-                                                    طولانیجواب کامنت طولانیجواب کامنت طولانیجواب کامنت طولانی
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
+                                <div class="spinner-grow text-primary m-2 p-4" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <div class="spinner-grow text-primary m-2 p-4" role="status">
+                                    <span class="visually-hidden">Loading...</span>
                                 </div>
                             </div>
                         </div>

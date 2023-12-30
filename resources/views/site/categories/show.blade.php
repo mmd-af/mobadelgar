@@ -15,9 +15,11 @@
             @if(!$loop->last)
                 ,
 
+
             @endif
         @endforeach
         ]}
+
 
     </script>
     @if ($category->faqs->count() > 0)
@@ -38,10 +40,12 @@
               @if(!$loop->last)
                     ,
 
+
                 @endif
             @endforeach
             ]
            }
+
 
         </script>
     @endif
@@ -61,6 +65,7 @@
     "item": "{{route('site.categories.show',$category->slug)}}"
   }]
 }
+
 
     </script>
 @endsection
@@ -194,6 +199,9 @@
             minusIcon.classList.toggle('d-none');
         });
 
+
+        let commentBox = document.getElementById('commentBox');
+
         async function fetchCommentData() {
             try {
                 const headersConfig = {
@@ -201,9 +209,8 @@
                     parent_id: 0
                 };
                 const response = await axios.post("{{ route('site.comments.ajax.getComments') }}", headersConfig);
-                console.log(response)
-                // root.innerHTML = ``;
-                // response.data.data.forEach(insertDataInPage)
+                commentBox.innerHTML = ``;
+                response.data.data.forEach(insertDataInComments)
 
             } catch (error) {
                 console.error('خطا در دریافت داده: ', error);
@@ -211,6 +218,56 @@
         }
 
         fetchCommentData();
+
+        function insertDataInComments(item) {
+            var inputTime = item.created_at;
+            var dateObject = new Date(inputTime);
+            var formattedDate = dateObject.toLocaleString();
+            commentBox.innerHTML += `<div class="d-flex flex-start mt-4">
+                                <i class="fa-regular fa-user fa-2x shadow-lg h-100"></i>
+                                <div class="flex-grow-1 flex-shrink-1">
+                                    <div>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <p class="mb-1 mx-3">
+                                            ${item.name}
+                                                <span class="small"> ${formattedDate} </span>
+                                            </p>
+<!--                                            <a href="#!"><i class="fas fa-reply fa-xs"></i><span-->
+<!--                                                    class="small">پاسخ</span></a>-->
+                                        </div>
+                                        <p class="small mb-0">
+                                            ${item.body}
+                                        </p>
+                                    </div>
+
+                                    <div class="d-flex flex-start mt-4" id="childComment">
+
+                                    </div>
+
+
+                                </div>
+                            </div>`;
+        }
+// TODO childComment not runnig this is ready for run
+        let childCommentEEEE = `            <a class="me-3" href="#">
+                                            <i class="fa-solid fa-user fa-2x"></i>
+                                        </a>
+                                        <div class="flex-grow-1 flex-shrink-1">
+                                            <div>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <p class="mb-1 mx-3">
+                                                        پاسخ محمد افشار
+                                                        <span class="small">- 4 hours ago</span>
+                                                    </p>
+                                                </div>
+                                                <p class="small mb-0">
+                                                    جواب کامنت طولانیجواب کامنت طولانیجواب کامنت طولانیجواب کامنت
+                                                    طولانیجواب کامنت طولانیجواب کامنت طولانیجواب کامنت طولانی
+                                                </p>
+                                            </div>
+                                        </div>`;
+        let childComment = document.getElementById('childComment');
+        // console.log(childComment)
         document.getElementById('commentForm').addEventListener('submit', function (e) {
             e.preventDefault();
             const headersConfig = {
@@ -219,14 +276,21 @@
                 name: document.getElementById('name').value,
                 commentText: document.getElementById('commentText').value
             };
-            axios.post("{{ route('site.comments.ajax.storeComments')}}",headersConfig)
+            axios.post("{{ route('site.comments.ajax.storeComments')}}", headersConfig)
                 .then(function (response) {
-                    console.log('پاسخ سرور:', response.data);
+                    document.getElementById('name').value = '';
+                    document.getElementById('commentText').value = '';
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "کامنت شما با موفقیت ثبت شد و بعد از تایید ادمین در سایت نشان داده خواهد شد.",
+                        showConfirmButton: false,
+                        timer: 4000
+                    });
                 })
                 .catch(function (error) {
                     console.error('خطا در ارسال درخواست:', error);
                 });
         });
-
     </script>
 @endsection
