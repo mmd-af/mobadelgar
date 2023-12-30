@@ -33,16 +33,16 @@ class CommentRepository extends BaseRepository
             ->get();
     }
 
-    public function store($request)
+    public function storeComments($request)
     {
-        $userId = Auth::id();
+//        $userId = Auth::id();
         $comment = new Comment();
         $comment->name = $request->input('name');
-        $comment->user_id = $userId;
-        $comment->body = $request->input('body');
+//        $comment->user_id = $userId;
+        $comment->body = $request->input('commentText');
         $comment->parent_id = $request->input('parent_id');
-        $comment->commentable_type = $request->input('commentable_type');
-        $comment->commentable_id = $request->input('commentable_id');
+        $comment->commentable_type = Category::class;
+        $comment->commentable_id = $request->input('commentableId');
         $comment->save();
     }
 

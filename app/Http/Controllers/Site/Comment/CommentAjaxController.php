@@ -15,6 +15,13 @@ class CommentAjaxController extends Controller
         $this->commentRepository = $commentRepository;
     }
 
+    public function storeComments(Request $request)
+    {
+        return response()->json([
+            'data' => $this->commentRepository->storeComments($request)
+        ]);
+    }
+
     public function getComments(Request $request)
     {
         return response()->json([

@@ -15,17 +15,9 @@
             @if(!$loop->last)
                 ,
 
-
-
             @endif
         @endforeach
         ]}
-
-
-
-
-
-
 
     </script>
     @if ($category->faqs->count() > 0)
@@ -46,18 +38,10 @@
               @if(!$loop->last)
                     ,
 
-
-
                 @endif
             @endforeach
             ]
            }
-
-
-
-
-
-
 
         </script>
     @endif
@@ -77,12 +61,6 @@
     "item": "{{route('site.categories.show',$category->slug)}}"
   }]
 }
-
-
-
-
-
-
 
     </script>
 @endsection
@@ -233,5 +211,22 @@
         }
 
         fetchCommentData();
+        document.getElementById('commentForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const headersConfig = {
+                commentableId: {{$category->id}},
+                parent_id: 0,
+                name: document.getElementById('name').value,
+                commentText: document.getElementById('commentText').value
+            };
+            axios.post("{{ route('site.comments.ajax.storeComments')}}",headersConfig)
+                .then(function (response) {
+                    console.log('پاسخ سرور:', response.data);
+                })
+                .catch(function (error) {
+                    console.error('خطا در ارسال درخواست:', error);
+                });
+        });
+
     </script>
 @endsection

@@ -55,18 +55,21 @@
                 </div>
             </div>
             <div class="py-3 border-0" style="background-color: #f8f9fa;">
-                <div class="d-flex flex-start w-100">
-                    <i class="fa-regular fa-user fa-2x shadow-lg h-100 m-3"></i>
-                    <div class="form-outline w-100">
-                        <label class="form-label" for="textAreaExample">نام:</label>
-                        <input type="text" name="name" id="name" class="form-control">
-                        <label class="form-label" for="textAreaExample">متن کامنت:</label>
-                        <textarea class="form-control px-5" id="textAreaExample" rows="4"></textarea>
+                <form action="" method="post" id="commentForm">
+                    @csrf
+                    <div class="d-flex flex-start w-100">
+                        <i class="fa-regular fa-user fa-2x shadow-lg h-100 m-3"></i>
+                        <div class="form-outline w-100">
+                            <label class="form-label" for="textAreaExample">نام:</label>
+                            <input type="text" name="name" id="name" class="form-control">
+                            <label class="form-label" for="textAreaExample">متن کامنت:</label>
+                            <textarea class="form-control px-5" id="commentText" rows="4"></textarea>
+                        </div>
                     </div>
-                </div>
-                <div class="px-5 mt-3">
-                    <button type="button" class="btn btn-primary btn-sm">ثبت</button>
-                </div>
+                    <div class="px-5 mt-3">
+                        <button type="submit" class="btn btn-primary btn-sm">ثبت</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
