@@ -26,6 +26,7 @@ class CommentRepository extends BaseRepository
                 'created_at'
             ])
             ->with('commentable')
+            ->latest()
             ->get();
     }
 
