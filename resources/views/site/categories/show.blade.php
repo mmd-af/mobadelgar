@@ -120,6 +120,8 @@
             </div>
         @endforeach
     </div>
+
+    @include('site.comments.index')
 @endsection
 
 @section('script')
