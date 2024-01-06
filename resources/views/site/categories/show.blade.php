@@ -312,7 +312,7 @@
                 var dateObject = new Date(inputTime);
                 var formattedDate = dateObject.toLocaleString();
                 showChildComment.innerHTML += `
-<div class="col-sm-12 my-1 shadow-lg">
+<div class="col-sm-12 my-1 rounded-3 shadow-lg">
                                         <i class="fa-solid fa-user fa-2x"></i>
                                         <div class="flex-grow-1 flex-shrink-1">
                                             <div>
