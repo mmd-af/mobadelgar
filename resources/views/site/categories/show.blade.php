@@ -25,9 +25,13 @@
 
 
 
+
+
             @endif
         @endforeach
         ]}
+
+
 
 
 
@@ -68,10 +72,14 @@
 
 
 
+
+
                 @endif
             @endforeach
             ]
            }
+
+
 
 
 
@@ -101,6 +109,8 @@
     "item": "{{route('site.categories.show',$category->slug)}}"
   }]
 }
+
+
 
 
 
@@ -284,15 +294,43 @@
                                             ${item.body}
                                         </p>
                                     </div>
-                                    <div class="d-flex flex-start mt-4" id="showChildComment-${item.id}">
+                                    <div class="d-flex flex-start mt-4">
+                                    <div class="row" id="showChildComment-${item.id}">
+                                    </div>
                                     </div>
                                     <div class="d-flex flex-start mt-4 reset-replay" id="childComment-${item.id}">
                                     </div>
                                 </div>
                             </div>`;
+            insertChildComment(item);
         }
 
-        // TODO childComment not runnig this is ready for run
+        function insertChildComment(item) {
+            let showChildComment = document.getElementById(`showChildComment-${item.id}`)
+            item.children.forEach(function (item) {
+                var inputTime = item.created_at;
+                var dateObject = new Date(inputTime);
+                var formattedDate = dateObject.toLocaleString();
+                showChildComment.innerHTML += `
+<div class="col-sm-12 my-1 shadow-lg">
+                                        <i class="fa-solid fa-user fa-2x"></i>
+                                        <div class="flex-grow-1 flex-shrink-1">
+                                            <div>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <p class="mb-1 mx-3">
+                                                               ${item.name}
+                                                <span class="small"> ${formattedDate} </span>
+                                                    </p>
+                                                </div>
+                                                <p class="small mb-0">
+                                            ${item.body}
+                                                </p>
+                                            </div>
+                                        </div>
+</div>`;
+            });
+        }
+
         function openReplyComment(id) {
             let allChildComment = document.querySelectorAll(`.reset-replay`);
             allChildComment.forEach(function (item) {
@@ -320,8 +358,6 @@
             let parent_id_replay = document.getElementById('parent_id_replay').value;
             let name_replay = document.getElementById('name_replay').value;
             let commentText_replay = document.getElementById('commentText_replay').value;
-            // console.log(parent_id_replay, name_replay, commentText_replay);
-
             const headersConfig = {
                 commentableId: {{$category->id}},
                 parent_id: parent_id_replay,
@@ -345,24 +381,6 @@
                 });
 
         }
-
-        let childCommentEEEE = `            <a class="me-3" href="#">
-                                            <i class="fa-solid fa-user fa-2x"></i>
-                                        </a>
-                                        <div class="flex-grow-1 flex-shrink-1">
-                                            <div>
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <p class="mb-1 mx-3">
-                                                        پاسخ محمد افشار
-                                                        <span class="small">- 4 hours ago</span>
-                                                    </p>
-                                                </div>
-                                                <p class="small mb-0">
-                                                    جواب کامنت طولانیجواب کامنت طولانیجواب کامنت طولانیجواب کامنت
-                                                    طولانیجواب کامنت طولانیجواب کامنت طولانیجواب کامنت طولانی
-                                                </p>
-                                            </div>
-                                        </div>`;
 
         document.getElementById('commentForm').addEventListener('submit', function (e) {
             e.preventDefault();

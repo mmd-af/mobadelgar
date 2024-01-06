@@ -27,9 +27,10 @@ class CommentRepository extends BaseRepository
                 'is_active',
                 'created_at'
             ])
-            ->with('commentable')
+            ->with(['commentable','children'])
             ->where('commentable_type', Category::class)
             ->where('commentable_id', $request->commentableId)
+            ->where('parent_id',0)
             ->where('is_active',1)
             ->get();
     }
