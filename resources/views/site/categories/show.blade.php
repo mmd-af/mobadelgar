@@ -16,9 +16,27 @@
                 ,
 
 
+
+
+
+
+
+
+
+
+
             @endif
         @endforeach
         ]}
+
+
+
+
+
+
+
+
+
 
 
     </script>
@@ -41,10 +59,28 @@
                     ,
 
 
+
+
+
+
+
+
+
+
+
                 @endif
             @endforeach
             ]
            }
+
+
+
+
+
+
+
+
+
 
 
         </script>
@@ -65,6 +101,15 @@
     "item": "{{route('site.categories.show',$category->slug)}}"
   }]
 }
+
+
+
+
+
+
+
+
+
 
 
     </script>
@@ -232,23 +277,75 @@
                                             ${item.name}
                                                 <span class="small"> ${formattedDate} </span>
                                             </p>
-<!--                                            <a href="#!"><i class="fas fa-reply fa-xs"></i><span-->
-<!--                                                    class="small">پاسخ</span></a>-->
+                                            <button class="btn text-primary" onclick="openReplyComment(${item.id})"><i class="fas fa-reply fa-xs"></i><span
+                                                    class="small">پاسخ</span></button>
                                         </div>
                                         <p class="small mb-0">
                                             ${item.body}
                                         </p>
                                     </div>
-
-                                    <div class="d-flex flex-start mt-4" id="childComment">
-
+                                    <div class="d-flex flex-start mt-4" id="showChildComment-${item.id}">
                                     </div>
-
-
+                                    <div class="d-flex flex-start mt-4 reset-replay" id="childComment-${item.id}">
+                                    </div>
                                 </div>
                             </div>`;
         }
-// TODO childComment not runnig this is ready for run
+
+        // TODO childComment not runnig this is ready for run
+        function openReplyComment(id) {
+            let allChildComment = document.querySelectorAll(`.reset-replay`);
+            allChildComment.forEach(function (item) {
+                item.innerHTML = ``;
+            })
+            let childComment = document.getElementById(`childComment-${id}`);
+            childComment.innerHTML = `<div class="form-control">
+            <div class="d-flex flex-start w-100">
+                <i class="fa-regular fa-user fa-2x shadow-lg h-100 m-3"></i>
+                <div class="form-outline w-100">
+                    <label class="form-label" for="textAreaExample">نام:</label>
+                    <input type="text" name="name" id="name_replay" class="form-control">
+                    <label class="form-label" for="textAreaExample">متن کامنت:</label>
+                    <textarea class="form-control px-5" id="commentText_replay" rows="4"></textarea>
+                    <input type="hidden" name="parent_id" id="parent_id_replay" value="${id}">
+                </div>
+            </div>
+            <div class="px-5 mt-3">
+                <button type="submit" onclick="storeReplayComment()" class="btn btn-primary btn-sm">ثبت</button>
+            </div>
+</div>`;
+        }
+
+        function storeReplayComment() {
+            let parent_id_replay = document.getElementById('parent_id_replay').value;
+            let name_replay = document.getElementById('name_replay').value;
+            let commentText_replay = document.getElementById('commentText_replay').value;
+            // console.log(parent_id_replay, name_replay, commentText_replay);
+
+            const headersConfig = {
+                commentableId: {{$category->id}},
+                parent_id: parent_id_replay,
+                name: name_replay,
+                commentText: commentText_replay
+            };
+            axios.post("{{ route('site.comments.ajax.storeComments')}}", headersConfig)
+                .then(function (response) {
+                    document.getElementById('name_replay').value = '';
+                    document.getElementById('commentText_replay').value = '';
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "کامنت شما با موفقیت ثبت شد و بعد از تایید ادمین در سایت نشان داده خواهد شد.",
+                        showConfirmButton: false,
+                        timer: 4000
+                    });
+                })
+                .catch(function (error) {
+                    console.error('خطا در ارسال درخواست:', error);
+                });
+
+        }
+
         let childCommentEEEE = `            <a class="me-3" href="#">
                                             <i class="fa-solid fa-user fa-2x"></i>
                                         </a>
@@ -266,13 +363,12 @@
                                                 </p>
                                             </div>
                                         </div>`;
-        let childComment = document.getElementById('childComment');
-        // console.log(childComment)
+
         document.getElementById('commentForm').addEventListener('submit', function (e) {
             e.preventDefault();
             const headersConfig = {
                 commentableId: {{$category->id}},
-                parent_id: 0,
+                parent_id: document.getElementById('parent_id').value,
                 name: document.getElementById('name').value,
                 commentText: document.getElementById('commentText').value
             };

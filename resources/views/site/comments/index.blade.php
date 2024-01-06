@@ -28,6 +28,7 @@
                             <input type="text" name="name" id="name" class="form-control">
                             <label class="form-label" for="textAreaExample">متن کامنت:</label>
                             <textarea class="form-control px-5" id="commentText" rows="4"></textarea>
+                            <input type="hidden" name="parent_id" id="parent_id" value="0">
                         </div>
                     </div>
                     <div class="px-5 mt-3">
