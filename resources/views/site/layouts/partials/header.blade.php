@@ -6,6 +6,6 @@
     {!! SEOMeta::generate() !!}
     {!! OpenGraph::generate() !!}
     @yield('schema')
-    <link rel="stylesheet" href="{{mix('build/css/site.css')}}">
+    <link rel="stylesheet" href="{{asset('build/css/site.css')}}">
     @yield('style')
 </head>

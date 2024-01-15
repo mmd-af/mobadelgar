@@ -59,3 +59,7 @@ Route::get('/storage', function () {
     Artisan::call('storage:link');
     return Artisan::output();
 })->middleware(['web', 'auth', 'super.admin']);
+
+Route::get('/public/{path}', function ($path) {
+    return redirect(url($path));
+})->where('path', '.*');
