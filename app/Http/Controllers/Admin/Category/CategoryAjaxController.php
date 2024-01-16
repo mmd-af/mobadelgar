@@ -51,6 +51,13 @@ class CategoryAjaxController extends Controller
         ]);
     }
 
+    public function categoryInsidelinkStore(Request $request)
+    {
+        return response()->json([
+            'data' => $this->categoryRepository->categoryInsidelinkStore($request)
+        ]);
+    }
+
     public function storeFaqCategory(Request $request)
     {
         return response()->json([

@@ -132,6 +132,17 @@ class CategoryRepository extends BaseRepository
         );
     }
 
+    public function categoryInsidelinkStore($request)
+    {
+        $category = $this->getCategoryById($request);
+        $category->insidelinks()->updateOrCreate(
+            ['insidelinkable_id' => $category->id], // شرط بر اساس آن رکورد بروزرسانی یا ایجاد می‌شود
+            [
+                'html' => $request->html
+            ]
+        );
+    }
+
     public function storeFaqCategory($request)
     {
         $category = $this->getCategoryById($request);

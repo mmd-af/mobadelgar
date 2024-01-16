@@ -52,6 +52,18 @@
                     </script>
                 </div>
             </div>
+            <form class="form-control bg-secondary py-3" onsubmit="StoreCategoryInsidelink();return false;"
+                  method="post">
+                @csrf
+                <div class="form-group col-md-12">
+                    <label for="html">Insidelink:</label>
+                    <textarea class="form-control" id="insidelink"
+                              name="insidelink">{{$category->insidelinks->html ?? null}}</textarea>
+                    <div class="form-group col-md-6 d-flex">
+                        <button type="submit" class="btn btn-success w-50 btm-sm mt-2 mx-3">ثبت</button>
+                    </div>
+                </div>
+            </form>
             <div id="showContentAlert"></div>
             <form action="" method="POST"
                   onsubmit="updateContentCategory();return false;">
@@ -183,6 +195,15 @@
             syntax: "html"
         });
         editAreaLoader.init({
+            id: "insidelink",
+            start_highlight: true,
+            allow_resize: "both",
+            allow_toggle: true,
+            word_wrap: true,
+            language: "en",
+            syntax: "html"
+        });
+        editAreaLoader.init({
             id: "js",
             start_highlight: true,
             allow_resize: "both",
@@ -210,6 +231,8 @@
         let html = document.getElementById('html');
         let js = document.getElementById('js');
 
+        let insidelink = document.getElementById('insidelink');
+
         function StoreCategoryScript() {
             showContentAlert.innerHTML = `<div class="text-center">
                         <div class="spinner-border text-primary my-3"></div>
@@ -224,6 +247,44 @@
                 }
             };
             axios.post("{{route('admin.categories.ajax.categoryScriptStore')}}", headersConfig)
+                .then(response => {
+                    showContentAlert.innerHTML = `<div class="alert alert-success">
+                    <ul class="mb-0">
+                        <li class="alert-text">اطلاعات ذخیره شد...</li>
+                    </ul>
+                </div>`;
+                    setTimeout(removeDivContent, 5000);
+                })
+                .catch(error => {
+                    showContentAlert.innerHTML = `<div class="alert alert-danger">
+            <ul class="mb-0" id="showErrors">
+                </ul>
+                </div>`;
+                    const obj = error.response.data.errors;
+                    for (const key in obj) {
+                        if (obj.hasOwnProperty(key)) {
+                            const values = obj[key];
+                            values.forEach(value =>
+                                showErrors.innerHTML += `<li class="alert-text">${value}</li>`
+                            );
+                        }
+                    }
+                    setTimeout(removeDivContent, 5000);
+                });
+        }
+
+        function StoreCategoryInsidelink(){
+            showContentAlert.innerHTML = `<div class="text-center">
+                        <div class="spinner-border text-primary my-3"></div>
+                    </div>`;
+            const headersConfig = {
+                categoryID: "{{$category->id}}",
+                html: insidelink.value,
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                }
+            };
+            axios.post("{{route('admin.categories.ajax.categoryInsidelinkStore')}}", headersConfig)
                 .then(response => {
                     showContentAlert.innerHTML = `<div class="alert alert-success">
                     <ul class="mb-0">

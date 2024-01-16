@@ -52,6 +52,10 @@ Route::group(['middleware' => ['web', 'auth', 'super.admin'], 'namespace' => 'Ap
                 'as' => 'categoryScriptStore',
                 'uses' => 'CategoryAjaxController@categoryScriptStore'
             ]);
+            Route::post('categoryInsidelinkStore', [
+                'as' => 'categoryInsidelinkStore',
+                'uses' => 'CategoryAjaxController@categoryInsidelinkStore'
+            ]);
             Route::post('storeFaqCategory', [
                 'as' => 'storeFaqCategory',
                 'uses' => 'CategoryAjaxController@storeFaqCategory'
