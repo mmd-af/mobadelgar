@@ -8,4 +8,17 @@
     @yield('schema')
     <link rel="stylesheet" href="{{asset('build/css/site.css')}}">
     @yield('style')
+    <style>
+        .custom-box {
+            width: 200px;
+            height: 200px;
+            background-color: rgba(255,255,255,0.5);
+            transition: background-color 0.3s ease;
+        }
+
+        .custom-box:hover {
+            box-shadow: 0 0 20px rgba(0, 0, 255, 0.5); /* افزودن سایه با رنگ آبی */
+            background-color: #007bff; /* تغییر رنگ به آبی هنگام هاور */
+        }
+    </style>
 </head>

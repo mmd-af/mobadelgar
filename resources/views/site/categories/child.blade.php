@@ -19,10 +19,12 @@
               }
               @if(!$loop->last)
                     ,
-@endif
+
+                @endif
             @endforeach
             ]
            }
+
 
         </script>
     @endif
@@ -47,6 +49,7 @@
     "item": "{{route('site.categories.child',[$category->parent->slug,$category->slug])}}"
   }]
 }
+
 
     </script>
 @endsection
@@ -73,6 +76,11 @@
         </div>
     </div>
     <div class="container-fluid bg-secondary py-5 my-5">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-md-3 g-4 text-center">
+                {!! $category->insidelinks->html ?? null !!}
+            </div>
+        </div>
     </div>
     <div class="container py-5">
         {!! $category->description !!}
@@ -103,7 +111,8 @@
     <script>
         {!! $category->scripts->js ?? null !!}
 
-            const accordion = document.querySelector('.accordion');
+            const
+        accordion = document.querySelector('.accordion');
         accordion.addEventListener('shown.bs.collapse', function (event) {
             const plusIcon = event.target.previousElementSibling.querySelector('.plusIcon');
             const minusIcon = event.target.previousElementSibling.querySelector('.minusIcon');

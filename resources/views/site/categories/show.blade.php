@@ -150,6 +150,11 @@
         </div>
     </div>
     <div class="container-fluid bg-secondary py-5 my-5">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-md-3 g-4 text-center">
+                {!! $category->insidelinks->html ?? null !!}
+            </div>
+        </div>
     </div>
     <div class="container py-5">
         {!! $category->description !!}
