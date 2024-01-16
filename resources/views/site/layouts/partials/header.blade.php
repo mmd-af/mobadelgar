@@ -10,10 +10,11 @@
     @yield('style')
     <style>
         .custom-box {
-            width: 200px;
-            height: 200px;
             background-color: rgba(255,255,255,0.5);
             transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .custom-box:hover {
