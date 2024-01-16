@@ -6,7 +6,7 @@ use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
 
 Route::get('/sitemap', function () {
-    $path = public_path('sitemap.xml');
+    $path = base_path('sitemap.xml');
     $categories = Category::query()
         ->select([
             'id',
