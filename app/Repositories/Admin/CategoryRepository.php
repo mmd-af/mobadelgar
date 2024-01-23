@@ -201,7 +201,9 @@ class CategoryRepository extends BaseRepository
     {
         foreach ($category->children as $imCategory) {
             $imCategory->images()->delete();
+            $imCategory->insidelinks()->delete();
         }
+        $category->insidelinks()->delete();
         $category->children()->delete();
         $category->images()->delete();
         $category->delete();

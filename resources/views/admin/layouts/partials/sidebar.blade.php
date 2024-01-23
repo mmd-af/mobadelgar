@@ -8,6 +8,7 @@
             <li class="list-group-item"><a class="text-decoration-none" href="{{route('admin.dashboard.index')}}"><i class="fa fa-home"></i> داشبورد </a></li>
             <li class="list-group-item"><a class="text-decoration-none" href="{{route('site.home.index')}}" target="_blank"><i class="fa-brands fa-cc-mastercard"></i> نمایش سایت </a></li>
             <li class="list-group-item"><a class="text-decoration-none" href="{{route('admin.categories.index')}}"><i class="fa-solid fa-diagram-project"></i> دسته بندی ها </a></li>
+            <li class="list-group-item"><a class="text-decoration-none" href="{{route('admin.posts.index')}}"><i class="fa-solid fa-diagram-project"></i>مقالات</a></li>
             <li class="list-group-item"><a class="text-decoration-none" href="{{route('admin.comments.index')}}"><i class="fa-solid fa-diagram-project"></i>کامنت ها</a></li>
         </ul>
     </div>
