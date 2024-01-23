@@ -48,34 +48,24 @@
 
 @section('breadcrumb')
     <li class="breadcrumb-item active" aria-current="page">{{$post->title}}</li>
+    <li class="breadcrumb-item"><a
+            href="{{route('site.posts.index')}}">وبلاگ</a></li>
     <li class="breadcrumb-item"><a href="{{url('/')}}">خانه</a></li>
 @endsection
 
 @section('content')
     <div class="container">
         <h1 class="my-3"><strong>{{$post->title}}</strong></h1>
-        <div class="row justify-content-center" id="root">
-            <div class="row justify-content-center mt-5">
-                <div class="spinner-grow text-primary m-2 p-4" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                </div>
-                <div class="spinner-grow text-primary m-2 p-4" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                </div>
-            </div>
-            <div class="row justify-content-center" id="second-load">
-            </div>
-        </div>
+    </div>
+    <div class="container py-5">
+        {!! $post->description !!}
     </div>
     <div class="container-fluid bg-secondary py-5 my-5">
         <div class="container">
             <div class="row row-cols-1 row-cols-md-3 g-4 text-center">
-                {!! $ost->insidelinks->html ?? null !!}
+                {!! $post->insidelinks->html ?? null !!}
             </div>
         </div>
-    </div>
-    <div class="container py-5">
-        {!! $post->description !!}
     </div>
     <div class="container accordion my-3">
         <h3 class="mb-2">سوالات متداول:</h3>
