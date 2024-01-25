@@ -25,7 +25,6 @@ class PostUpdateRequest extends FormRequest
     {
         return [
             'title' => ['required'],
-            'parent_id' => ['required'],
             'url' => ['required'],
             'is_active' => 'required'
         ];
