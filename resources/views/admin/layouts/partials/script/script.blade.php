@@ -196,7 +196,7 @@
             });
     }
 
-    function storeFaq() {
+    function storeCategoryFaq() {
         var showFaqAlert = document.getElementById('showFaqAlert');
         var faq_question = document.querySelectorAll('input[name="faq_question[]"]');
         var faq_answer = document.querySelectorAll('input[name="faq_answer[]"]');
@@ -218,6 +218,54 @@
             }
         };
         axios.post("{{route('admin.categories.ajax.storeFaqCategory')}}", headersConfig)
+            .then(response => {
+                showFaqAlert.innerHTML = `<div class="alert alert-success">
+                    <ul class="mb-0">
+                        <li class="alert-text">اطلاعات ذخیره شد...</li>
+                    </ul>
+                </div>`;
+                // setTimeout(removeDivContent, 5000);
+            })
+            .catch(error => {
+                showFaqAlert.innerHTML = `<div class="alert alert-danger">
+            <ul class="mb-0" id="showErrors">
+                </ul>
+                </div>`;
+                const obj = error.response.data.errors;
+                for (const key in obj) {
+                    if (obj.hasOwnProperty(key)) {
+                        const values = obj[key];
+                        values.forEach(value =>
+                            showErrors.innerHTML += `<li class="alert-text">${value}</li>`
+                        );
+                    }
+                }
+                // setTimeout(removeDivContent, 5000);
+            });
+    }
+
+    function storePostFaq() {
+        var showFaqAlert = document.getElementById('showFaqAlert');
+        var faq_question = document.querySelectorAll('input[name="faq_question[]"]');
+        var faq_answer = document.querySelectorAll('input[name="faq_answer[]"]');
+        var faq_questions = Array.from(faq_question).map(function (input) {
+            return input.value;
+        });
+        var faq_answers = Array.from(faq_answer).map(function (input) {
+            return input.value;
+        });
+        showFaqAlert.innerHTML = `<div class="text-center">
+                        <div class="spinner-border text-primary my-3"></div>
+                    </div>`;
+        const headersConfig = {
+            postID: "{{$post->id ?? 0}}",
+            faq_questions: faq_questions,
+            faq_answers: faq_answers,
+            headers: {
+                'X-CSRF-TOKEN': csrfToken
+            }
+        };
+        axios.post("{{route('admin.posts.ajax.storeFaqPost')}}", headersConfig)
             .then(response => {
                 showFaqAlert.innerHTML = `<div class="alert alert-success">
                     <ul class="mb-0">

@@ -161,7 +161,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-success mt-5" onclick="storeFaq()">ثبت FAQ</button>
+                        <button type="submit" class="btn btn-success mt-5" onclick="storeCategoryFaq()">ثبت FAQ</button>
                     </div>
                 </div>
             </div>
