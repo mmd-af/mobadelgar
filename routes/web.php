@@ -12,7 +12,9 @@ Route::get('/sitemap', function () {
             'id',
             'slug',
             'title',
-            'updated_at'
+            'updated_at',
+            'parent_id',
+            'is_active'
         ])
         ->where('is_active', 1)
         ->where('parent_id', 0)
