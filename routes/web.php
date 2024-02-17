@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Category\Category;
+use App\Models\Post\Post;
 use Illuminate\Support\Facades\Route;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
@@ -19,6 +20,17 @@ Route::get('/sitemap', function () {
         ->where('is_active', 1)
         ->where('parent_id', 0)
         ->with(['images', 'children'])
+        ->get();
+    $posts = Post::query()
+        ->select([
+            'id',
+            'slug',
+            'title',
+            'updated_at',
+            'is_active'
+        ])
+        ->where('is_active', 1)
+        ->with(['images'])
         ->get();
     $sitemap = Sitemap::create();
     $sitemap->add(Url::create(url('/'))
@@ -40,8 +52,21 @@ Route::get('/sitemap', function () {
             );
         }
     }
+    foreach ($posts as $post) {
+        $sitemap->add(Url::create(route('site.posts.show', $post->slug))
+            ->setLastModificationDate($post->updated_at)
+            ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
+            ->setPriority(1.0)
+            ->addImage($post->images->url, $post->title)
+        );
+    }
     $sitemap->writeToFile($path);
 })->middleware(['web', 'auth', 'super.admin']);
+
+Route::get('/sitemap.xml', function () {
+    $path = base_path('sitemap.xml');
+    return response()->file($path);
+});
 
 Route::get('/script-test', function () {
     return view('site.categories.script-test');
