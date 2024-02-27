@@ -24,7 +24,9 @@
         "laravel-mix": "^6.0.49",
         "lodash": "^4.17.21",
         "md.bootstrappersiandatetimepicker": "^4.2.6",
+        "moment": "^2.30.1",
         "moment-jalaali": "^0.10.0",
+        "persian-datepicker": "^1.2.0",
         "sweetalert2": "^11.7.12"
     }
 }
