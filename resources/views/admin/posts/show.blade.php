@@ -1,7 +1,7 @@
 @extends('admin.layouts.index')
 
 @section('title')
-    show category
+    show post
 @endsection
 
 @section('content')
@@ -9,80 +9,16 @@
     <div class="row">
         <div class="col-xl-12 col-md-12 mb-4 p-4 bg-white">
             <div class="d-flex flex-column text-center flex-md-row justify-content-md-between mb-4">
-                <h4 class="font-weight-bold mb-3 mb-md-0">{{$category->title}}</h4>
-                <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
-                        data-bs-target="#createParentCategory">
-                    <i class="fa fa-plus"></i>
-                    ایجاد دسته بندی
-                </button>
+                <h4 class="font-weight-bold mb-3 mb-md-0">{{$post->title}}</h4>
             </div>
             @include('admin.layouts.partials.errors')
-            <div class="row">
-                @foreach ($category->children as $childCat)
-                    <div class="col-md-2 shadow rounded-3 m-4">
-                        <div class="card m-3">
-                            <div style="height: 250px;">
-                                <img src="{{$childCat->images->url}}" class="img-thumbnail p-5" alt="...">
-                            </div>
-                            <div class="card-body">
-                                <div class="card">
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item"><strong>{{ $childCat->title }}</strong></li>
-                                        <li class="list-group-item">
-                                        <span
-                                            class="{{ $childCat->getRawOriginal('is_active') ? 'text-success' : 'text-danger' }}">
-                                        {{ $childCat->is_active }}
-                                         </span>
-                                        </li>
-                                        <li class="list-group-item bg-secondary text-white rounded-3 small m-3 d-flex justify-content-between">
-                                            <div class="p-1"><strong>ID: {{$childCat->id}}</strong></div>
-                                            <button type="submit" onclick="moveContent({{$childCat->id}})"
-                                                    class="btn link-warning"><i
-                                                    class="fa-solid fa-arrow-right-arrow-left"></i></button>
-
-                                        </li>
-                                        <li class="list-group-item d-flex">
-                                            <div class="mx-2">
-                                                <a class="text-primary"
-                                                   href="{{route('admin.categories.child', ['category'=>$category->id,'child' => $childCat->id])}}">
-                                                    <i class="fa-regular fa-eye fa-xl mt-3"></i>
-                                                </a>
-                                            </div>
-                                            <div class="mx-2">
-                                                <a type="button" data-bs-toggle="modal"
-                                                   data-bs-target="#editParentCategory"
-                                                   class="text-info mt-1"
-                                                   onclick="getCategory({{$childCat->id}})">
-                                                    <i class="fa-regular fa-pen-to-square fa-xl"></i>
-                                                </a>
-                                            </div>
-                                            <div class="mx-2">
-                                                <form
-                                                    action="{{route('admin.categories.destroy', ['category' => $childCat->id])}}"
-                                                    method="post"
-                                                    onsubmit="return showConfirm(event)">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn text-danger">
-                                                        <i class="fa-solid fa-trash-can fa-xl"></i>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-            <form class="form-control bg-secondary py-3" onsubmit="StoreCategoryInsidelink();return false;"
+            <form class="form-control bg-secondary py-3" onsubmit="StorePostInsidelink();return false;"
                   method="post">
                 @csrf
                 <div class="form-group col-md-12">
                     <label for="html">Insidelink:</label>
                     <textarea class="form-control" id="insidelink"
-                              name="insidelink">{{$category->insidelinks->html ?? null}}</textarea>
+                              name="insidelink">{{$post->insidelinks->html ?? null}}</textarea>
                     <div class="form-group col-md-6 d-flex">
                         <button type="submit" class="btn btn-success w-50 btm-sm mt-2 mx-3">ثبت</button>
                     </div>
@@ -93,14 +29,14 @@
                 <div class="col-sm-12 col-md-8 border border-3">
                     <div class="d-flex justify-content-between mt-3">
                         <label for="editor">توضیحات:</label>
-                        <button class="btn" type="submit" onclick="updateContentCategory()">
+                        <button class="btn" type="submit" onclick="updateContentPost()">
                             <i class="fa-solid fa-check fa-xl"></i>
                         </button>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-12">
                                 <textarea class="form-control" id="editor"
-                                          name="description">{{$category->description}}</textarea>
+                                          name="description">{{$post->description}}</textarea>
                         </div>
                     </div>
                 </div>
@@ -108,12 +44,12 @@
                     <div class="form-group col-md-12">
                         <label for="meta_title">عنوان متا:</label>
                         <input class="form-control" id="meta_title" name="meta_title" type="text"
-                               value="{{ $category->meta_title }}">
+                               value="{{ $post->meta_title }}">
                     </div>
                     <div class="form-group col-md-12">
                         <label for="meta_description">توضیحات متا:</label>
                         <textarea class="form-control" id="word" maxlength="155" rows="5"
-                                  name="meta_description">{{ $category->meta_description }}</textarea>
+                                  name="meta_description">{{ $post->meta_description }}</textarea>
                         <div id="the-count">
                             <span id="current">0</span>
                             <span id="maximum">/155</span>
@@ -123,7 +59,7 @@
                         </p>
                     </div>
                     <div class="col-md-12 mt-5">
-                        @foreach($category->faqs as $faq)
+                        @foreach($post->faqs as $faq)
                             <div id="faq-destroy-{{$faq->id}}">
                                 <a class="text-info border rounded-3 p-2 shadow" data-bs-toggle="collapse"
                                    href="#faq-{{$faq->id}}" role="button" aria-expanded="false"
@@ -161,26 +97,26 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-success mt-5" onclick="storeCategoryFaq()">ثبت FAQ</button>
+                        <button type="submit" class="btn btn-success mt-5" onclick="storePostFaq()">ثبت FAQ</button>
                     </div>
                 </div>
             </div>
             <div class="form-group col-md-12">
-                <a href="{{ route('admin.categories.index') }}" class="btn btn-dark mt-5 mr-3">بازگشت</a>
+                <a href="{{ route('admin.posts.index') }}" class="btn btn-dark mt-5 mr-3">بازگشت</a>
             </div>
         </div>
     </div>
-    @include('admin.layouts.partials.script.create_parent_category_modal')
-    @include('admin.layouts.partials.script.edit_parent_category_modal')
+    @include('admin.posts.create_post_modal')
+    @include('admin.posts.edit_post_modal')
 @endsection
 
 @section('note-store')
     <div class="mt-5">
-        <form class="form-control" action="{{ route('admin.categories.noteStore') }}" method="post">
+        <form class="form-control" action="{{ route('admin.posts.noteStore') }}" method="post">
             @csrf
             <textarea name="description" class="form-control" id="description" cols="30" rows="3"
                       placeholder="یادداشت جدید بنویسید..."></textarea>
-            <input type="hidden" name="id" id="id" value="{{$category->id}}">
+            <input type="hidden" name="id" id="id" value="{{$post->id}}">
             <button type="submit" class="btn btn-success mt-2">ثبت</button>
         </form>
     </div>
@@ -197,7 +133,7 @@
         let showContentAlert = document.getElementById('showContentAlert');
 
         let parentId = document.getElementById('parent_id');
-        parentId.value = "{{$category->id}}";
+        parentId.value = "{{$post->id}}";
 
         editAreaLoader.init({
             id: "insidelink",
@@ -209,18 +145,18 @@
             syntax: "html"
         });
         let insidelink = document.getElementById('insidelink');
-        function StoreCategoryInsidelink(){
+        function StorePostInsidelink(){
             showContentAlert.innerHTML = `<div class="text-center">
                         <div class="spinner-border text-primary my-3"></div>
                     </div>`;
             const headersConfig = {
-                categoryID: "{{$category->id}}",
+                postID: "{{$post->id}}",
                 html: insidelink.value,
                 headers: {
                     'X-CSRF-TOKEN': csrfToken
                 }
             };
-            axios.post("{{route('admin.categories.ajax.categoryInsidelinkStore')}}", headersConfig)
+            axios.post("{{route('admin.posts.ajax.postInsidelinkStore')}}", headersConfig)
                 .then(response => {
                     showContentAlert.innerHTML = `<div class="alert alert-success">
                     <ul class="mb-0">
@@ -247,12 +183,12 @@
                 });
         }
 
-        function updateContentCategory() {
+        function updateContentPost() {
             showContentAlert.innerHTML = `<div class="text-center">
                         <div class="spinner-border text-primary my-3"></div>
                     </div>`;
             const headersConfig = {
-                categoryID: "{{$category->id}}",
+                postID: "{{$post->id}}",
                 description: editor.getData(),
                 meta_title: metaTitle.value,
                 meta_description: metaDescription.value,
@@ -260,7 +196,7 @@
                     'X-CSRF-TOKEN': csrfToken
                 }
             };
-            axios.put("{{route('admin.categories.ajax.updateContentCategory')}}", headersConfig)
+            axios.put("{{route('admin.posts.ajax.updateContentPost')}}", headersConfig)
                 .then(response => {
                     showContentAlert.innerHTML = `<div class="alert alert-success">
                     <ul class="mb-0">
@@ -293,7 +229,7 @@
             field.oninput = function () {
                 clearTimeout(typingTimer);
                 typingTimer = setTimeout(function () {
-                    updateContentCategory();
+                    updateContentPost();
                 }, 3000);
             };
         });
@@ -305,12 +241,12 @@
 
         document.addEventListener("DOMContentLoaded", function () {
             const headersConfig2 = {
-                id: "{{$category->id}}",
+                id: "{{$post->id}}",
                 headers: {
                     'X-CSRF-TOKEN': csrfToken
                 }
             };
-            axios.post("{{route('admin.categories.ajax.showNote')}}", headersConfig2)
+            axios.post("{{route('admin.posts.ajax.showNote')}}", headersConfig2)
                 .then(response => {
                     response.data.data.forEach((item) => {
                         let dateMiladi = item.created_at;

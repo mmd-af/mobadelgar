@@ -3,6 +3,7 @@
 namespace App\Models\Note;
 
 use App\Models\Category\Category;
+use App\Models\Post\Post;
 use App\Models\User;
 
 trait NoteRelationships
@@ -20,5 +21,10 @@ trait NoteRelationships
     public function category()
     {
         return $this->belongsTo(Category::class, 'noteable_id');
+    }
+
+    public function post()
+    {
+        return $this->belongsTo(Post::class, 'noteable_id');
     }
 }

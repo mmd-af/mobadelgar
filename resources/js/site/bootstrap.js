@@ -21,6 +21,11 @@ import Swal from 'sweetalert2';
 
 window.Swal = Swal;
 
+window.persianDate = require('persian-date/dist/persian-date.min');
+window.PersianDatepicker = require('persian-datepicker/dist/js/persian-datepicker.min');
+window.moment = require('moment-jalaali/index');
+
+
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
