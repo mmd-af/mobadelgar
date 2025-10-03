@@ -73,11 +73,17 @@ Backend	Laravel, Bootstrap
 Database MySQL, PostgreSQL (Supported)
 Caching	Redis, Queue Jobs, Task Scheduling
 **Version Control	Git & GitHub**
+
 🎉 **Why Choose This Project?**
+
 ✅ **Highly Customizable – Extendable architecture for adding new tools and features.**
+
 ⚡ **Optimized for Performance – Efficient database queries, caching, and optimizations.**
+
 📊 **SEO-Friendly – Achieved 20K+ clicks/month in just 6 months.**
+
 💻 **Open-source & Extendable – Modify, contribute, and scale effortlessly.**
+
 
 ## 🤝 Contributing
 We love contributions! Follow these steps to get started:
@@ -92,10 +98,9 @@ All contributions are welcome! 🚀
 
 ## 📩 Contact
 👤 Mohammad Afshar
-📍 Bucharest, Romania
-📧 Email: afshar.ro.mo@gmail.com
+📧 Email: mohammad-afshar-dev@gmail.com
 
 🔗 GitHub: [mmd-af](https://github.com/mmd-af)
-💼 LinkedIn: [mmd-af](https://www.linkedin.com/in/mmd-af/)
+💼 LinkedIn: [mmd-af](https://www.linkedin.com/in/mohammad-afshar-dev)
 
 Looking for exciting job opportunities or collaborations? Let’s connect! 🚀
